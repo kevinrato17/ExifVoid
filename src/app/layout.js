@@ -1,4 +1,5 @@
 import './globals.css'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'ExifVoid — Remove Photo Metadata Privately',
@@ -45,6 +46,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-74DYM8RS83"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-74DYM8RS83');
+          `}
+        </Script>
         <link rel="icon" href="/logo.png" />
         <meta name="theme-color" content="#4F46E5" />
         <link rel="canonical" href="https://exifvoid.com" />
