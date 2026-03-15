@@ -15,16 +15,89 @@
 export async function stripMetadata(file) {
   const arrayBuffer = await file.arrayBuffer()
   const bytes = new Uint8Array(arrayBuffer)
-
   const type = file.type.toLowerCase()
 
-  if (type === 'image/jpeg' || type === 'image/jpg') {
+  // Read orientation BEFORE stripping metadata
+  const orientation = await readOrientation(bytes)
+  const needsRotation = orientation && orientation > 1
+
+  if ((type === 'image/jpeg' || type === 'image/jpg') && !needsRotation) {
+    // No rotation needed — use fast binary excision (zero quality loss)
     return stripJpegMetadata(bytes, file)
   } else if (type === 'image/png') {
     return stripPngMetadata(bytes, file)
   } else {
-    return stripViaCanvas(file)
+    // Needs rotation OR unsupported format — use canvas (applies correct orientation)
+    return stripViaCanvas(file, orientation)
   }
+}
+
+/**
+ * Read EXIF orientation from JPEG bytes
+ * Returns orientation value (1-8) or null
+ */
+function readOrientation(bytes) {
+  // Only works for JPEG
+  if (bytes[0] !== 0xFF || bytes[1] !== 0xD8) return null
+
+  let offset = 2
+  while (offset < bytes.length - 1) {
+    if (bytes[offset] !== 0xFF) return null
+    const marker = bytes[offset + 1]
+
+    // APP1 marker (EXIF)
+    if (marker === 0xE1) {
+      const segLen = (bytes[offset + 2] << 8) | bytes[offset + 3]
+      // Check for "Exif\0\0"
+      if (bytes[offset + 4] === 0x45 && bytes[offset + 5] === 0x78 &&
+          bytes[offset + 6] === 0x69 && bytes[offset + 7] === 0x66) {
+        return parseOrientationFromExif(bytes, offset + 10, segLen - 8)
+      }
+      offset += segLen + 2
+    } else if (marker === 0xDA) {
+      // SOS — stop
+      return null
+    } else if (marker >= 0xD0 && marker <= 0xD9) {
+      offset += 2
+    } else {
+      if (offset + 3 >= bytes.length) return null
+      const len = (bytes[offset + 2] << 8) | bytes[offset + 3]
+      offset += len + 2
+    }
+  }
+  return null
+}
+
+/**
+ * Parse orientation value from TIFF/EXIF data
+ */
+function parseOrientationFromExif(bytes, tiffStart, maxLen) {
+  try {
+    // Check byte order
+    const bigEndian = bytes[tiffStart] === 0x4D && bytes[tiffStart + 1] === 0x4D
+    const read16 = (off) => bigEndian
+      ? (bytes[off] << 8) | bytes[off + 1]
+      : bytes[off] | (bytes[off + 1] << 8)
+
+    // IFD0 offset
+    const ifdOffset = bigEndian
+      ? (bytes[tiffStart + 4] << 24) | (bytes[tiffStart + 5] << 16) | (bytes[tiffStart + 6] << 8) | bytes[tiffStart + 7]
+      : bytes[tiffStart + 4] | (bytes[tiffStart + 5] << 8) | (bytes[tiffStart + 6] << 16) | (bytes[tiffStart + 7] << 24)
+
+    const ifdStart = tiffStart + ifdOffset
+    const entryCount = read16(ifdStart)
+
+    for (let i = 0; i < entryCount; i++) {
+      const entryOffset = ifdStart + 2 + (i * 12)
+      const tag = read16(entryOffset)
+      if (tag === 0x0112) { // Orientation tag
+        return read16(entryOffset + 8)
+      }
+    }
+  } catch (e) {
+    // Ignore parse errors
+  }
+  return null
 }
 
 /**
@@ -192,21 +265,44 @@ function stripPngMetadata(bytes, file) {
 }
 
 /**
- * Canvas fallback for unsupported formats
+ * Canvas fallback — also handles orientation correction
  * Re-encodes via Canvas which naturally strips metadata
- * Note: May have minor quality changes due to re-encoding
+ * Applies EXIF orientation to ensure correct display
  */
-function stripViaCanvas(file) {
+function stripViaCanvas(file, orientation) {
   return new Promise((resolve) => {
     const img = new Image()
     const url = URL.createObjectURL(file)
 
     img.onload = () => {
+      let width = img.naturalWidth
+      let height = img.naturalHeight
+
+      // Swap dimensions for 90/270 degree rotations
+      const swap = orientation && [5, 6, 7, 8].includes(orientation)
+      const canvasW = swap ? height : width
+      const canvasH = swap ? width : height
+
       const canvas = document.createElement('canvas')
-      canvas.width = img.naturalWidth
-      canvas.height = img.naturalHeight
+      canvas.width = canvasW
+      canvas.height = canvasH
 
       const ctx = canvas.getContext('2d')
+
+      // Apply orientation transform
+      if (orientation) {
+        switch (orientation) {
+          case 2: ctx.transform(-1, 0, 0, 1, canvasW, 0); break
+          case 3: ctx.transform(-1, 0, 0, -1, canvasW, canvasH); break
+          case 4: ctx.transform(1, 0, 0, -1, 0, canvasH); break
+          case 5: ctx.transform(0, 1, 1, 0, 0, 0); break
+          case 6: ctx.transform(0, 1, -1, 0, canvasH, 0); break
+          case 7: ctx.transform(0, -1, -1, 0, canvasH, canvasW); break
+          case 8: ctx.transform(0, -1, 1, 0, 0, canvasW); break
+          default: break
+        }
+      }
+
       ctx.drawImage(img, 0, 0)
 
       canvas.toBlob(
@@ -214,12 +310,12 @@ function stripViaCanvas(file) {
           URL.revokeObjectURL(url)
           resolve({
             blob,
-            method: 'Canvas Re-encoding',
+            method: orientation > 1 ? 'Canvas Re-encoding (Orientation Corrected)' : 'Canvas Re-encoding',
             originalSize: file.size,
             cleanedSize: blob.size,
           })
         },
-        file.type || 'image/png',
+        file.type || 'image/jpeg',
         0.95
       )
     }

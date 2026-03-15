@@ -9,8 +9,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true)
     const saved = localStorage.getItem('exifvoid-theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const isDark = saved ? saved === 'dark' : prefersDark
+    const isDark = saved === 'dark'
     setDark(isDark)
     document.documentElement.classList.toggle('dark', isDark)
   }, [])
