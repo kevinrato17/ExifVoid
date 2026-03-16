@@ -164,10 +164,11 @@ export default function BlogPostContent({ slug }) {
 
 /**
  * Render blog content with basic formatting
- * Supports **bold**, paragraphs, and headings
+ * Supports **bold**, paragraphs, headings, and internal link detection
  */
 function renderContent(content) {
   const paragraphs = content.split('\n\n').filter(p => p.trim())
+  let inFaq = false
 
   return (
     <div className="space-y-4">
@@ -177,6 +178,26 @@ function renderContent(content) {
         // Heading (starts with **)
         if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
           const text = trimmed.slice(2, -2)
+
+          // Detect FAQ section
+          if (text.toLowerCase().includes('frequently asked')) {
+            inFaq = true
+            return (
+              <h2 key={idx} className="text-lg font-semibold text-foreground mt-8 mb-3">
+                {text}
+              </h2>
+            )
+          }
+
+          // FAQ question (bold heading after FAQ section start)
+          if (inFaq) {
+            return (
+              <h3 key={idx} className="text-[15px] font-semibold text-foreground mt-4 mb-1">
+                {text}
+              </h3>
+            )
+          }
+
           return (
             <h2 key={idx} className="text-lg font-semibold text-foreground mt-6 mb-2">
               {text}
@@ -184,10 +205,19 @@ function renderContent(content) {
           )
         }
 
-        // Regular paragraph with inline bold support
+        // FAQ answer paragraph (slightly different styling)
+        if (inFaq && !trimmed.startsWith('**')) {
+          return (
+            <p key={idx} className="text-[15px] text-muted leading-relaxed ml-0">
+              {renderInlineFormatting(trimmed)}
+            </p>
+          )
+        }
+
+        // Regular paragraph with inline bold and link support
         return (
           <p key={idx} className="text-[15px] text-muted leading-relaxed">
-            {renderInlineBold(trimmed)}
+            {renderInlineFormatting(trimmed)}
           </p>
         )
       })}
@@ -196,9 +226,39 @@ function renderContent(content) {
 }
 
 /**
- * Render **bold** inline text
+ * Internal link mapping — maps natural language phrases to blog slugs
  */
-function renderInlineBold(text) {
+const internalLinks = {
+  'EXIF vs XMP vs IPTC': '/blog/exif-vs-xmp-vs-iptc-metadata-explained',
+  'which platforms strip metadata': '/blog/do-social-media-platforms-strip-metadata',
+  'which social media platforms strip metadata': '/blog/do-social-media-platforms-strip-metadata',
+  'social media metadata guide': '/blog/do-social-media-platforms-strip-metadata',
+  'social media platform guide': '/blog/do-social-media-platforms-strip-metadata',
+  'whether metadata can be used to track you': '/blog/can-metadata-be-used-to-track-you',
+  'GDPR photo metadata': '/blog/gdpr-photo-metadata-what-businesses-need-to-know',
+  'GDPR and photo metadata': '/blog/gdpr-photo-metadata-what-businesses-need-to-know',
+  'C2PA and Content Credentials': '/blog/ai-image-provenance-c2pa-and-metadata-future',
+  'photo privacy tips for online dating': '/blog/photo-privacy-tips-for-online-dating',
+  'eBay seller guide': '/blog/how-to-remove-metadata-before-selling-on-ebay',
+  'removing metadata before selling on eBay': '/blog/how-to-remove-metadata-before-selling-on-ebay',
+  'iPhone guide': '/blog/how-to-remove-location-data-from-iphone-photos',
+  'iPhone': '/blog/how-to-remove-location-data-from-iphone-photos',
+  'Android guide': '/blog/how-to-remove-metadata-from-android-photos',
+  'Android': '/blog/how-to-remove-metadata-from-android-photos',
+  'Windows guide': '/blog/how-to-remove-metadata-from-photos-on-windows',
+  'Windows': '/blog/how-to-remove-metadata-from-photos-on-windows',
+  'Mac guide': '/blog/how-to-remove-metadata-from-photos-on-mac',
+  'Mac': '/blog/how-to-remove-metadata-from-photos-on-mac',
+  'how to check if your photos have metadata': '/blog/how-to-check-if-your-photos-have-metadata',
+}
+
+/**
+ * Render inline formatting: **bold** and internal links
+ * Internal links are detected by matching phrases from the internalLinks map
+ * when preceded by "our guide to", "our article on", "see our", etc.
+ */
+function renderInlineFormatting(text) {
+  // First handle bold
   const parts = text.split(/(\*\*[^*]+\*\*)/)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
@@ -208,8 +268,49 @@ function renderInlineBold(text) {
         </strong>
       )
     }
-    return part
+
+    // Check for internal link phrases in non-bold text
+    return renderWithLinks(part, i)
   })
+}
+
+/**
+ * Detect and render internal links within text
+ */
+function renderWithLinks(text, keyPrefix) {
+  // Sort link phrases by length (longest first) to match greedily
+  const phrases = Object.keys(internalLinks).sort((a, b) => b.length - a.length)
+
+  // Try to find the first matching phrase
+  for (const phrase of phrases) {
+    const lowerText = text.toLowerCase()
+    const lowerPhrase = phrase.toLowerCase()
+    const idx = lowerText.indexOf(lowerPhrase)
+
+    if (idx !== -1) {
+      // Only link contextual references (preceded by "our", "see our", "the", "full", etc.)
+      const before = text.substring(0, idx)
+      const match = text.substring(idx, idx + phrase.length)
+      const after = text.substring(idx + phrase.length)
+
+      // Check if preceded by a linking phrase
+      const linkContext = /(?:our (?:guide to |article on |full )?|see our |the |for |our )$/i.test(before)
+
+      if (linkContext) {
+        return (
+          <span key={keyPrefix}>
+            {before}
+            <a href={internalLinks[phrase]} className="text-brand hover:underline">
+              {match}
+            </a>
+            {renderWithLinks(after, `${keyPrefix}-after`)}
+          </span>
+        )
+      }
+    }
+  }
+
+  return text
 }
 
 function formatDate(dateStr) {

@@ -1,9 +1,12 @@
 /**
- * Blog posts data store
+ * Blog posts data store — SEO + AEO + GEO Optimised
  * 
- * To add a new post: simply add a new object to the POSTS array below.
- * The slug is used for the URL (e.g., /blog/your-slug)
- * Content supports basic formatting with paragraphs separated by \n\n
+ * Every article follows this structure for maximum search visibility:
+ * 1. Direct-answer opening paragraph (AI engines extract this)
+ * 2. Question-based H2 headers (matches conversational search)
+ * 3. Structured comparisons where relevant
+ * 4. Internal links to other articles
+ * 5. FAQ section at bottom (FAQPage schema eligible)
  * 
  * SEO Strategy — Three Pillars:
  * 1. Educational: How to remove metadata from specific devices
@@ -15,496 +18,714 @@ export const POSTS = [
   {
     slug: 'what-is-exif-data-and-why-should-you-care',
     title: 'What Is EXIF Data and Why Should You Care?',
-    description: 'Every photo you take contains hidden metadata that can reveal your location, device, and habits. Learn what EXIF data is and why it matters for your privacy.',
+    description: 'EXIF data is hidden metadata in every digital photo that can reveal your GPS location, device identity, and daily habits. Learn what it is, what it contains, and how to remove it.',
     category: 'Educational',
     date: '2026-03-14',
-    readTime: '5 min read',
-    content: `Every digital photo you take carries more information than meets the eye. Hidden inside each image file is a block of metadata called EXIF data — short for Exchangeable Image File Format. This data is automatically embedded by your camera or smartphone at the moment you press the shutter button.
+    readTime: '6 min read',
+    content: `EXIF data (Exchangeable Image File Format) is hidden metadata automatically embedded in every digital photo by your camera or smartphone. It can include your exact GPS coordinates, camera serial numbers, timestamps, device model, and even your name — all invisible to the naked eye but extractable by anyone with the right tools. Removing EXIF data before sharing photos online is one of the simplest steps you can take to protect your privacy.
 
-EXIF data was originally designed to help photographers organise their work. It records useful technical details like aperture, shutter speed, ISO, focal length, and white balance settings. For professionals reviewing hundreds of shots from a session, this information is genuinely helpful.
+**Why does EXIF data exist?**
 
-**The privacy problem**
+EXIF was originally designed to help photographers organise and review their work. It records technical details like aperture, shutter speed, ISO, focal length, and white balance — information that professionals find genuinely useful when processing hundreds of shots from a session.
 
-The issue is that EXIF data often records far more than camera settings. Modern smartphones embed GPS coordinates accurate to within a few metres, effectively geotagging every photo you take. This means a casual photo of your morning coffee could reveal your home address. A picture of your child at a park could pinpoint the exact playground.
+The problem is that the standard evolved well beyond camera settings. Modern smartphones now embed GPS coordinates accurate to within a few metres, effectively geotagging every photo you take. A casual photo of your morning coffee could reveal your home address. A picture of your child at a park could pinpoint the exact playground.
 
-Beyond location, EXIF data can include your device's make and model, unique serial numbers that act as a digital fingerprint for your specific camera, the exact date and time down to the second, software used for editing, and sometimes even your name if it's set in your device's owner field.
+**What information does EXIF data contain?**
 
-**Who can see this data?**
+A typical smartphone photo contains far more hidden data than most people realise. The key categories are location data (GPS latitude, longitude, and sometimes altitude), device information (make, model, and unique serial numbers that act as a digital fingerprint for your specific device), temporal data (exact date and time down to the second), software information (editing tools used and operating system), and identity data (owner name if set in device settings, plus copyright fields).
+
+Beyond these, there are often thumbnail previews of the original image, orientation data, and colour profile information. For photos edited in software like Adobe Lightroom or Photoshop, additional XMP metadata may include editing history and workflow details. You can learn more about the different types in our guide to EXIF vs XMP vs IPTC metadata.
+
+**Who can see my EXIF data?**
 
 Anyone who has access to the original image file can extract EXIF data in seconds using freely available tools. When you share photos via email, upload them to certain websites, sell items on marketplaces with product photos, or send images through messaging apps that don't strip metadata, all of this hidden information travels with the file.
 
-Some social media platforms like Facebook, Instagram, and Twitter do strip EXIF data when you upload — but many other platforms, forums, marketplaces, and messaging services do not. The safest approach is to remove metadata yourself before sharing, rather than hoping the platform will do it for you.
+Some social media platforms strip metadata on upload — our guide to which platforms strip metadata covers this in detail — but many forums, marketplaces, and messaging services do not. The safest approach is to remove metadata yourself before sharing.
 
-**What you can do about it**
+**How do I remove EXIF data from my photos?**
 
-The simplest solution is to strip EXIF data from your photos before sharing them. ExifVoid does this entirely in your browser — your files never leave your device. You can scan any photo to see exactly what metadata it contains, then remove it with a single click while preserving full image quality.
+The simplest method is to use a client-side metadata removal tool like ExifVoid. Open exifvoid.com in any browser, drop in your photo, and the Privacy Scan instantly shows everything embedded — including GPS coordinates displayed on an interactive map. One click removes all metadata, and the cleaned file downloads ready to share. Because processing happens entirely in your browser, your files never touch a server.
 
-Being aware of EXIF data is the first step toward better digital privacy. The second step is making metadata removal a habit before sharing any photo online.`,
+For device-specific methods, see our guides for iPhone, Android, Windows, and Mac.
+
+**Frequently asked questions about EXIF data**
+
+**Can someone find my home address from a photo?**
+
+Yes. If your phone's location services are enabled when you take a photo at home, the GPS coordinates embedded in the EXIF data can identify your specific address, often accurate to within a few metres. Anyone who downloads the original file can extract these coordinates. Our article on whether metadata can be used to track you covers this risk in detail.
+
+**Does every photo contain EXIF data?**
+
+Almost every photo taken with a smartphone or digital camera contains EXIF data. Screenshots typically contain less metadata but may still include device and software information. Photos that have been processed through social media platforms like Facebook or Instagram usually have their metadata stripped during upload.
+
+**Is it legal to extract EXIF data from someone else's photo?**
+
+In most jurisdictions, extracting metadata from a publicly shared photo is not illegal — the data is embedded in the file and accessible to anyone who has it. This is precisely why removing metadata before sharing is important. Prevention is more reliable than legal protection.
+
+**Does removing EXIF data reduce image quality?**
+
+ExifVoid uses canvas re-encoding at high quality (95% for JPEG). The visual difference is imperceptible to the human eye, and the browser automatically handles correct image orientation. The cleaned photo looks identical to the original.`,
   },
   {
     slug: 'how-to-remove-location-data-from-iphone-photos',
     title: 'How to Remove Location Data from iPhone Photos',
-    description: 'Step-by-step guide to removing GPS coordinates and metadata from iPhone photos before sharing them online.',
+    description: 'Three methods to remove GPS coordinates and EXIF metadata from iPhone photos before sharing — including iOS settings, the Share Sheet, and ExifVoid.',
     category: 'Educational',
     date: '2026-03-12',
-    readTime: '4 min read',
-    content: `iPhones are among the most popular cameras in the world, and by default they embed GPS location data into every photo you take. This guide explains how to remove that data before sharing your photos.
+    readTime: '5 min read',
+    content: `To remove location data from iPhone photos, you have three options: disable location tagging in Settings to prevent future GPS embedding, use the iOS Share Sheet's "Options" toggle to strip location from individual shares, or use ExifVoid at exifvoid.com for complete metadata removal including GPS, camera serial numbers, timestamps, and device information — all processed in your browser without uploading files to any server.
 
-**Why iPhones embed location data**
+**Why do iPhones embed location data in photos?**
 
-Apple enables location tagging by default because it powers useful features — the Photos app organises images by location, creates travel memories, and lets you search by place. The trade-off is that this GPS data stays embedded in the file when you share it outside the Apple ecosystem.
+Apple enables location tagging by default because it powers useful features in the Photos app — organising images by location, creating travel memories, and letting you search by place. The trade-off is that this GPS data stays embedded in the file when you share it outside the Apple ecosystem. iPhones are among the most popular cameras in the world, which means billions of photos are taken with embedded location data every day.
 
 **Method 1: Disable location tagging in Camera settings**
 
-You can prevent location data from being recorded in the first place. Go to Settings, then Privacy & Security, then Location Services, and find Camera in the list. Set it to Never. This stops future photos from containing GPS data, but it won't remove location from photos you've already taken.
+You can prevent GPS data from being recorded in future photos. Go to Settings, then Privacy & Security, then Location Services, and find Camera in the list. Set it to Never.
 
-**Method 2: Remove location when sharing from Photos app**
+This stops new photos from containing GPS data but will not remove location from photos you have already taken. It also disables useful features like location-based photo search in your library. Many people prefer to keep location enabled for personal use and strip it selectively before sharing.
 
-Starting with iOS 15, Apple added a built-in option to strip location when sharing. Open the photo, tap the Share button, then tap Options at the top of the share sheet. Toggle off Location. This removes GPS data from the shared copy while keeping the original intact on your device. However, this only works when sharing through the iOS share sheet — it won't help if you're uploading directly through a website or app.
+**Method 2: Use the iOS Share Sheet to strip location**
+
+Starting with iOS 15, Apple added a built-in option to strip location when sharing. Open the photo, tap the Share button, then tap Options at the top of the share sheet. Toggle off Location. This removes GPS data from the shared copy while keeping the original intact on your device.
+
+However, this method has limitations. It only removes GPS data — other metadata like camera serial numbers, timestamps, and device information remains. It only works when sharing through the iOS share sheet, so it will not help if you are uploading directly through a website or third-party app. And it requires you to remember to toggle it off every time.
 
 **Method 3: Use ExifVoid for complete metadata removal**
 
-For thorough metadata removal — not just GPS, but camera serial numbers, timestamps, device information, and all other hidden data — use ExifVoid. Open exifvoid.com in Safari on your iPhone, drop in your photo, scan it to see everything that's embedded, and clean it with one tap. The processing happens entirely on your device, and the cleaned file is ready to share anywhere.
+For thorough metadata removal — not just GPS, but camera serial numbers, timestamps, device information, and all other hidden data — use ExifVoid. Open exifvoid.com in Safari on your iPhone. Tap the upload area and select a photo from your library. The Privacy Scan shows you everything embedded including a map of GPS coordinates if present. Tap clean to remove all metadata. Download the cleaned file and use it for sharing.
 
-**Which method should you use?**
+The processing happens entirely on your iPhone — no files are uploaded to any server. This works on any iPhone model running iOS 15 or later.
 
-For casual sharing with friends and family, the built-in iOS sharing option is convenient. For anything going to a public audience — marketplace listings, forum posts, social media on platforms that don't strip metadata, or professional contexts — use ExifVoid for complete removal. The few seconds it takes could prevent your home address from being exposed to strangers.`,
+**Which method should I use?**
+
+For casual sharing with trusted friends and family, the iOS Share Sheet toggle is quick and convenient. For anything going to a public audience — marketplace listings on eBay or Depop, forum posts, social media on platforms that don't strip metadata, or professional contexts — use ExifVoid for complete removal. The few seconds it takes could prevent your home address from being exposed to strangers. See our guide to removing metadata before selling on eBay for a practical example.
+
+**Frequently asked questions**
+
+**Does iMessage strip EXIF data from photos?**
+
+No. iMessage sends the original file with all metadata intact, including GPS coordinates, when sharing between Apple devices. If you send a photo via iMessage to someone, they receive the full EXIF data. Always clean photos before sending via iMessage if privacy is a concern.
+
+**Does AirDrop strip metadata?**
+
+No. AirDrop transfers the original file with all metadata preserved. The recipient receives all embedded GPS data, camera serial numbers, and timestamps. Clean your photos before AirDropping them if you want to protect your location.
+
+**Will disabling location affect my other apps?**
+
+Disabling location for the Camera app only affects the Camera. Other apps like Maps, Weather, and Find My will continue to use location normally. You can also re-enable it at any time.`,
   },
   {
     slug: 'exif-vs-xmp-vs-iptc-metadata-explained',
     title: 'EXIF vs XMP vs IPTC: Photo Metadata Types Explained',
-    description: 'A deep dive into the three main types of photo metadata — EXIF, XMP, and IPTC — what each contains, and why they all matter for privacy.',
+    description: 'There are three main types of photo metadata — EXIF, XMP, and IPTC. Each contains different data, and removing only one type can still leave your privacy exposed.',
     category: 'Forensic',
     date: '2026-03-10',
-    readTime: '6 min read',
-    content: `When we talk about "photo metadata," we're actually referring to several distinct standards that can coexist within a single image file. Understanding the differences matters because removing only one type while leaving others intact can still expose your private information.
+    readTime: '7 min read',
+    content: `Photos contain three distinct types of metadata: EXIF (camera settings, GPS, device info), XMP (editing history, creator details, keywords), and IPTC (editorial information, copyright, captions). All three can coexist in a single image file, and removing only one type while leaving others intact can still expose your private information. A thorough privacy cleanup requires stripping all three.
 
-**EXIF (Exchangeable Image File Format)**
+**What is EXIF metadata?**
 
-EXIF is the most well-known metadata standard and the one most directly tied to privacy concerns. It was developed by the Japan Electronic Industries Development Association and is primarily generated by the camera hardware at the moment of capture.
+EXIF (Exchangeable Image File Format) is the most well-known metadata standard and the one most directly tied to privacy concerns. Developed by the Japan Electronic Industries Development Association, it is generated by camera hardware at the moment of capture.
 
-EXIF data includes camera settings like aperture, shutter speed, ISO, and focal length. It also includes GPS coordinates if location services are enabled, device make, model, and unique serial numbers, date and time of capture accurate to the second, thumbnail previews of the image, and orientation information.
+EXIF data typically includes camera settings (aperture, shutter speed, ISO, focal length), GPS coordinates if location services are enabled, device make, model, and unique serial numbers, date and time of capture accurate to the second, thumbnail previews, and orientation information.
 
-EXIF data lives in the APP1 segment of JPEG files and in specific tags within TIFF-based formats. It's the segment most privacy tools target, but it's not the only place sensitive information hides.
+EXIF lives in the APP1 segment of JPEG files and in specific tags within TIFF-based formats. It is the segment most privacy tools target — but it is not the only place sensitive information hides.
 
-**XMP (Extensible Metadata Platform)**
+**What is XMP metadata?**
 
-XMP was created by Adobe and uses XML formatting to store metadata. It's more flexible than EXIF and can contain a much wider range of information. XMP data often includes editing history and software used, photographer name and contact details, copyright and licensing information, keywords, ratings, and descriptions, and geographic data duplicated from or supplementing EXIF.
+XMP (Extensible Metadata Platform) was created by Adobe and uses XML formatting to store metadata. It is more flexible than EXIF and can contain a much wider range of information, including editing history and software used, photographer name and contact details, copyright and licensing information, keywords, ratings, and descriptions, and geographic data duplicated from or supplementing EXIF.
 
-XMP is particularly common in photos that have been processed through Adobe Lightroom, Photoshop, or other professional editing software. It can also appear in the APP1 segment of JPEGs alongside EXIF data, making it important to target both during removal.
+XMP is particularly common in photos processed through Adobe Lightroom, Photoshop, or other professional editing software. It can appear in the APP1 segment of JPEGs alongside EXIF data, or as a separate sidecar file (.xmp) in professional workflows.
 
-**IPTC (International Press Telecommunications Council)**
+**What is IPTC metadata?**
 
-IPTC metadata was originally designed for news agencies and press photography. It provides standardised fields for editorial information including photographer name and byline, caption and description, location details such as city, state, and country, copyright holder and usage terms, and category and keyword classifications.
+IPTC (International Press Telecommunications Council) metadata was originally designed for news agencies and press photography. It provides standardised fields for editorial information including photographer name and byline, caption and description, location details (city, state, country), copyright holder and usage terms, and category and keyword classifications.
 
-IPTC data lives in the APP13 segment of JPEG files. While less common in casual photography, it's frequently present in stock photos, press images, and any photo that's been processed through professional workflows.
+IPTC data lives in the APP13 segment of JPEG files. While less common in casual smartphone photography, it is frequently present in stock photos, press images, and any photo processed through professional workflows.
 
-**Why all three matter for privacy**
+**How do the three types compare?**
 
-A common mistake is assuming that removing EXIF data is sufficient. In practice, sensitive information can be duplicated across all three standards. GPS coordinates might exist in both EXIF and XMP. Your name might appear in IPTC and XMP but not EXIF. Editing software might add XMP data that reveals your workflow even after EXIF is stripped.
+EXIF is generated automatically by camera hardware and contains GPS, device identity, and camera settings. XMP is generated by editing software and contains editing history, creator info, and rights management. IPTC is added manually or by newsroom software and contains editorial information, captions, and credits.
 
-ExifVoid's binary excision approach removes all three metadata types simultaneously by stripping the relevant JPEG segments (APP1 for EXIF and XMP, APP13 for IPTC) in a single pass. This ensures comprehensive removal rather than partial cleanup.
+The key privacy concern is that sensitive data can be duplicated across all three. GPS coordinates might exist in both EXIF and XMP. Your name might appear in IPTC and XMP but not EXIF. Editing software might add XMP data revealing your workflow even after EXIF is stripped.
 
-**The bottom line**
+**Why does this matter for privacy?**
 
-If you're serious about photo privacy, you need a tool that addresses all metadata standards — not just EXIF. When scanning a photo with ExifVoid, the Privacy Scan report shows you exactly which types of metadata are present and categorises the risk level of each, giving you full visibility before you clean.`,
+A common mistake is assuming that removing EXIF data alone is sufficient. Many basic metadata removal tools only target EXIF and leave XMP and IPTC untouched. This means your name, location, and editing details could survive what you thought was a thorough cleanup.
+
+ExifVoid removes all three metadata types simultaneously during the cleaning process. When you scan a photo, the Privacy Scan report shows you exactly which types are present and categorises the risk level of each, giving you full visibility before you clean. For businesses handling customer photos under GDPR, our guide to GDPR and photo metadata covers the compliance requirements.
+
+**Frequently asked questions**
+
+**Which metadata type is most dangerous for privacy?**
+
+EXIF poses the highest immediate privacy risk because it contains GPS coordinates and device serial numbers — data that can directly identify your location and link photos to a specific device. However, XMP and IPTC can contain your name, contact information, and editing history, which are also sensitive.
+
+**Do smartphones create all three types?**
+
+Smartphones primarily generate EXIF data. XMP and IPTC are typically added by editing software or professional workflows. However, some gallery apps and editing tools on phones can add XMP data, so it is worth checking with a tool like ExifVoid even for casual phone photos.
+
+**Can metadata survive file format conversion?**
+
+Converting a file between formats (e.g., JPEG to PNG) may strip some metadata types but not all. The safest approach is to explicitly remove metadata using a dedicated tool rather than relying on format conversion as a privacy measure.`,
   },
   {
     slug: 'gdpr-photo-metadata-what-businesses-need-to-know',
     title: 'GDPR and Photo Metadata: What Businesses Need to Know',
-    description: 'How GDPR applies to EXIF data in photos, and what businesses must do to stay compliant when handling images containing personal metadata.',
+    description: 'EXIF data in photos qualifies as personal data under GDPR. GPS coordinates, device serial numbers, and embedded names all require proper handling. Here is what businesses must do.',
     category: 'Compliance',
     date: '2026-03-08',
-    readTime: '5 min read',
-    content: `Photo metadata falls squarely within the scope of GDPR, and many businesses don't realise it. GPS coordinates, device serial numbers, and photographer names embedded in image files all qualify as personal data under the regulation. If your business handles photos — whether from customers, employees, or the public — metadata compliance should be on your radar.
+    readTime: '6 min read',
+    content: `Yes, photo metadata falls within the scope of GDPR. GPS coordinates, device serial numbers, timestamps, and photographer names embedded in image files all qualify as personal data under the regulation. Businesses that handle photos — whether from customers, employees, or the public — must treat embedded metadata with the same care as any other personal data, or risk fines of up to 4% of annual global turnover.
 
 **Is EXIF data personal data under GDPR?**
 
-Yes. The GDPR defines personal data as any information relating to an identified or identifiable natural person. GPS coordinates can pinpoint a person's location. Device serial numbers can be linked to a specific individual. Timestamps combined with location can reveal behavioural patterns. Names and contact details embedded in IPTC or XMP metadata are explicitly personal.
+The GDPR defines personal data as any information relating to an identified or identifiable natural person. Photo metadata clearly meets this threshold. GPS coordinates can pinpoint a person's location to within a few metres. Device serial numbers can be linked to a specific individual through purchase records. Timestamps combined with location data can reveal behavioural patterns. Names and contact details embedded in IPTC or XMP metadata are explicitly personal.
 
-The Article 29 Working Party (now the European Data Protection Board) has confirmed that location data and device identifiers constitute personal data, even when not directly attached to a name.
+The European Data Protection Board (formerly the Article 29 Working Party) has confirmed that location data and device identifiers constitute personal data, even when not directly attached to a name. Our guide to EXIF vs XMP vs IPTC explains the different types of metadata that may contain personal information.
 
-**Common scenarios where this matters**
+**Which businesses need to worry about this?**
 
-E-commerce businesses that accept customer-submitted product photos may be storing GPS coordinates that reveal customer home addresses. Real estate agencies publishing property photos may be exposing agent device information. News organisations distributing press photos may be sharing photographer personal data beyond what's necessary. User-generated content platforms retaining original uploads may be storing metadata indefinitely without a legal basis.
+Any business that receives, processes, stores, or publishes photos should consider metadata compliance. Common scenarios include e-commerce businesses accepting customer-submitted product photos (which may contain customer home GPS coordinates), real estate agencies publishing property photos (exposing agent device information), news organisations distributing press photos (sharing photographer personal data beyond what is necessary), HR departments handling employee headshots (storing device identifiers unnecessarily), and user-generated content platforms retaining original uploads with metadata indefinitely.
 
-**What the GDPR requires**
+**What does GDPR require for photo metadata?**
 
-Under the data minimisation principle in Article 5(1)(c), organisations should only process personal data that is adequate, relevant, and limited to what is necessary. In most cases, the metadata embedded in a photo is not necessary for the business purpose of using that photo. Stripping it before storage or publication is a straightforward way to comply.
+The data minimisation principle in Article 5(1)(c) requires organisations to process only personal data that is adequate, relevant, and limited to what is necessary. In most cases, the metadata embedded in a photo is not necessary for the business purpose of using that image. Stripping it before storage or publication is a straightforward path to compliance.
 
 Article 25 requires data protection by design and by default. Building metadata removal into your image handling pipeline — rather than treating it as an afterthought — demonstrates compliance with this principle.
 
-**Practical steps for compliance**
+Article 6 requires a lawful basis for processing personal data. If you are storing photos with embedded GPS coordinates, you need a legal basis for processing that location data — which most businesses do not have.
 
-The most effective approach is to implement automated metadata stripping at the point of image ingestion. When a photo enters your system — whether uploaded by a user, received via email, or captured by staff — strip all metadata before storing or processing it further.
+**How should businesses handle photo metadata?**
 
-For businesses that need to handle this at scale, client-side solutions like ExifVoid ensure that metadata is removed before files even reach your servers, reducing your data protection liability from the outset.
+The most effective approach is to implement metadata stripping at the point of image ingestion. When a photo enters your system — whether uploaded by a user, received via email, or captured by staff — strip all metadata before storing or processing it further.
 
-**The cost of getting it wrong**
+For businesses that need to handle this at scale, client-side solutions like ExifVoid ensure that metadata is removed before files even reach your servers, reducing data protection liability from the outset. This is especially relevant for organisations that want to demonstrate privacy by design.
 
-GDPR fines can reach up to 4% of annual global turnover or 20 million euros, whichever is higher. While enforcement actions specifically targeting photo metadata are still relatively uncommon, regulators are increasingly sophisticated in their understanding of technical data types. Proactive compliance is far cheaper than reactive remediation.`,
+**What are the penalties for getting this wrong?**
+
+GDPR fines can reach up to 4% of annual global turnover or 20 million euros, whichever is higher. While enforcement actions specifically targeting photo metadata have been limited so far, regulators are increasingly sophisticated in their understanding of technical data types. Proactive compliance is far cheaper than reactive remediation.
+
+**Frequently asked questions**
+
+**Do I need consent to store photos with metadata?**
+
+If the metadata contains personal data (which it almost always does), you need a lawful basis under Article 6 — whether that is consent, legitimate interest, or another basis. The simplest approach for most businesses is to strip metadata on receipt, eliminating the need to process that personal data at all.
+
+**Does stripping metadata count as data minimisation?**
+
+Yes. Removing unnecessary personal data from photos before storage is a textbook example of data minimisation under Article 5(1)(c). It demonstrates that your organisation only retains data that is necessary for the stated purpose.
+
+**What about C2PA provenance metadata?**
+
+New standards like C2PA (Coalition for Content Provenance and Authenticity) are designed to verify image authenticity. These may create tension with GDPR's data minimisation requirements. Our article on C2PA and Content Credentials explores this emerging issue in detail.`,
   },
   {
     slug: 'how-to-remove-metadata-from-android-photos',
     title: 'How to Remove Metadata from Android Photos',
-    description: 'Complete guide to stripping EXIF data, GPS location, and metadata from Android phone photos before sharing.',
+    description: 'Android phones embed GPS, camera details, and timestamps into every photo. Here is how to remove EXIF metadata from Android photos before sharing.',
     category: 'Educational',
     date: '2026-03-06',
-    readTime: '4 min read',
-    content: `Android phones embed metadata into every photo by default, including GPS coordinates, device information, and timestamps. Because the Android ecosystem varies significantly across manufacturers, the options for removing this data depend on your specific device and Android version.
+    readTime: '5 min read',
+    content: `To remove metadata from Android photos, use ExifVoid at exifvoid.com in any mobile browser — it strips all EXIF, XMP, and IPTC data including GPS coordinates, device serial numbers, and timestamps entirely on your device without uploading files to a server. Unlike iOS, most Android versions do not offer a built-in metadata removal option when sharing photos, making a dedicated tool essential.
 
-**Disabling location tagging on Android**
+**Why do Android phones embed metadata?**
 
-The exact steps vary by manufacturer, but the general approach is consistent. Open your Camera app, go to its Settings (usually a gear icon), and look for an option called Location tags, Geotagging, or Store location. Toggle it off. On Samsung devices, this is under Camera Settings then Location tags. On Pixel phones, it's under Camera Settings then Save location.
+Like all smartphones, Android devices automatically embed EXIF data into every photo. This includes GPS coordinates (often accurate to within three to five metres), device make and model, camera settings, and precise timestamps. The metadata powers useful features like location-based photo search in Google Photos, but it becomes a privacy risk when you share photos outside trusted circles.
 
-This prevents future photos from containing GPS data, but existing photos will still have their metadata intact.
+**How to disable location tagging on Android**
 
-**The Android sharing limitation**
+The exact steps vary by manufacturer, but the general approach is consistent. Open your Camera app, go to Settings (usually a gear icon), and look for Location tags, Geotagging, or Save location. Toggle it off. On Samsung devices, this is under Camera Settings then Location tags. On Google Pixel phones, it is under Camera Settings then Save location.
 
-Unlike iOS, most Android versions do not offer a built-in option to strip metadata when sharing. When you share a photo through most Android apps, the full original file — metadata and all — is sent. Some messaging apps like WhatsApp and Telegram do strip metadata during their own compression process, but you shouldn't rely on this for privacy-critical sharing.
+This prevents future photos from containing GPS data but does not remove location from photos you have already taken. It also removes the ability to search your photos by location in Google Photos.
 
-**Using ExifVoid on Android**
+**How to remove metadata from existing Android photos**
 
-The most reliable cross-device solution is ExifVoid. Open Chrome or any browser on your Android phone, navigate to exifvoid.com, and tap the upload area to select a photo from your gallery. The Privacy Scan will show you exactly what metadata is embedded — including GPS coordinates displayed on a map — and you can remove everything with a single tap.
+Open Chrome or any browser on your Android phone and navigate to exifvoid.com. Tap the upload area to select a photo from your gallery. The Privacy Scan shows you exactly what metadata is embedded — including GPS coordinates displayed on a map, device identifiers, and timestamps. Tap clean to remove everything. Download the cleaned file and use it for sharing.
 
-Because ExifVoid runs entirely in your browser, it works the same way regardless of your Android manufacturer, model, or version. There's no app to install, no permissions to grant, and no data sent to any server.
+Because ExifVoid runs entirely in your browser, it works identically regardless of your Android manufacturer, model, or OS version. There is no app to install, no permissions to grant, and no data sent to any server.
 
-**What about Google Photos?**
+**Does Google Photos strip metadata when sharing?**
 
-Google Photos does strip some metadata when sharing via link, but the behaviour isn't consistent across all sharing methods. If you download a photo from Google Photos and share it manually, the metadata may still be present. For consistent privacy, remove metadata explicitly before sharing rather than relying on platform-specific behaviour.
+Google Photos behaviour is inconsistent. When sharing via link, some metadata may be stripped — but this depends on the sharing method and Google's current implementation. When you download a photo from Google Photos and share it manually, metadata is typically preserved. For reliable privacy, always remove metadata explicitly rather than relying on Google Photos behaviour. Our guide to which social media platforms strip metadata covers platform-specific behaviour in detail.
 
-**Building the habit**
+**What about WhatsApp and Telegram on Android?**
 
-The most effective privacy practice is to make metadata removal part of your sharing routine. Before uploading a product photo to a marketplace, sharing an image in a forum, or sending a photo to someone you don't fully trust — take ten seconds to run it through ExifVoid. That small habit can prevent your home location, daily routine, and device identity from being exposed.`,
+WhatsApp strips most metadata when sending photos as standard compressed images on Android. However, sending photos as documents preserves all metadata. Telegram behaves similarly — standard photo sends strip metadata, but document sends preserve it. The sending method matters, and many users are not aware of the distinction.
+
+**Frequently asked questions**
+
+**Can I remove metadata from multiple Android photos at once?**
+
+ExifVoid currently processes one photo at a time. For batch removal, you would need to process each photo individually. Batch processing is a planned future feature. In the meantime, the process takes only a few seconds per photo.
+
+**Does taking a screenshot remove metadata?**
+
+Screenshots contain less metadata than camera photos — they typically lack GPS data and camera settings. However, screenshots may still contain device model information and timestamps. For maximum privacy, it is still worth cleaning screenshots before sharing.
+
+**Will removing metadata affect how photos display on Android?**
+
+No. ExifVoid preserves correct image orientation during the cleaning process. Your photos will display correctly on any device after metadata removal.`,
   },
   {
     slug: 'ai-image-provenance-c2pa-and-metadata-future',
     title: 'AI Image Provenance: C2PA, Content Credentials, and the Future of Photo Metadata',
-    description: 'How new standards like C2PA and Content Credentials are adding provenance metadata to images, and what this means for privacy.',
+    description: 'C2PA and Content Credentials embed cryptographic provenance data into images to combat deepfakes — but they also raise new privacy concerns. Here is what you need to know.',
     category: 'Compliance',
     date: '2026-03-04',
-    readTime: '6 min read',
-    content: `The rise of AI-generated images has triggered a new wave of metadata standards designed to prove where an image came from and whether it's been altered. While these standards serve a legitimate purpose — combating misinformation and deepfakes — they also raise new privacy questions.
+    readTime: '7 min read',
+    content: `C2PA (Coalition for Content Provenance and Authenticity) is a new industry standard that embeds cryptographically signed metadata into images to prove their origin and editing history. Backed by Adobe, Microsoft, Google, and major camera manufacturers, it is designed to combat AI-generated deepfakes and misinformation. However, this same provenance data can contain GPS coordinates, device identities, and creator information — creating a genuine tension between transparency and privacy.
 
-**What is C2PA?**
+**What is C2PA and how does it work?**
 
-The Coalition for Content Provenance and Authenticity (C2PA) is an industry standard backed by Adobe, Microsoft, Google, and major camera manufacturers. It defines a way to embed cryptographically signed metadata into image files that records who created the image, what device or software was used, when and where it was created, and every edit made to the image since creation.
+C2PA defines a way to embed a tamper-evident provenance record into image files. This record can include who created the image (person, organisation, or AI system), what device or software was used, when and where it was created, and every edit made to the image since creation.
 
-This metadata is designed to be tamper-evident — any modification to the image that isn't recorded in the provenance chain will break the cryptographic signature, flagging the file as potentially altered.
+The metadata is cryptographically signed, meaning any modification to the image that is not recorded in the provenance chain will break the signature. This allows viewers to verify whether an image is authentic, AI-generated, or has been manipulated. For businesses concerned about metadata compliance, our GDPR photo metadata guide covers the regulatory implications.
 
-**Content Credentials in practice**
+**What are Content Credentials?**
 
-Adobe has been the most aggressive in implementing C2PA through its Content Credentials initiative. Photos taken with supported cameras or created in Adobe tools can carry a verifiable chain of custody. Social media platforms are beginning to display this information, showing users whether an image was AI-generated, captured by a camera, or edited.
+Content Credentials is Adobe's implementation of C2PA. Photos taken with supported cameras or created in Adobe tools carry a verifiable chain of custody. Social media platforms are beginning to display Content Credentials information, showing users whether an image was AI-generated, captured by a camera, or edited.
 
-**The privacy tension**
+Adobe has integrated Content Credentials into Photoshop, Lightroom, and Firefly (their AI image generator). Camera manufacturers including Sony, Leica, and Nikon are shipping C2PA-enabled hardware.
 
-Here's where it gets complicated for privacy-conscious users. C2PA provenance data can contain the same categories of personal information as traditional EXIF data — location, device identity, creator name, timestamps — but it's specifically designed to resist removal. The whole point of the standard is that the metadata persists and can be verified.
+**Why does this create a privacy problem?**
 
-This creates a genuine tension. The standard that helps verify an image hasn't been deepfaked is also the standard that makes it harder to share photos anonymously. A journalist protecting a source, a domestic abuse survivor documenting evidence, or simply a private individual who doesn't want their location tracked — all face potential challenges as provenance metadata becomes more widespread.
+C2PA provenance data can contain the same categories of personal information as traditional EXIF data — location, device identity, creator name, timestamps — but it is specifically designed to resist removal. The entire purpose of the standard is that metadata persists and can be verified.
 
-**California SB 942 and legislative pressure**
+This creates a fundamental tension. The same standard that helps verify an image has not been deepfaked is also the standard that makes it harder to share photos anonymously. A journalist protecting a source, a domestic abuse survivor documenting evidence, or simply a private individual who does not want their location tracked — all face challenges as provenance metadata becomes more widespread.
 
-California's SB 942 and similar legislative efforts are pushing for AI-generated content to carry mandatory provenance markers. While aimed at transparency around synthetic media, these laws may have broader implications for all image metadata handling. Businesses operating in California should monitor this space closely.
+**What legislation is driving adoption?**
 
-**What this means for you**
+California's SB 942 and similar legislative efforts are pushing for AI-generated content to carry mandatory provenance markers. The EU AI Act includes provisions for labelling AI-generated content. While aimed at transparency around synthetic media, these laws may have broader implications for all image metadata handling.
 
-For now, C2PA metadata is still relatively uncommon in casual photography. But as major camera manufacturers (Sony, Leica, Nikon) ship C2PA-enabled hardware and as platforms begin requiring provenance data, it will become increasingly prevalent.
+**Can C2PA metadata be removed?**
 
-ExifVoid's approach — scanning and removing all metadata segments including newer provenance blocks — gives users the choice of what to share. Understanding what's in your photo files is the first step toward making informed decisions about your digital privacy, regardless of which standards emerge.`,
+Yes, though doing so breaks the cryptographic chain of trust. The provenance data lives in specific segments of the image file that can be stripped just like traditional EXIF data. ExifVoid's cleaning process removes all metadata segments including newer provenance blocks, giving users the choice of what to share.
+
+**What does this mean for ordinary users?**
+
+For now, C2PA metadata is still relatively uncommon in casual photography. But as major camera manufacturers ship C2PA-enabled hardware and platforms begin requiring provenance data, it will become increasingly prevalent. Understanding what provenance metadata is — and having tools to manage it — will become as important as understanding EXIF data is today. Our guide on how to check if your photos have metadata explains how to see what is embedded in your files.
+
+**Frequently asked questions**
+
+**Will C2PA replace EXIF?**
+
+No. C2PA is designed to complement, not replace, existing metadata standards. EXIF, XMP, and IPTC will continue to exist alongside C2PA provenance data. This means future photos may contain even more metadata than current ones. See our guide to EXIF vs XMP vs IPTC for details on existing standards.
+
+**Does removing C2PA metadata make a photo look suspicious?**
+
+In contexts where provenance verification is expected (such as news media), removing C2PA data may reduce trust in the image. For personal sharing, it is unlikely to matter. Most social media platforms do not yet display or require provenance data.
+
+**Are AI-generated images labelled with C2PA?**
+
+Major AI image generators including Adobe Firefly, DALL-E, and Midjourney are beginning to embed C2PA metadata identifying their output as AI-generated. However, not all generators do this, and the metadata can be removed — which is precisely the problem C2PA is trying to solve.`,
   },
   {
     slug: 'how-to-remove-metadata-before-selling-on-ebay',
     title: 'How to Remove Photo Metadata Before Selling on eBay',
-    description: 'Selling items on eBay? Your product photos may be exposing your home address through hidden GPS data. Learn how to protect yourself.',
+    description: 'Product photos on eBay, Depop, and Facebook Marketplace can expose your home GPS coordinates to every buyer. Here is how to strip metadata before listing.',
     category: 'Educational',
     date: '2026-03-02',
-    readTime: '4 min read',
-    content: `If you're selling items on eBay, Depop, Facebook Marketplace, or any online platform, the photos you upload may be silently broadcasting your home address to every potential buyer — and every stranger who views your listing.
+    readTime: '5 min read',
+    content: `If you photograph items for sale at home, your listing photos almost certainly contain GPS coordinates that reveal your home address to every buyer who views them. eBay, Depop, Facebook Marketplace, and most online selling platforms do not consistently strip metadata from uploaded images. Remove EXIF data from your product photos before listing by scanning and cleaning them at exifvoid.com — it takes seconds and your files never leave your device.
 
-**The hidden risk in product photos**
+**What metadata is hidden in your product photos?**
 
-When you photograph an item for sale at home, your phone embeds GPS coordinates into the image file. These coordinates are accurate enough to identify your specific house or flat. Unlike platforms like Instagram that strip this data automatically, many marketplace platforms do not remove metadata from uploaded images. Even when they do, the behaviour can be inconsistent.
+When you photograph a product at home with your phone, the image file automatically contains your exact GPS coordinates (accurate to within a few metres of your front door), your device make and model (telling buyers what phone you own), exact timestamps (revealing when you are home and active), and camera serial numbers (potentially linking multiple selling accounts to the same device).
 
-This means someone browsing your listing for a vintage lamp or a used bicycle could extract your exact location from the product photo in seconds using freely available tools. For high-value items, this creates an obvious security risk.
+This data is invisible when viewing the photo normally but can be extracted in seconds using freely available tools. For high-value items, this creates an obvious security risk — a stranger knows exactly where an expensive item is located. Our article on whether metadata can be used to track you covers these risks in depth.
 
-**What metadata leaks beyond location**
+**Does eBay strip metadata from listing photos?**
 
-GPS is the most concerning data point, but it's not the only one. Your device make and model tells buyers what phone you own. Timestamps reveal when you took the photo, which can indicate when you're home. Camera serial numbers could theoretically link multiple selling accounts to the same person.
+eBay's metadata handling has been inconsistent over the years. While some processing occurs during upload, you should not rely on the platform to protect your privacy. The safest approach is to strip metadata yourself before uploading — this way your privacy does not depend on eBay's current implementation or any future changes they make.
 
-**How to protect yourself**
+The same applies to Depop, Facebook Marketplace, Craigslist, Gumtree, and other selling platforms. Our guide to which social media platforms strip metadata covers platform-specific behaviour.
 
-Before uploading any product photo to a marketplace, run it through ExifVoid. Drop the image into the tool, check the Privacy Scan to see what's embedded, and clean it with one click. The process takes seconds and the cleaned file preserves full image quality — your buyers won't notice any difference, but your address won't be attached to the listing.
+**How to remove metadata from product photos**
 
-**A simple pre-listing routine**
+The fastest approach is a simple pre-listing routine. Photograph your item as normal. Open exifvoid.com in your phone browser. Tap to select a photo from your gallery. Check the Privacy Scan — if you see your address on the GPS map, the data is exposed. Tap clean to strip all metadata. Download the cleaned file. Upload the cleaned version to your listing.
 
-Make it a habit. Photograph your item, run all the photos through ExifVoid at exifvoid.com in your browser, then upload the cleaned versions to your listing. This adds perhaps thirty seconds to your workflow and eliminates the risk of exposing your location to strangers.
+This adds roughly thirty seconds to your workflow and eliminates the risk entirely. The cleaned photo preserves full visual quality — your buyers will not notice any difference.
 
-**What about taking photos with location disabled?**
+**What about disabling location on your camera?**
 
-You can disable location tagging in your camera settings, but this affects all your photos — including personal ones where you might want location data for your own organisation. A better approach is to keep location enabled for your personal photos and strip it selectively before sharing. This gives you the best of both worlds.`,
+You can disable GPS tagging in your camera settings, but this affects all your photos including personal ones where you might want location data. A better approach is to keep location enabled for your own photo library and strip metadata selectively before listing. This gives you the convenience of geotagged personal photos with the security of clean listing photos. For device-specific instructions, see our guides for iPhone and Android.
+
+**Frequently asked questions**
+
+**Can a buyer find my address from an eBay listing photo?**
+
+Yes, if the photo contains GPS metadata and eBay has not stripped it during upload. The coordinates are embedded in the image file and can be extracted with free online tools. Always clean product photos before uploading to any marketplace.
+
+**Does this apply to photos taken outside my home?**
+
+Any photo with GPS data reveals the location where it was taken. If you photograph items in your garden, driveway, or near identifiable landmarks, the location data could help someone determine your address even if the photo itself does not show it.
+
+**Should I clean photos for every platform?**
+
+Yes. Even platforms that currently strip metadata may change their behaviour without notice. Making metadata removal part of your standard listing routine ensures consistent privacy regardless of where you sell.`,
   },
   {
     slug: 'can-metadata-be-used-to-track-you',
     title: 'Can Photo Metadata Be Used to Track You? What You Need to Know',
-    description: 'Understanding how EXIF data can be used to track your location, identify your devices, and build a profile of your daily life.',
+    description: 'Yes, EXIF data in photos can be used to track your location, identify your devices, map your daily routine, and link your online accounts. Here is exactly how it works.',
     category: 'Forensic',
     date: '2026-02-28',
-    readTime: '5 min read',
-    content: `The short answer is yes — photo metadata can absolutely be used to track you. But the specifics of how this works, and how serious the risk actually is, depend on context.
+    readTime: '6 min read',
+    content: `Yes, photo metadata can be used to track you. GPS coordinates embedded in photos can reveal your home address, workplace, and travel patterns. Device serial numbers can link seemingly unrelated photos to the same person. Timestamps can map your daily routine. In documented cases, photo metadata has been used in stalking, harassment, and criminal investigations. Removing EXIF data before sharing photos publicly is one of the most effective steps you can take to reduce your digital footprint.
 
-**Location tracking through GPS coordinates**
+**How can GPS coordinates in photos track your location?**
 
-The most direct tracking risk comes from GPS data embedded in your photos. Modern smartphones record coordinates accurate to within three to five metres. If you regularly share photos taken at home, your residence can be identified. Photos taken at your workplace reveal where you work. Holiday photos establish your travel patterns.
+Modern smartphones record GPS coordinates accurate to within three to five metres in every photo. If you regularly share photos taken at home, your residence can be precisely identified. Photos from your workplace reveal where you work. Holiday and weekend photos establish your travel patterns and favourite locations.
 
-A determined individual could build a map of your regular locations simply by collecting photos you've shared across different platforms — particularly platforms that don't strip metadata from uploads.
+A determined individual could build a complete map of your regular locations by collecting photos you have shared across different platforms — particularly platforms that do not strip metadata from uploads. Our guide to which platforms strip metadata shows which services protect you and which do not.
 
-**Device fingerprinting through serial numbers**
+**How can device serial numbers link your online accounts?**
 
-Even without GPS data, photos can be linked together through device identifiers. Camera body serial numbers, lens serial numbers, and unique image IDs remain consistent across every photo taken with the same device. This means that if you use the same phone to take photos for both a personal blog and an anonymous marketplace listing, the two accounts could theoretically be linked.
+Even without GPS data, photos can be linked through device identifiers. Camera body serial numbers and lens serial numbers remain consistent across every photo taken with the same device. This means that if you use the same phone for a personal blog and an anonymous marketplace account, those accounts could be connected through the serial numbers embedded in your photos.
 
-This technique is actually used in digital forensics and has been employed in criminal investigations. The same principle applies to anyone who might want to connect your various online identities.
+This technique is used in digital forensics and has been employed in criminal investigations. The same principle applies to anyone attempting to connect your various online identities. Our guide to EXIF vs XMP vs IPTC explains where these identifiers are stored.
 
-**Temporal patterns from timestamps**
+**How can timestamps reveal your daily routine?**
 
-Timestamps might seem innocuous, but in aggregate they reveal patterns. Regular photos taken at 8am and 6pm might indicate your commute times. Photos consistently taken at specific locations on specific days reveal your routine. Combined with GPS data, timestamps create a detailed picture of your daily movements.
+Timestamps might seem harmless individually, but in aggregate they reveal patterns. Regular photos at 8am and 6pm suggest commute times. Photos consistently taken at specific locations on specific days establish your routine. Combined with GPS data, timestamps create a detailed behavioural profile.
 
-**Social engineering using camera and software data**
+**What are real-world examples of tracking via metadata?**
 
-Knowing that someone uses a specific camera model, editing software, or operating system provides useful information for social engineering attacks. It's not the highest risk, but it contributes to the overall picture an attacker could build.
+The most widely cited case involves John McAfee, who was located in Guatemala in 2012 after a journalist's photo of him contained GPS coordinates. In less publicised cases, metadata has been used in stalking situations, insurance fraud investigations, and disputes over photograph authenticity in court. Our article on photo privacy tips for online dating covers the specific risks of sharing photos with strangers.
 
-**How to protect yourself**
+**How do I protect myself from metadata tracking?**
 
-The most effective protection is to strip metadata before sharing any photo publicly. ExifVoid removes all categories of trackable data — GPS, serial numbers, timestamps, device information — in a single pass. Making this a habit before any public upload significantly reduces your digital footprint.
+Strip metadata before sharing any photo publicly. ExifVoid removes all categories of trackable data — GPS, serial numbers, timestamps, device information — in a single pass. The Privacy Scan shows you exactly what data is embedded before you clean, so you know what you are removing. See our device-specific guides for iPhone, Android, Windows, and Mac.
 
-It's worth noting that not every photo needs to be cleaned. Sharing photos with trusted friends and family through encrypted messaging apps poses minimal risk. The concern is primarily with photos shared publicly or with people you don't know personally.`,
+Not every photo needs to be cleaned. Sharing photos with trusted friends and family through encrypted messaging apps poses minimal risk. The concern is primarily with photos shared publicly or with people you do not know personally.
+
+**Frequently asked questions**
+
+**Can metadata reveal my exact home address?**
+
+Yes. GPS coordinates in photos are typically accurate to within three to five metres — more than enough to identify a specific house or flat. A photo taken in your living room will contain coordinates pointing directly to your home.
+
+**Can I be tracked through screenshots?**
+
+Screenshots contain less metadata than camera photos and typically lack GPS data. However, they may still contain device model information and creation timestamps. For maximum privacy, cleaning screenshots before sharing is also advisable.
+
+**Does removing metadata guarantee anonymity?**
+
+Removing metadata eliminates the data embedded in the file itself. However, other factors can still identify you — the visual content of the photo, the platform you upload to (which may log your IP address), and any other contextual clues. Metadata removal is one important layer of privacy, not a complete solution on its own.`,
   },
   {
     slug: 'how-to-remove-metadata-from-photos-on-windows',
     title: 'How to Remove Metadata from Photos on Windows',
-    description: 'A complete guide to removing EXIF data and metadata from photos using Windows built-in tools and ExifVoid.',
+    description: 'Windows has a built-in metadata removal tool in File Properties, but it misses XMP and IPTC data. Here is how to completely strip EXIF data from photos on Windows.',
     category: 'Educational',
     date: '2026-02-26',
-    readTime: '4 min read',
-    content: `Windows has a built-in way to view and remove some photo metadata, but it has significant limitations. Here's how to use it, and when you'll want a more thorough solution.
+    readTime: '5 min read',
+    content: `To remove metadata from photos on Windows, right-click the image file, select Properties, click the Details tab, and click "Remove Properties and Personal Information." However, this built-in method does not remove all metadata — some XMP and IPTC fields may survive. For complete removal of all EXIF, XMP, and IPTC data including GPS coordinates and device serial numbers, use ExifVoid at exifvoid.com in any browser.
 
 **Method 1: Windows File Properties (built-in)**
 
-Right-click any image file and select Properties. Click the Details tab. You'll see a list of metadata fields including camera information, GPS data, dates, and more. At the bottom of this tab, click "Remove Properties and Personal Information."
+Right-click any image file and select Properties. Click the Details tab. You will see a list of metadata fields including camera information, GPS data, dates, and software information. At the bottom of this tab, click "Remove Properties and Personal Information."
 
-Windows gives you two options. You can create a copy with all possible properties removed, or you can select specific properties to remove from the original file. The first option is generally safer.
+Windows gives you two options: create a copy with all possible properties removed, or select specific properties to remove from the original file. The first option is generally safer as it preserves your original and creates a clean copy.
 
-**Limitations of the Windows method**
+**What are the limitations of the Windows method?**
 
-The built-in tool has some notable gaps. It doesn't remove all metadata — some XMP and IPTC fields may survive the removal process. It only works with files stored locally on your computer, not with files on external drives or network locations in all cases. It doesn't provide any visualisation of what the metadata means — you see raw field names without context about the privacy implications. And it doesn't work on all image formats consistently.
+The built-in tool has several notable gaps. It does not remove all metadata — some XMP and IPTC fields survive the removal process. It does not visualise what the metadata means — you see raw field names without context about privacy implications. It does not show GPS coordinates on a map. It only works with locally stored files and has inconsistent behaviour across image formats. For an explanation of the different metadata types, see our guide to EXIF vs XMP vs IPTC.
 
-**Method 2: Using ExifVoid in your browser**
+**Method 2: Use ExifVoid in any browser**
 
-For thorough, format-aware metadata removal with zero quality loss, open any browser on your Windows PC and go to exifvoid.com. Drop your image file into the tool. The Privacy Scan will show you everything embedded in the file — including GPS coordinates on a map, which the Windows properties dialog doesn't do. Click clean to remove all metadata and download the sanitised file.
+Open any browser on your Windows PC and go to exifvoid.com. Drop your image file into the tool. The Privacy Scan shows you everything embedded in the file — including GPS coordinates displayed on an interactive map, which the Windows Properties dialog does not do. Each metadata category is scored by risk level so you can see exactly what threatens your privacy.
 
-Because ExifVoid uses binary excision for JPEG files, the cleaning process doesn't re-compress the image. The Windows method also avoids re-compression, but ExifVoid is more thorough in what it removes.
+Click clean to remove all metadata and download the sanitised file. The cleaned photo preserves visual quality — ExifVoid uses canvas re-encoding at high quality with automatic orientation handling.
 
-**Method 3: Batch removal with PowerShell**
+**Method 3: Command-line tools for batch processing**
 
-For technical users who need to process many files, Windows PowerShell can be combined with command-line tools like ExifTool. However, this requires installing third-party software, comfort with command-line interfaces, and careful handling to avoid corrupting files. For most users, this is unnecessarily complex.
+For technical users needing to process many files, ExifTool is a powerful command-line option. Install it from exiftool.org, then run "exiftool -all= photo.jpg" to strip all metadata. PowerShell can loop this across folders. However, this requires installing third-party software, comfort with command-line interfaces, and careful handling to avoid corrupting files. For most users, this approach is unnecessarily complex.
 
-**Which method should you use?**
+**Which method should I use?**
 
-For a quick, one-off removal where thoroughness isn't critical, the built-in Windows Properties method works. For anything you're sharing publicly — marketplace photos, forum posts, professional uploads — use ExifVoid for comprehensive removal with the added benefit of seeing exactly what's in your files before cleaning them.`,
+For a quick one-off removal where thoroughness is not critical, the Windows Properties method works. For anything being shared publicly — marketplace photos, forum posts, professional uploads — use ExifVoid for comprehensive removal with the added benefit of seeing exactly what data is in your files. For information about metadata risks when selling online, see our eBay seller guide.
+
+**Frequently asked questions**
+
+**Does Windows 11 remove more metadata than Windows 10?**
+
+Both versions use the same "Remove Properties and Personal Information" feature with similar limitations. Neither version reliably removes all XMP and IPTC metadata. The gaps are consistent across Windows versions.
+
+**Can I remove metadata from multiple photos at once on Windows?**
+
+The Windows Properties method allows you to select multiple files and remove properties in bulk. However, the same limitations apply — not all metadata types are fully removed. ExifVoid currently processes files individually, with batch processing planned as a future feature.
+
+**Does removing metadata change the file size?**
+
+Yes, slightly. Metadata typically adds a few kilobytes to a file. Removing it reduces the file size marginally. The visual content of the image is unaffected.`,
   },
   {
     slug: 'how-to-remove-metadata-from-photos-on-mac',
     title: 'How to Remove Metadata from Photos on Mac',
-    description: 'Guide to stripping EXIF data and GPS coordinates from photos on macOS using Preview, Photos app, and ExifVoid.',
+    description: 'macOS has no built-in "remove all metadata" feature. Here is how to strip EXIF data, GPS coordinates, and hidden metadata from photos on Mac using Preview, Photos, and ExifVoid.',
     category: 'Educational',
     date: '2026-02-24',
-    readTime: '4 min read',
-    content: `macOS offers several ways to view photo metadata, but removing it completely requires knowing which tools to use and their limitations.
+    readTime: '5 min read',
+    content: `macOS does not have a built-in feature to remove all metadata from photos. The Photos app can remove GPS location from individual images, and Preview can display metadata, but neither offers comprehensive metadata removal. For complete EXIF, XMP, and IPTC stripping on Mac, use ExifVoid at exifvoid.com in Safari or Chrome — it removes all hidden data including GPS coordinates, device serial numbers, and timestamps entirely in your browser.
 
-**Viewing metadata on Mac**
+**How to view metadata on Mac**
 
-The simplest way to view a photo's metadata on Mac is through Preview. Open the image in Preview, then go to Tools and select Show Inspector (or press Command-I). The Exif tab shows camera settings, dates, and GPS information. This is useful for checking what data exists, but Preview cannot remove metadata.
+Open the image in Preview, then go to Tools and select Show Inspector (or press Command-I). The Exif tab shows camera settings, dates, and GPS information. This is useful for checking what data exists but Preview cannot remove metadata.
 
-The Photos app also shows location information. Open a photo, click the info button (i), and you'll see where it was taken on a map. You can remove location from individual photos by clicking the location and selecting Remove Location. However, this only removes GPS data — it leaves all other metadata intact.
+The Photos app also shows location. Open a photo, click the info button, and you will see where it was taken on a map.
 
-**The macOS limitation**
+**Can the Photos app remove metadata?**
 
-Unlike Windows, macOS doesn't have a built-in "remove all properties" feature for image files. The Photos app can remove location but nothing else. Preview can view metadata but can't edit or remove it. This means Mac users who want thorough metadata removal need a third-party solution.
+The Photos app can remove location from individual photos — click the location in the info panel and select Remove Location. However, this only removes GPS data. Camera serial numbers, timestamps, device model, software information, and all XMP and IPTC metadata remain intact. For an explanation of why all three metadata types matter, see our guide to EXIF vs XMP vs IPTC.
 
-**Using ExifVoid on Mac**
+**How to fully remove metadata on Mac using ExifVoid**
 
-Open Safari, Chrome, or any browser on your Mac and go to exifvoid.com. Drop in your photo — or click to browse from Finder. The Privacy Scan immediately shows everything embedded in the file, with GPS coordinates displayed on a map and all metadata fields categorised by risk level.
+Open Safari, Chrome, or any browser and go to exifvoid.com. Drop in your photo or click to browse from Finder. The Privacy Scan immediately shows everything embedded, with GPS coordinates displayed on an interactive map and all fields categorised by risk level.
 
-Click clean to strip all metadata. The cleaned file downloads with "_clean" appended to the filename, so you can easily distinguish it from the original. For JPEG files, the process uses binary excision — no re-compression, no quality loss.
+Click clean to strip all metadata. The cleaned file downloads with "_clean" appended to the filename so you can easily distinguish it from the original.
 
-**What about the Terminal?**
+**Can I use Terminal to remove metadata?**
 
-Mac includes Python by default, and command-line tools like ExifTool can be installed via Homebrew. Running something like "exiftool -all= photo.jpg" removes all metadata from the command line. This is effective but requires Homebrew installation, comfort with Terminal commands, and care to avoid accidentally modifying original files. For most Mac users, the browser-based approach is simpler and equally thorough.
+Yes. Install ExifTool via Homebrew ("brew install exiftool") then run "exiftool -all= photo.jpg" to strip everything. This is effective but requires Homebrew installation, comfort with Terminal, and care to avoid accidentally modifying original files. For most Mac users, the browser-based approach is simpler.
 
-**AirDrop and metadata**
+**Does AirDrop preserve metadata?**
 
-One important note for Mac users: AirDrop transfers the original file with all metadata intact. If you AirDrop a photo to someone, they receive all the embedded GPS data, camera serial numbers, and timestamps. Always clean photos before sharing via AirDrop if privacy matters.`,
+Yes. AirDrop transfers the original file with all metadata intact. When you AirDrop a photo to someone, they receive all the embedded GPS data, camera serial numbers, and timestamps. Always clean photos before sharing via AirDrop if privacy matters. The same applies to iMessage — see our iPhone guide for details.
+
+**Frequently asked questions**
+
+**Does Apple Photos strip metadata when exporting?**
+
+When you export from Photos using File then Export, metadata is preserved by default. You can choose to export without location data, but other metadata types remain. For complete removal, use a dedicated tool.
+
+**Does macOS Finder show EXIF data?**
+
+You can see basic information by selecting a file in Finder and pressing Command-I (Get Info), but this shows limited metadata. Preview's Inspector gives a much more detailed view. ExifVoid shows the most comprehensive and privacy-focused analysis of any method.
+
+**Will removing metadata break the photo?**
+
+No. The cleaned photo displays correctly on all devices. ExifVoid handles orientation automatically during the cleaning process, so your photos will always appear right-side-up regardless of how the original camera saved them.`,
   },
   {
     slug: 'do-social-media-platforms-strip-metadata',
     title: 'Which Social Media Platforms Strip Photo Metadata? (2026 Guide)',
-    description: 'Find out which platforms remove EXIF data and GPS coordinates from your uploads, and which ones leave your metadata exposed.',
+    description: 'Not all platforms handle EXIF data the same way. Facebook and Instagram strip metadata, but email, AirDrop, Discord, and many others preserve it. Here is the complete 2026 breakdown.',
     category: 'Forensic',
     date: '2026-02-22',
-    readTime: '5 min read',
-    content: `Not all platforms handle your photo metadata the same way. Some strip it entirely on upload, while others leave everything intact. Knowing which is which can help you make informed decisions about where and how you share photos.
+    readTime: '6 min read',
+    content: `Facebook, Instagram, and Twitter/X strip most EXIF metadata from uploaded photos. WhatsApp and Telegram strip metadata from standard photo sends but preserve it when files are sent as documents. Email, AirDrop, iMessage, cloud storage links, and most forums and marketplace platforms preserve all metadata. The safest approach is to always remove metadata yourself before sharing — use ExifVoid at exifvoid.com to strip everything in your browser without uploading files to any server.
 
-**Platforms that DO strip metadata**
+**Which platforms strip metadata?**
 
-Facebook removes EXIF data from uploaded photos, including GPS coordinates. However, Facebook stores this data internally and uses it for their own purposes including ad targeting and location-based features. The metadata is stripped from the publicly visible image, but Facebook retains it.
+Facebook removes EXIF data from uploaded photos including GPS coordinates. However, Facebook stores this data internally and uses it for ad targeting and location features. The metadata is removed from the publicly downloadable image but Facebook retains it on their servers.
 
-Instagram similarly strips metadata from uploaded photos. Like Facebook (both owned by Meta), the data is likely retained internally even though it's removed from the downloadable image.
+Instagram similarly strips metadata from uploads. Like Facebook (both owned by Meta), the data is likely retained internally.
 
-Twitter (X) strips EXIF data from uploaded images. GPS coordinates and camera information are removed from the publicly accessible file.
+Twitter/X strips EXIF data from uploaded images. GPS coordinates and camera information are removed from the publicly accessible file.
 
-**Platforms with partial or inconsistent behaviour**
+**Which platforms have inconsistent behaviour?**
 
-WhatsApp strips metadata when sending photos as standard compressed images. However, when sending photos as documents (uncompressed), metadata may be preserved. Users should be aware of which sending mode they're using.
+WhatsApp strips metadata when sending photos as standard compressed images. However, when sending photos as documents (the paperclip icon instead of the camera icon), all metadata is preserved. Many users do not realise this distinction exists.
 
-Telegram strips metadata from standard photo messages but preserves it when files are sent as documents. The behaviour depends on the sending method.
+Telegram behaves similarly — standard photo sends strip metadata, but sending as a document preserves everything.
 
-iMessage preserves all metadata when sending between Apple devices. Photos shared via iMessage carry full EXIF data including GPS coordinates.
+Signal strips metadata from photos sent through its standard messaging.
 
-**Platforms that do NOT strip metadata**
+**Which platforms do NOT strip metadata?**
 
-Many forums, marketplace platforms, personal websites, and content management systems do not strip metadata. When you upload a photo to a WordPress blog, a forum attachment, an eBay listing, or a Craigslist post, the original file — metadata included — is often what gets stored and served to viewers.
+Email attachments always preserve all metadata. When you email a photo, the recipient gets the complete original file with all EXIF data.
 
-Email attachments always preserve metadata. When you email a photo, the recipient gets the full original file with all embedded data.
+iMessage preserves all metadata when sharing between Apple devices. Photos sent via iMessage carry full GPS coordinates and device information.
 
-Cloud storage services like Google Drive, Dropbox, and iCloud preserve metadata in stored files. Sharing a photo via a cloud storage link gives the recipient access to the complete file.
+AirDrop preserves all metadata. The recipient receives the complete original file.
 
-**Why you shouldn't rely on platform stripping**
+Cloud storage links (Google Drive, Dropbox, iCloud, OneDrive) serve the original file with all metadata intact when shared via link.
 
-Even for platforms that do strip metadata, there are good reasons to remove it yourself first. Platform behaviour can change without notice. You might not remember which platforms strip and which don't. The platform may retain your data internally even if they strip it from the public file. And during the upload process, your original file — metadata and all — is transmitted to and processed by the platform's servers.
+Most forums, marketplace platforms, WordPress blogs, and content management systems preserve uploaded metadata. eBay, Craigslist, Gumtree, and similar platforms may not strip metadata consistently. See our eBay seller guide for specific marketplace advice.
 
-**The safest approach**
+Discord strips some metadata from uploaded images but behaviour has been inconsistent across versions and file types.
 
-Strip metadata yourself before uploading anywhere. This way, your privacy doesn't depend on the platform's behaviour, and you have certainty about what data you're sharing. ExifVoid makes this a five-second step — scan, review, clean, download, upload. It works in any browser and never transmits your files.`,
+**Why should I not rely on platform stripping?**
+
+Even for platforms that currently strip metadata, there are strong reasons to handle it yourself. Platform behaviour can change without notice or documentation. You may not remember which platforms strip and which do not. The platform may retain your data internally even after stripping it from the public file. And during upload, your original file — metadata and all — is transmitted to the platform's servers before any stripping occurs.
+
+**How to protect yourself on any platform**
+
+Strip metadata yourself before uploading anywhere. Open exifvoid.com, scan your photo to see what data is embedded, clean it, and upload the cleaned version. This way your privacy does not depend on any platform's behaviour. For step-by-step instructions on specific devices, see our guides for iPhone, Android, Windows, and Mac.
+
+**Frequently asked questions**
+
+**Does Facebook really delete my metadata or just hide it?**
+
+Facebook strips metadata from the publicly visible image but retains the original data internally for their own use including ad targeting and analytics. From a public privacy perspective, the metadata is removed — but Facebook itself has your location data.
+
+**Do dating apps strip EXIF data?**
+
+Most major dating apps including Tinder, Bumble, and Hinge strip EXIF data when you upload through their apps. However, behaviour varies between versions and platforms. See our photo privacy tips for online dating for detailed guidance.
+
+**What about screenshots — do they carry metadata?**
+
+Screenshots contain less metadata than camera photos — they typically lack GPS data. However, they may include device model, screen resolution, and creation timestamps. For maximum privacy, scanning screenshots with ExifVoid before sharing is worthwhile.`,
   },
   {
     slug: 'photo-metadata-for-photographers-what-to-keep-and-remove',
     title: 'Photo Metadata for Photographers: What to Keep and What to Remove',
-    description: 'A practical guide for photographers on managing EXIF data — which metadata helps your workflow, and which puts your privacy at risk.',
+    description: 'Photographers need EXIF data for their workflow but not all metadata should be shared publicly. Here is a practical guide to managing metadata as a photographer.',
     category: 'Forensic',
     date: '2026-02-20',
-    readTime: '5 min read',
-    content: `As a photographer, metadata is both a valuable tool and a potential privacy liability. The key is knowing which data serves your workflow and which should be stripped before sharing or publishing.
+    readTime: '6 min read',
+    content: `Photographers should keep all metadata in their personal archive and backups, but strip GPS coordinates, device serial numbers, and owner names before sharing photos publicly. Camera settings like aperture, shutter speed, and ISO are generally safe to share and useful for the photography community. Copyright metadata provides weak protection compared to watermarking and registration. ExifVoid's Privacy Scan categorises metadata by risk level, making it easy to understand what is in your files before deciding what to remove.
 
-**Metadata that helps your workflow**
+**Which metadata helps your photography workflow?**
 
-Camera settings — aperture, shutter speed, ISO, focal length, white balance — are invaluable for learning and improving your craft. Being able to review which settings produced your best shots helps you develop consistency. These fields are generally low-risk from a privacy perspective.
+Camera settings — aperture, shutter speed, ISO, focal length, white balance — are invaluable for learning and improving your craft. Reviewing which settings produced your best shots helps develop consistency. These fields are generally low-risk from a privacy perspective and many photographers intentionally share them.
 
-Date and time stamps help with organisation, especially when processing large shoots. Sorting by capture time is essential for event photographers. However, timestamps become a privacy concern when photos are shared publicly, as they can reveal patterns in your schedule.
+Date and time stamps help with organisation, especially when processing large shoots. Sorting by capture time is essential for event photographers. However, timestamps become a privacy concern when photos are shared publicly, as they can reveal schedule patterns.
 
-Colour space and resolution information ensures your files display correctly across devices and in print. These fields are safe to keep.
+Colour space and resolution information ensures files display correctly across devices and in print. These fields are safe to keep in all contexts.
 
-**Metadata that creates privacy risk**
+**Which metadata creates privacy risk for photographers?**
 
-GPS coordinates are the highest risk. Location data embedded in photos taken at client locations, your home studio, or personal locations can expose addresses you'd prefer to keep private. Even landscape photographers might not want their favourite hidden locations broadcasted to every viewer.
+GPS coordinates are the highest risk category. Location data embedded in photos taken at client locations, your home studio, or personal locations can expose addresses you would prefer to keep private. Even landscape photographers may not want their favourite hidden locations broadcast to every viewer.
 
-Serial numbers — body and lens — create a unique digital fingerprint. If you sell prints through multiple platforms or maintain both personal and professional accounts, serial numbers can link them together. In rare cases, stolen equipment has been identified through serial numbers in photos, which is actually beneficial. But for most privacy purposes, this is information you'd rather not share.
+Serial numbers — both body and lens — create a unique digital fingerprint. If you sell prints through multiple platforms or maintain both personal and professional accounts, serial numbers can link them. Our article on whether metadata can be used to track you explains how device fingerprinting works in detail.
 
-Camera owner name and copyright fields sometimes auto-populate with your real name from device settings. This is fine for professional work where you want attribution, but problematic for personal photos shared casually.
+Camera owner name and copyright fields sometimes auto-populate with your real name from device settings. This is appropriate for professional work where you want attribution but problematic for personal photos shared casually.
 
-**A practical approach for photographers**
+**What is the best approach for photographers?**
 
-Rather than stripping everything from every photo, consider a tiered approach. For your personal archive and backups, keep all metadata — it's your data on your own storage. For client deliveries, keep camera settings and copyright information, but remove GPS and serial numbers. For social media and public sharing, strip everything except copyright notice if you want attribution. For anonymous or privacy-sensitive sharing, remove all metadata without exception.
+Use a tiered strategy based on sharing context. For your personal archive and backups, keep all metadata — it is your data on your own storage. For client deliveries, keep camera settings and copyright information but remove GPS and serial numbers. For social media and public sharing, strip everything except copyright notice if you want attribution. For anonymous or privacy-sensitive sharing, remove all metadata without exception.
 
-ExifVoid's Privacy Scan is particularly useful for photographers because it categorises metadata by risk level. You can see exactly what's in a file before deciding what to remove. For most sharing scenarios, a full clean is the simplest approach — the camera settings can always be referenced from your original files if needed.
+ExifVoid's Privacy Scan is particularly useful for photographers because it categorises metadata by risk level. You can see exactly what is in a file before deciding what to remove. For most sharing scenarios, a full clean is the simplest approach — camera settings can always be referenced from your original files.
 
-**A note on copyright metadata**
+**Does embedded copyright metadata protect my work?**
 
-Some photographers rely on embedded IPTC copyright metadata to protect their work. While this is understandable, it's worth noting that copyright protection exists whether or not it's embedded in the file. If someone is determined to use your image without permission, removing the copyright tag from a file is trivial. Watermarking and registration provide stronger protection than embedded metadata.`,
+Copyright protection exists under law whether or not it is embedded in the file. If someone is determined to use your image without permission, removing a copyright tag is trivial. Watermarking provides a visible deterrent, and copyright registration provides legal standing. Embedded IPTC copyright metadata is useful for attribution in professional workflows but should not be relied upon as a primary protection mechanism. Our guide to EXIF vs XMP vs IPTC explains where copyright data is stored.
+
+**Frequently asked questions**
+
+**Should I remove metadata before uploading to stock photo sites?**
+
+Most stock photo platforms require metadata for cataloguing — camera settings, keywords, and copyright fields are part of their workflow. Check each platform's requirements. For personal portfolio sites and social media, stripping metadata is safer.
+
+**Can other photographers see my camera serial number?**
+
+If you share the original file with metadata intact, yes. Anyone who examines the EXIF data can see your camera and lens serial numbers. This data is typically invisible in normal viewing but accessible through any EXIF viewer.
+
+**How do professional agencies handle metadata?**
+
+News agencies and stock libraries rely heavily on IPTC metadata for cataloguing, rights management, and editorial workflows. Photographers working with agencies should understand which fields are required and which are optional, and clean personal data before submission when possible.`,
   },
   {
     slug: 'how-to-check-if-your-photos-have-metadata',
     title: 'How to Check If Your Photos Have Hidden Metadata',
-    description: 'A beginner-friendly guide to viewing the hidden EXIF data embedded in your photos — what to look for and why it matters.',
+    description: 'Every smartphone photo contains hidden EXIF data. Here is how to check for GPS coordinates, device info, and other metadata on any device — iPhone, Android, Windows, Mac, or browser.',
     category: 'Educational',
     date: '2026-03-16',
-    readTime: '5 min read',
-    content: `You've probably heard that photos contain hidden data, but how do you actually see it? This guide walks you through checking your own photos for metadata on any device — and understanding what you find.
+    readTime: '6 min read',
+    content: `The fastest way to check any photo for hidden metadata is to open exifvoid.com in your browser and drop in the image. The Privacy Scan instantly shows all embedded EXIF data including GPS coordinates on an interactive map, device identifiers, timestamps, and a privacy risk score — all without uploading your file to any server. You can also check on iPhone (Photos app info panel), Android (Google Photos details), Windows (File Properties Details tab), and Mac (Preview Inspector).
 
-**Why you should check**
+**Why should you check your photos for metadata?**
 
-Before you can protect your privacy, you need to know what you're dealing with. Most people are surprised by how much information their phone quietly embeds into every photo. A single snapshot can contain your precise GPS coordinates, the exact time it was taken, the make, model, and unique serial number of your device, and sometimes even your name.
+Most people are surprised by how much information their phone silently embeds into every photo. A single snapshot can contain GPS coordinates accurate to a few metres (potentially revealing your home address), the exact date and time it was taken, your device make, model, and unique serial number, and sometimes even your name if set in device settings.
 
-The only way to know what's in your specific photos is to look.
+The only way to know what your specific photos contain is to look. Once you have seen your home location pinpointed on a map inside a casual photo, you will understand why metadata removal matters.
 
-**Method 1: Use ExifVoid (any device, easiest)**
+**Method 1: ExifVoid (any device, most comprehensive)**
 
-The simplest way to check any photo is to go to exifvoid.com in your browser. Drop in a photo or tap to select one from your gallery. Within a second, the Privacy Scan shows you everything embedded in the file, organised by risk level. GPS coordinates are displayed on an interactive map so you can immediately see whether your location is exposed. This works on phones, tablets, and computers — no app installation needed.
+Go to exifvoid.com in any browser. Drop in a photo or tap to select from your gallery. Within a second, the Privacy Scan shows everything embedded, organised by risk level. GPS coordinates appear on an interactive map. Device identifiers, timestamps, and software information are categorised as high, medium, or low risk. This works on phones, tablets, and computers with no app installation needed.
 
 **Method 2: Check on iPhone**
 
-Open the Photos app and select a photo. Tap the info button (the circled "i" icon) or swipe up on the photo. You'll see a section showing the date, time, camera details, and — if location was enabled — a map showing where the photo was taken. This gives you a basic view, but it doesn't show everything. Serial numbers, software details, and other metadata fields are hidden from this view.
+Open the Photos app, select a photo, and tap the info button (circled "i" icon) or swipe up. You will see the date, time, camera details, and a map showing where the photo was taken if location was enabled. This gives a basic view but does not show serial numbers, software details, or risk context. See our full iPhone guide for removal instructions.
 
 **Method 3: Check on Android**
 
-Open Google Photos or your gallery app. Select a photo and tap the three-dot menu, then Details or Info. You'll see basic information including date, resolution, and location if available. Like iPhone, this shows a simplified view and hides many of the more privacy-sensitive fields like device serial numbers.
+Open Google Photos or your gallery app, select a photo, and tap the three-dot menu, then Details or Info. This shows basic information including date, resolution, and location if available. Like iPhone, this is a simplified view that hides many privacy-sensitive fields. See our full Android guide for more.
 
 **Method 4: Check on Windows**
 
-Right-click any image file and select Properties. Click the Details tab. This shows a comprehensive list of metadata fields including camera make and model, GPS coordinates (listed as latitude and longitude values), exposure settings, and software information. Windows gives you more detail than phone gallery apps, but the information is presented as raw field names without context about what's risky.
+Right-click any image file and select Properties, then click the Details tab. This shows a comprehensive list including camera make and model, GPS coordinates (as latitude and longitude values), exposure settings, and software. Windows gives more detail than phone apps but presents raw field names without privacy context. Our Windows guide covers both viewing and removal.
 
 **Method 5: Check on Mac**
 
-Open the photo in Preview. Go to Tools in the menu bar and select Show Inspector, or press Command-I. Click through the tabs — General, Exif, GPS, TIFF — to see different categories of embedded data. The GPS tab will show coordinates if location was embedded.
+Open the photo in Preview. Go to Tools then Show Inspector (Command-I). The Exif, GPS, and TIFF tabs show different categories of embedded data. The GPS tab shows coordinates if location was embedded. See our Mac guide for removal options.
 
-**What to look for**
+**What should you look for?**
 
-When checking a photo, pay attention to these fields in particular. GPS Latitude and Longitude are the highest risk — these reveal exactly where the photo was taken, often accurate to a few metres. Camera Serial Number and Lens Serial Number are unique to your specific device and can link photos across platforms. Date/Time Original shows exactly when the photo was taken. Software and Host Computer reveal your editing tools and device. Owner Name or Artist may contain your real name.
+The highest-risk fields are GPS Latitude and Longitude (your exact location), Camera Serial Number and Lens Serial Number (unique device identifiers that can link photos across platforms), Date/Time Original (when you took the photo), Software and Host Computer (your editing tools and device), and Owner Name or Artist (which may contain your real name).
 
-**What if you find metadata?**
+**What should you do if you find metadata?**
 
-If your photos contain data you're not comfortable sharing, clean them before posting anywhere public. ExifVoid strips everything in one click, and for JPEG files it does this without affecting image quality at all. The cleaned file downloads to your device ready to share safely.
+If your photos contain data you are not comfortable sharing, clean them before posting anywhere public. On ExifVoid, click clean after scanning — one click removes everything and the cleaned file downloads ready to share. For information on which platforms handle metadata for you and which do not, see our social media metadata guide.
 
-**Building awareness**
+**Frequently asked questions**
 
-The most important thing is simply knowing that this data exists. Once you've checked a few of your own photos and seen your home location pinpointed on a map, you'll understand why metadata removal matters. From there, making it a habit before sharing photos publicly becomes second nature.`,
+**Do all photos have EXIF data?**
+
+Almost every photo taken with a smartphone or digital camera contains EXIF data. Screenshots typically contain less metadata but may still include device and software information. Photos downloaded from social media platforms that strip metadata (like Facebook or Instagram) may have minimal or no EXIF data remaining.
+
+**Can I check metadata on photos I have received from others?**
+
+Yes. Drop any image into ExifVoid to see its metadata — whether it is your own photo or one you received from someone else. This can be useful for verifying claims about when or where a photo was taken.
+
+**Is there metadata in videos too?**
+
+Yes. Video files contain similar metadata including GPS coordinates, device information, and timestamps. ExifVoid currently focuses on image files — for video metadata, dedicated tools like ExifTool or MediaInfo are needed.`,
   },
   {
     slug: 'photo-privacy-tips-for-online-dating',
     title: 'Photo Privacy Tips for Online Dating: Protect Your Location and Identity',
-    description: 'How to keep your personal information safe when sharing photos on dating apps and websites. Essential metadata removal tips for online dating.',
+    description: 'Dating profile photos can expose your home address through hidden GPS metadata. Here is how to protect your location and identity when sharing photos on Tinder, Bumble, Hinge, and other apps.',
     category: 'Educational',
     date: '2026-03-17',
-    readTime: '5 min read',
-    content: `Online dating involves sharing photos with strangers — people you haven't met and may never meet. While most interactions are perfectly safe, the hidden metadata in your photos can expose far more about you than you intend.
+    readTime: '6 min read',
+    content: `Before uploading photos to any dating app or website, remove hidden EXIF metadata that could expose your home address, workplace, and daily routine. Most major dating apps — including Tinder, Bumble, and Hinge — strip metadata from app uploads, but this protection is not guaranteed across all versions, platforms, or sharing methods. Clean your photos at exifvoid.com before uploading for guaranteed privacy — it takes seconds and works in any browser without uploading files to a server.
 
-**What dating photos can reveal**
+**What can dating photos reveal about you?**
 
-When you take a selfie at home and upload it to a dating profile, the photo may contain GPS coordinates accurate to within a few metres of your front door. A photo taken at your workplace could reveal your employer's address. Even photos taken at your favourite café or gym can establish patterns in your routine.
+When you take a selfie at home, the photo may contain GPS coordinates accurate to within a few metres of your front door. A photo at your workplace could reveal your employer's address. Photos at your favourite café or gym can establish patterns in your routine. This data is invisible when viewing the photo but extractable by anyone who downloads the original file. Our article on whether metadata can be used to track you covers these risks in detail.
 
-Most major dating apps — including Tinder, Bumble, and Hinge — strip EXIF metadata when you upload photos through their apps. However, this protection isn't guaranteed. Behaviour can vary between app versions and platforms. Photos shared through the app's messaging system may not always be stripped. If you share photos via links, email, or other messaging apps after matching with someone, the full metadata travels with the file.
+**Do dating apps strip EXIF data?**
 
-**The risk is real**
+Most major dating apps strip metadata when you upload through their apps. Tinder, Bumble, and Hinge remove EXIF data including GPS coordinates from profile photos uploaded through their official apps.
 
-There have been documented cases of stalking and harassment where location data from photos played a role. Someone you've only exchanged a few messages with should not be able to pinpoint your home address. Even if you trust the person you're chatting with, photos uploaded to dating platforms can sometimes be scraped or accessed by third parties.
+However, there are important caveats. Behaviour can vary between app versions and between iOS and Android implementations. Photos shared through in-app messaging may not always be processed the same way. If you share photos via links, email, or other messaging apps after matching with someone, the full metadata travels with the file. Third-party scrapers accessing your profile may retrieve images differently than the standard app experience.
 
 **How to protect yourself**
 
-The safest approach is to clean your photos before uploading them to any dating platform. This way, your privacy doesn't depend on the platform's metadata handling.
+Clean every photo before uploading to any dating platform. Open exifvoid.com in your browser. Drop in each photo you plan to use. Check the Privacy Scan — if you see GPS coordinates on a map, your location is embedded and exposed. Clean the file with one tap. Use the cleaned version for your dating profile.
 
-Open exifvoid.com in your browser before uploading photos to your dating profile. Drop in each photo you plan to use. Check the Privacy Scan — if you see GPS coordinates on a map, your location is embedded and exposed. Clean the file with one tap. Use the cleaned version for your dating profile.
+This takes seconds per photo and ensures that your privacy does not depend on any app's metadata handling. For a broader overview of how different platforms handle metadata, see our social media platform guide.
 
-This takes seconds per photo and ensures that no matter how the platform handles your uploads, your personal data isn't embedded in the file.
+**What other photo privacy risks exist in online dating?**
 
-**Beyond metadata: other photo privacy tips**
+While metadata is the hidden risk most people miss, visible content matters too. Check backgrounds for identifiable landmarks near your home or workplace. Watch for your car's number plate, building numbers, or street signs. Avoid photos in work uniforms or with visible name badges. Be mindful of reflective surfaces that might show your surroundings.
 
-While metadata is the hidden risk most people miss, there are visible privacy considerations too. Check the background of your photos for identifiable landmarks near your home or workplace. Be cautious with photos that show your car's number plate, building numbers, or street signs. Avoid photos in work uniforms or with visible name badges. Be mindful of reflective surfaces that might show your surroundings.
+**Can you check photos you receive from matches?**
 
-**What about photos you receive?**
+Yes. If someone sends you a photo directly — not through the dating app's built-in messaging — you can check it for metadata. Drop it into ExifVoid to see what is embedded. If someone claims to be in one city but their photo metadata shows GPS coordinates in a different location, that is worth noting.
 
-This works both ways. If someone sends you a photo directly — not through a dating app's built-in messaging — you can check it for metadata too. Drop it into ExifVoid to see what's embedded. This isn't about being suspicious of everyone, but it can occasionally reveal inconsistencies. For example, if someone claims to be in one city but their photo metadata shows GPS coordinates in a different country, that's worth noting.
+**Frequently asked questions**
 
-**A small habit with a big impact**
+**Does Tinder strip all metadata from my photos?**
 
-Cleaning your dating photos takes less than a minute and removes a category of risk that most people don't even know exists. Your dating profile should show who you are — it shouldn't silently broadcast where you live. Making metadata removal part of your profile setup process is one of the simplest things you can do to stay safer while dating online.`,
+Tinder strips most EXIF data when you upload through the official app. However, metadata handling can vary between versions and platforms. The safest approach is to clean photos yourself before uploading.
+
+**Should I disable location on my phone for dating photos?**
+
+Disabling location in your camera settings prevents GPS data from being embedded in future photos. However, it also removes the ability to search your personal photos by location. A better approach is to keep location enabled and strip metadata selectively before sharing. See our iPhone and Android guides for instructions.
+
+**Can someone reverse-search my dating photos to find my other accounts?**
+
+Yes. Reverse image search tools can find where else your photos appear online. This is a separate risk from metadata — it relies on the visual content of the image. Using different photos across platforms reduces this risk, but metadata removal alone does not prevent reverse image searching.
+
+**What about video calls — do they contain metadata?**
+
+Live video calls do not embed EXIF data in the way photos do. However, your background, lighting, and surroundings in video calls can reveal location information. Some people use virtual backgrounds for privacy during dating video calls.`,
   },
 ]
 
