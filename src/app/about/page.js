@@ -22,7 +22,7 @@ export default function AboutPage() {
       {
         '@type': 'Question',
         name: 'Does removing metadata reduce image quality?',
-        acceptedAnswer: { '@type': 'Answer', text: 'No. For JPEG files, ExifVoid uses binary excision to surgically remove metadata segments without re-compressing the image data. The result is pixel-identical to the original, just without hidden metadata.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'ExifVoid uses canvas re-encoding at high quality to strip metadata while the browser automatically handles correct image orientation. The visual difference is imperceptible, and the output is always correctly oriented.' },
       },
       {
         '@type': 'Question',
@@ -32,7 +32,7 @@ export default function AboutPage() {
       {
         '@type': 'Question',
         name: 'What file formats does ExifVoid support?',
-        acceptedAnswer: { '@type': 'Answer', text: 'ExifVoid supports JPEG, PNG, WebP, and HEIC files. JPEG and PNG files use binary-level metadata removal for zero quality loss. Other formats use canvas re-encoding.' },
+        acceptedAnswer: { '@type': 'Answer', text: 'ExifVoid supports JPEG, PNG, WebP, and HEIC files. All formats use canvas re-encoding which strips all metadata while preserving correct image orientation.' },
       },
     ],
   }
@@ -43,6 +43,7 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <link rel="canonical" href="https://exifvoid.com/about" />
       <Navbar />
 
       <main className="flex-1">
@@ -143,18 +144,20 @@ export default function AboutPage() {
               <h2 className="text-xl font-semibold text-foreground mb-3">The technical approach</h2>
               <div className="text-muted leading-relaxed space-y-3 text-[15px]">
                 <p>
-                  For JPEG files, ExifVoid uses binary excision — it reads the raw bytes of your image file
-                  and surgically removes the metadata segments (APP1, APP2, COM blocks) without re-compressing
-                  the actual image data. This means zero quality loss. Your photo comes out pixel-identical to
-                  the original, just without the hidden metadata.
+                  ExifVoid uses canvas re-encoding to strip metadata from your images. When you clean a file,
+                  the browser loads the image onto an HTML canvas element and re-exports it as a fresh file.
+                  Because canvas export creates a completely new image, no metadata from the original file
+                  carries over — it is all stripped automatically.
                 </p>
                 <p>
-                  For PNG files, a similar chunk-removal technique is used. Metadata lives in text chunks (tEXt,
-                  iTXt, zTXt, eXIf) which are excised while preserving the image data chunks entirely.
+                  A key advantage of this approach is that the browser automatically handles EXIF orientation
+                  tags when rendering to canvas. This means your cleaned photos always display with the correct
+                  orientation, regardless of how the original camera saved them.
                 </p>
                 <p>
-                  For other formats (WebP, HEIC), a canvas re-encoding fallback is used. This naturally strips
-                  metadata during the re-encoding process, though minor quality differences may occur.
+                  For JPEG files, re-encoding is performed at 95% quality — a level where the visual difference
+                  from the original is imperceptible to the human eye. The result is a clean, correctly-oriented
+                  photo with all hidden metadata completely removed.
                 </p>
               </div>
             </section>
@@ -192,7 +195,7 @@ export default function AboutPage() {
                       ['Client-side processing', true, false],
                       ['Zero file uploads', true, false],
                       ['Works offline', true, false],
-                      ['Zero quality loss (JPEG)', true, false],
+                      ['Preserves correct orientation', true, false],
                       ['GPS location preview', true, true],
                       ['Threat risk scoring', true, false],
                       ['Free to use', true, true],

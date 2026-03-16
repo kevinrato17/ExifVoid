@@ -50,6 +50,18 @@ export default function BlogPostContent({ slug }) {
           articleSection: post.category,
         }) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://exifvoid.com' },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://exifvoid.com/blog' },
+            { '@type': 'ListItem', position: 3, name: post.title, item: `https://exifvoid.com/blog/${post.slug}` },
+          ],
+        }) }}
+      />
       <Navbar />
 
       <main className="flex-1">

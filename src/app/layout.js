@@ -2,20 +2,27 @@ import './globals.css'
 import Script from 'next/script'
 
 export const metadata = {
-  title: 'ExifVoid — Remove Photo Metadata Privately',
-  description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing — your files never leave your device.',
-  keywords: 'EXIF remover, metadata remover, photo privacy, GPS removal, client-side, privacy tool',
+  metadataBase: new URL('https://exifvoid.com'),
+  title: {
+    default: 'ExifVoid — Free Online EXIF Data Remover | Remove Photo Metadata Privately',
+    template: '%s — ExifVoid',
+  },
+  description: 'Free online EXIF remover and metadata scanner. Strip GPS coordinates, camera IDs, and hidden data from photos. 100% client-side — your files never leave your device.',
+  keywords: 'EXIF remover, remove EXIF data online, metadata remover, photo privacy, GPS removal, strip metadata, client-side, photo metadata remover, remove photo metadata free',
   openGraph: {
-    title: 'ExifVoid — Remove Photo Metadata Privately',
-    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side.',
+    title: 'ExifVoid — Free Online EXIF Data Remover',
+    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing.',
     url: 'https://exifvoid.com',
     siteName: 'ExifVoid',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ExifVoid — Remove Photo Metadata Privately',
+    title: 'ExifVoid — Free Online EXIF Data Remover',
     description: 'Your files never leave your device. 100% browser-based metadata removal.',
+  },
+  alternates: {
+    canonical: 'https://exifvoid.com',
   },
 }
 
@@ -60,7 +67,6 @@ export default function RootLayout({ children }) {
         </Script>
         <link rel="icon" href="/logo.png" />
         <meta name="theme-color" content="#4F46E5" />
-        <link rel="canonical" href="https://exifvoid.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

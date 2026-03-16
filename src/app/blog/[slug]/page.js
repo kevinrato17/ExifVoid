@@ -12,7 +12,7 @@ export function generateMetadata({ params }) {
   if (!post) return { title: 'Post Not Found — ExifVoid' }
 
   return {
-    title: `${post.title} — ExifVoid`,
+    title: post.title,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -26,6 +26,9 @@ export function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+    },
+    alternates: {
+      canonical: `https://exifvoid.com/blog/${post.slug}`,
     },
   }
 }

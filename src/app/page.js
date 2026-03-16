@@ -85,12 +85,51 @@ export default function HomePage() {
           '@type': 'WebApplication',
           name: 'ExifVoid',
           url: 'https://exifvoid.com',
-          description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing.',
+          description: 'Free online EXIF remover. Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing.',
           applicationCategory: 'UtilitiesApplication',
           operatingSystem: 'Any',
           offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
-          featureList: 'EXIF removal, GPS stripping, metadata scanning, privacy analysis, binary excision, zero quality loss, offline support',
+          featureList: 'EXIF removal, GPS stripping, metadata scanning, privacy analysis, canvas re-encoding, correct orientation, offline support',
           browserRequirements: 'Requires JavaScript. Works in Chrome, Firefox, Safari, Edge.',
+        }) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'What is EXIF data and why is it a privacy risk?',
+              acceptedAnswer: { '@type': 'Answer', text: 'EXIF (Exchangeable Image File Format) data is hidden metadata embedded in every digital photo. It can include GPS coordinates accurate to a few metres, camera serial numbers, timestamps, device model, and editing software. Anyone who downloads your photo can extract this data in seconds, potentially revealing your home address, workplace, or daily routine.' },
+            },
+            {
+              '@type': 'Question',
+              name: 'Does ExifVoid upload my photos to a server?',
+              acceptedAnswer: { '@type': 'Answer', text: 'No. ExifVoid processes files entirely in your web browser using JavaScript. Your photos never leave your device. You can verify this by opening your browser Developer Tools, checking the Network tab, and confirming zero outbound image data. The tool even works offline after the page loads.' },
+            },
+            {
+              '@type': 'Question',
+              name: 'Which social media platforms strip EXIF data automatically?',
+              acceptedAnswer: { '@type': 'Answer', text: 'Facebook, Instagram, and Twitter/X strip most EXIF data on upload. However, many platforms do not — including some messaging apps, forums, marketplaces, and cloud storage services. The safest approach is to always remove metadata yourself before sharing.' },
+            },
+            {
+              '@type': 'Question',
+              name: 'Does removing metadata affect image quality?',
+              acceptedAnswer: { '@type': 'Answer', text: 'ExifVoid uses canvas re-encoding at high quality (95% for JPEG). The visual difference is imperceptible to the human eye. The browser also automatically handles orientation, so your cleaned photos always display correctly.' },
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I remove EXIF data from iPhone and Android photos?',
+              acceptedAnswer: { '@type': 'Answer', text: 'Yes. ExifVoid works in any modern browser on any device — iPhone, Android, Mac, Windows, or Linux. Simply open exifvoid.com in your browser, drop in your photo, and clean it. No app installation required.' },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is ExifVoid free to use?',
+              acceptedAnswer: { '@type': 'Answer', text: 'Yes, ExifVoid is completely free with no accounts, no sign-ups, no usage limits, and no ads.' },
+            },
+          ],
         }) }}
       />
       <Navbar />
@@ -201,6 +240,114 @@ export default function HomePage() {
               </p>
             </div>
           )}
+
+          {/* SEO Content Section - always visible for crawlers */}
+          <div className="mt-16 space-y-10 border-t border-border pt-10">
+
+            {/* How It Works */}
+            <section>
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                Free Online EXIF Data Remover
+              </h2>
+              <div className="text-muted leading-relaxed space-y-3 text-[15px]">
+                <p>
+                  ExifVoid is a free online EXIF remover that strips hidden metadata from your photos entirely
+                  in your browser. Unlike other metadata removal tools that upload your files to remote servers,
+                  ExifVoid processes everything client-side — your photos never leave your device.
+                </p>
+                <p>
+                  Every digital photo contains embedded EXIF data including GPS coordinates, camera serial numbers,
+                  timestamps, and device information. This hidden metadata can reveal your home address, daily
+                  routines, and the exact device you use. ExifVoid scans for all of this, scores the privacy risk,
+                  and removes it with a single click.
+                </p>
+              </div>
+            </section>
+
+            {/* How It Works Steps */}
+            <section>
+              <h2 className="text-xl font-semibold text-foreground mb-4">
+                How to Remove Metadata from Photos
+              </h2>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  { step: '1', title: 'Upload', desc: 'Drop your photo into ExifVoid or click to browse. Supports JPEG, PNG, WebP, and HEIC files.' },
+                  { step: '2', title: 'Scan', desc: 'View every piece of hidden metadata — GPS location on a map, camera details, timestamps, and a privacy risk score.' },
+                  { step: '3', title: 'Clean', desc: 'Remove all metadata with one click and download the cleaned file. Your photo is safe to share anywhere.' },
+                ].map((item) => (
+                  <div key={item.step} className="rounded-xl border border-border p-4 bg-surface/30">
+                    <div className="w-8 h-8 rounded-full bg-brand/10 text-brand flex items-center justify-center text-sm font-bold mb-3">
+                      {item.step}
+                    </div>
+                    <h3 className="font-semibold text-foreground text-sm mb-1">{item.title}</h3>
+                    <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Use Cases */}
+            <section>
+              <h2 className="text-xl font-semibold text-foreground mb-4">
+                Who Needs to Remove Photo Metadata?
+              </h2>
+              <div className="text-muted leading-relaxed space-y-3 text-[15px]">
+                <p>
+                  Anyone sharing photos online should consider removing EXIF data first. This includes sellers
+                  uploading product photos to eBay, Etsy, or Facebook Marketplace — where listing photos can
+                  expose your home GPS coordinates. Online daters should clean photos before uploading to dating
+                  profiles. Journalists and activists need to strip metadata to protect sources and locations.
+                  Businesses handling customer photos need to comply with GDPR requirements around personal data
+                  in metadata.
+                </p>
+              </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section>
+              <h2 className="text-xl font-semibold text-foreground mb-4">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {[
+                  {
+                    q: 'What is EXIF data and why is it a privacy risk?',
+                    a: 'EXIF (Exchangeable Image File Format) data is hidden metadata embedded in every digital photo. It can include GPS coordinates accurate to a few metres, camera serial numbers, timestamps, device model, and editing software. Anyone who downloads your photo can extract this data in seconds, potentially revealing your home address, workplace, or daily routine.'
+                  },
+                  {
+                    q: 'Does ExifVoid upload my photos to a server?',
+                    a: 'No. ExifVoid processes files entirely in your web browser using JavaScript. Your photos never leave your device. You can verify this by opening your browser Developer Tools (F12), checking the Network tab, and confirming zero outbound image data. The tool even works offline after the page loads.'
+                  },
+                  {
+                    q: 'Which social media platforms strip EXIF data automatically?',
+                    a: 'Facebook, Instagram, and Twitter/X strip most EXIF data on upload. However, many platforms do not — including some messaging apps, forums, marketplaces, and cloud storage services. The safest approach is to always remove metadata yourself before sharing, rather than relying on the platform.'
+                  },
+                  {
+                    q: 'Does removing metadata affect image quality?',
+                    a: 'ExifVoid uses canvas re-encoding at high quality (95% for JPEG). The visual difference is imperceptible to the human eye. The browser also automatically handles orientation, so your cleaned photos always display correctly.'
+                  },
+                  {
+                    q: 'Can I remove EXIF data from iPhone and Android photos?',
+                    a: 'Yes. ExifVoid works in any modern browser on any device — iPhone, Android, Mac, Windows, or Linux. Simply open exifvoid.com in Safari or Chrome, drop in your photo, and clean it. No app installation required.'
+                  },
+                  {
+                    q: 'Is ExifVoid free to use?',
+                    a: 'Yes, ExifVoid is completely free. There are no accounts, no sign-ups, no usage limits, and no ads. It is a privacy-first tool built for people who want to protect their personal information.'
+                  },
+                ].map((faq, idx) => (
+                  <details key={idx} className="group rounded-xl border border-border bg-surface/30 overflow-hidden">
+                    <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium text-foreground hover:bg-surface/60 transition-colors">
+                      {faq.q}
+                      <svg className="w-4 h-4 text-muted shrink-0 ml-2 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </summary>
+                    <p className="px-4 pb-4 text-sm text-muted leading-relaxed">{faq.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </main>
 
