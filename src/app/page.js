@@ -7,74 +7,131 @@ import FileUploader from '../components/FileUploader'
 import TrustBadges from '../components/TrustBadges'
 import PrivacyScanResults from '../components/PrivacyScanResults'
 import CleaningResults from '../components/CleaningResults'
-import { readMetadata, countMetadata } from '../lib/exifReader'
-import { stripMetadata, getCleanFilename, downloadCleanFile } from '../lib/metadataStripper'
+import BatchFileCard from '../components/BatchFileCard'
+import { readMetadata } from '../lib/exifReader'
+import { stripMetadata, getCleanFilename, downloadCleanFile, downloadAllAsZip } from '../lib/metadataStripper'
 import { analyzeThreat } from '../lib/threatAnalyzer'
 
 export default function HomePage() {
-  const [state, setState] = useState('idle') // idle | scanning | scanned | cleaning | cleaned
-  const [file, setFile] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
-  const [metadata, setMetadata] = useState(null)
-  const [threat, setThreat] = useState(null)
-  const [cleanResult, setCleanResult] = useState(null)
-  const [cleanBlob, setCleanBlob] = useState(null)
+  // Main app state: idle | scanning | scanned | cleaning | cleaned
+  const [state, setState] = useState('idle')
+  // Array of file objects: { file, imagePreview, metadata, threat, cleanResult, cleanBlob, status }
+  const [files, setFiles] = useState([])
+  // Progress tracking
+  const [scanProgress, setScanProgress] = useState({ current: 0, total: 0 })
+  const [cleanProgress, setCleanProgress] = useState({ current: 0, total: 0 })
 
-  const handleFileSelected = useCallback(async (selectedFile) => {
-    setFile(selectedFile)
+  const isBatch = files.length > 1
+
+  // === FILE SELECTION ===
+  const handleFilesSelected = useCallback(async (selectedFiles) => {
+    const fileItems = selectedFiles.map(f => ({
+      file: f,
+      imagePreview: URL.createObjectURL(f),
+      metadata: null,
+      threat: null,
+      cleanResult: null,
+      cleanBlob: null,
+      status: 'pending',
+    }))
+
+    setFiles(fileItems)
     setState('scanning')
+    setScanProgress({ current: 0, total: selectedFiles.length })
 
-    // Create image preview
-    const previewUrl = URL.createObjectURL(selectedFile)
-    setImagePreview(previewUrl)
+    // Scan files sequentially to avoid overwhelming the browser
+    const scannedItems = [...fileItems]
+    for (let i = 0; i < scannedItems.length; i++) {
+      // Update current file to scanning
+      scannedItems[i] = { ...scannedItems[i], status: 'scanning' }
+      setFiles([...scannedItems])
+      setScanProgress({ current: i, total: scannedItems.length })
 
-    try {
-      // Read metadata
-      const meta = await readMetadata(selectedFile)
-      setMetadata(meta)
+      try {
+        const meta = await readMetadata(scannedItems[i].file)
+        const threatResult = analyzeThreat(meta.organized)
+        scannedItems[i] = {
+          ...scannedItems[i],
+          metadata: meta,
+          threat: threatResult,
+          status: 'scanned',
+        }
+      } catch (error) {
+        console.error(`Scan error for ${scannedItems[i].file.name}:`, error)
+        scannedItems[i] = { ...scannedItems[i], status: 'error' }
+      }
 
-      // Analyze threats
-      const threatResult = analyzeThreat(meta.organized)
-      setThreat(threatResult)
-
-      setState('scanned')
-    } catch (error) {
-      console.error('Scan error:', error)
-      setState('idle')
+      setFiles([...scannedItems])
     }
+
+    setScanProgress({ current: scannedItems.length, total: scannedItems.length })
+    setState('scanned')
   }, [])
 
+  // === CLEANING ===
   const handleClean = useCallback(async () => {
-    if (!file) return
     setState('cleaning')
+    setCleanProgress({ current: 0, total: files.length })
 
-    try {
-      const result = await stripMetadata(file)
-      setCleanResult(result)
-      setCleanBlob(result.blob)
-      setState('cleaned')
-    } catch (error) {
-      console.error('Cleaning error:', error)
-      setState('scanned')
+    const cleanedItems = [...files]
+    for (let i = 0; i < cleanedItems.length; i++) {
+      if (cleanedItems[i].status === 'error') continue
+
+      cleanedItems[i] = { ...cleanedItems[i], status: 'cleaning' }
+      setFiles([...cleanedItems])
+      setCleanProgress({ current: i, total: cleanedItems.length })
+
+      try {
+        const result = await stripMetadata(cleanedItems[i].file)
+        cleanedItems[i] = {
+          ...cleanedItems[i],
+          cleanResult: result,
+          cleanBlob: result.blob,
+          status: 'cleaned',
+        }
+      } catch (error) {
+        console.error(`Cleaning error for ${cleanedItems[i].file.name}:`, error)
+        cleanedItems[i] = { ...cleanedItems[i], status: 'error' }
+      }
+
+      setFiles([...cleanedItems])
     }
-  }, [file])
 
-  const handleDownload = useCallback(() => {
-    if (!cleanBlob || !file) return
-    const filename = getCleanFilename(file.name)
-    downloadCleanFile(cleanBlob, filename)
-  }, [cleanBlob, file])
+    setCleanProgress({ current: cleanedItems.length, total: cleanedItems.length })
+    setState('cleaned')
+  }, [files])
 
+  // === DOWNLOADS ===
+  const handleDownloadSingle = useCallback((index) => {
+    const item = files[index]
+    if (!item?.cleanBlob) return
+    const filename = getCleanFilename(item.file.name)
+    downloadCleanFile(item.cleanBlob, filename)
+  }, [files])
+
+  const handleDownloadAll = useCallback(async () => {
+    const cleanedFiles = files
+      .filter(f => f.cleanBlob)
+      .map(f => ({
+        blob: f.cleanBlob,
+        filename: getCleanFilename(f.file.name),
+      }))
+    await downloadAllAsZip(cleanedFiles)
+  }, [files])
+
+  // === RESET ===
   const handleReset = useCallback(() => {
-    if (imagePreview) URL.revokeObjectURL(imagePreview)
-    setFile(null)
-    setImagePreview(null)
-    setMetadata(null)
-    setThreat(null)
-    setCleanResult(null)
-    setCleanBlob(null)
+    files.forEach(f => {
+      if (f.imagePreview) URL.revokeObjectURL(f.imagePreview)
+    })
+    setFiles([])
     setState('idle')
-  }, [imagePreview])
+    setScanProgress({ current: 0, total: 0 })
+    setCleanProgress({ current: 0, total: 0 })
+  }, [files])
+
+  // Helpers for single-file mode (backwards compat with PrivacyScanResults)
+  const singleFile = files[0] || null
 
   return (
     <>
@@ -85,11 +142,11 @@ export default function HomePage() {
           '@type': 'WebApplication',
           name: 'ExifVoid',
           url: 'https://exifvoid.com',
-          description: 'Free online EXIF remover. Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing.',
+          description: 'Free online EXIF remover. Strip EXIF data, GPS coordinates, and hidden metadata from your photos. Batch process up to 10 images at once. 100% client-side processing.',
           applicationCategory: 'UtilitiesApplication',
           operatingSystem: 'Any',
           offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
-          featureList: 'EXIF removal, GPS stripping, metadata scanning, privacy analysis, canvas re-encoding, correct orientation, offline support',
+          featureList: 'EXIF removal, GPS stripping, metadata scanning, privacy analysis, batch processing up to 10 images, ZIP download, canvas re-encoding, correct orientation, offline support',
           browserRequirements: 'Requires JavaScript. Works in Chrome, Firefox, Safari, Edge.',
         }) }}
       />
@@ -126,6 +183,11 @@ export default function HomePage() {
             },
             {
               '@type': 'Question',
+              name: 'How many photos can I process at once?',
+              acceptedAnswer: { '@type': 'Answer', text: 'ExifVoid supports batch processing of up to 10 images at once. Simply select or drag multiple images, review the scan results for each, and clean them all with a single click. You can download the cleaned files individually or as a ZIP archive.' },
+            },
+            {
+              '@type': 'Question',
               name: 'Is ExifVoid free to use?',
               acceptedAnswer: { '@type': 'Answer', text: 'Yes, ExifVoid is completely free with no accounts, no sign-ups, no usage limits, and no ads.' },
             },
@@ -155,24 +217,56 @@ export default function HomePage() {
           {/* Uploader - show in idle state */}
           {state === 'idle' && (
             <div className="space-y-6 animate-fade-in-up-delay-1">
-              <FileUploader onFileSelected={handleFileSelected} />
+              <FileUploader onFilesSelected={handleFilesSelected} />
               <TrustBadges />
             </div>
           )}
 
-          {/* Scanning state */}
+          {/* ===================== */}
+          {/* SCANNING STATE        */}
+          {/* ===================== */}
           {state === 'scanning' && (
-            <div className="text-center py-20 animate-fade-in-up">
-              <div className="w-12 h-12 border-2 border-brand border-t-transparent rounded-full animate-spin mx-auto" />
-              <p className="text-foreground font-medium mt-4">Scanning metadata...</p>
-              <p className="text-sm text-muted mt-1">Analysing your file locally in the browser</p>
+            <div className="animate-fade-in-up">
+              <div className="text-center mb-6">
+                <div className="relative w-16 h-16 mx-auto">
+                  <div className="absolute inset-0 border-2 border-brand/30 rounded-full" />
+                  <div className="absolute inset-0 border-2 border-brand border-t-transparent rounded-full animate-spin" />
+                </div>
+                <p className="text-foreground font-medium mt-5">
+                  Scanning {isBatch ? `${scanProgress.current + 1} of ${scanProgress.total} images` : 'metadata'}...
+                </p>
+                <p className="text-sm text-muted mt-1">Analysing your {isBatch ? 'files' : 'file'} locally in the browser</p>
+
+                {/* Progress bar for batch */}
+                {isBatch && (
+                  <div className="mt-4 max-w-xs mx-auto">
+                    <div className="h-1.5 bg-border rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-brand rounded-full transition-all duration-500 ease-out"
+                        style={{ width: `${((scanProgress.current) / scanProgress.total) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Show file cards as they scan */}
+              {isBatch && (
+                <div className="space-y-2 mt-6">
+                  {files.map((item, idx) => (
+                    <BatchFileCard key={idx} item={item} index={idx} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Scan results */}
-          {state === 'scanned' && metadata && threat && (
+          {/* ===================== */}
+          {/* SCANNED STATE         */}
+          {/* ===================== */}
+          {state === 'scanned' && (
             <div className="space-y-6">
-              {/* Back / file name header */}
+              {/* Header */}
               <div className="flex items-center justify-between">
                 <button
                   onClick={handleReset}
@@ -182,17 +276,65 @@ export default function HomePage() {
                     <line x1="19" y1="12" x2="5" y2="12" />
                     <polyline points="12 19 5 12 12 5" />
                   </svg>
-                  Scan another file
+                  {isBatch ? 'Start over' : 'Scan another file'}
                 </button>
+
+                {isBatch && (
+                  <span className="text-xs text-muted">
+                    {files.length} images scanned
+                  </span>
+                )}
               </div>
 
-              {/* Privacy Scan Report */}
-              <PrivacyScanResults
-                metadata={metadata}
-                threat={threat}
-                file={file}
-                imagePreview={imagePreview}
-              />
+              {/* SINGLE FILE: Show existing detailed view */}
+              {!isBatch && singleFile && singleFile.metadata && singleFile.threat && (
+                <PrivacyScanResults
+                  metadata={singleFile.metadata}
+                  threat={singleFile.threat}
+                  file={singleFile.file}
+                  imagePreview={singleFile.imagePreview}
+                />
+              )}
+
+              {/* BATCH: Show compact file cards */}
+              {isBatch && (
+                <div className="space-y-2">
+                  {/* Batch summary bar */}
+                  <div className="rounded-xl border border-border bg-surface/50 p-4 flex flex-wrap gap-4 items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <span className="text-xl font-semibold text-foreground">{files.length}</span>
+                        <p className="text-[10px] text-muted uppercase tracking-wide">Images</p>
+                      </div>
+                      <div className="w-px h-8 bg-border" />
+                      <div className="text-center">
+                        <span className="text-xl font-semibold text-foreground">
+                          {files.reduce((sum, f) => sum + (f.threat?.totalFields || 0), 0)}
+                        </span>
+                        <p className="text-[10px] text-muted uppercase tracking-wide">Total Fields</p>
+                      </div>
+                      <div className="w-px h-8 bg-border" />
+                      <div className="text-center">
+                        <span className="text-xl font-semibold text-danger">
+                          {files.filter(f => f.threat && (f.threat.riskLevel === 'high' || f.threat.riskLevel === 'critical')).length}
+                        </span>
+                        <p className="text-[10px] text-muted uppercase tracking-wide">High Risk</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs text-muted">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                      Tap any file to expand
+                    </div>
+                  </div>
+
+                  {/* File cards */}
+                  {files.map((item, idx) => (
+                    <BatchFileCard key={idx} item={item} index={idx} />
+                  ))}
+                </div>
+              )}
 
               {/* Clean button */}
               <button
@@ -202,31 +344,63 @@ export default function HomePage() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                Remove All Metadata
+                {isBatch ? `Remove Metadata from All ${files.length} Images` : 'Remove All Metadata'}
               </button>
             </div>
           )}
 
-          {/* Cleaning state */}
+          {/* ===================== */}
+          {/* CLEANING STATE        */}
+          {/* ===================== */}
           {state === 'cleaning' && (
-            <div className="text-center py-20 animate-fade-in-up">
-              <div className="relative w-16 h-16 mx-auto">
-                <div className="absolute inset-0 border-2 border-brand/30 rounded-full" />
-                <div className="absolute inset-0 border-2 border-brand border-t-transparent rounded-full animate-spin" />
-                <div className="absolute inset-3 border-2 border-safe border-b-transparent rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }} />
+            <div className="animate-fade-in-up">
+              <div className="text-center py-8">
+                <div className="relative w-16 h-16 mx-auto">
+                  <div className="absolute inset-0 border-2 border-brand/30 rounded-full" />
+                  <div className="absolute inset-0 border-2 border-brand border-t-transparent rounded-full animate-spin" />
+                  <div className="absolute inset-3 border-2 border-safe border-b-transparent rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }} />
+                </div>
+                <p className="text-foreground font-medium mt-5">
+                  {isBatch
+                    ? `Cleaning ${cleanProgress.current + 1} of ${cleanProgress.total} images...`
+                    : 'Stripping metadata...'
+                  }
+                </p>
+                <p className="text-sm text-muted mt-1">Processing locally in your browser</p>
+
+                {/* Progress bar for batch */}
+                {isBatch && (
+                  <div className="mt-4 max-w-xs mx-auto">
+                    <div className="h-1.5 bg-border rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-safe rounded-full transition-all duration-500 ease-out"
+                        style={{ width: `${((cleanProgress.current) / cleanProgress.total) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-              <p className="text-foreground font-medium mt-5">Stripping metadata...</p>
-              <p className="text-sm text-muted mt-1">Processing locally in your browser</p>
+
+              {/* Show file cards during cleaning */}
+              {isBatch && (
+                <div className="space-y-2">
+                  {files.map((item, idx) => (
+                    <BatchFileCard key={idx} item={item} index={idx} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Clean results */}
-          {state === 'cleaned' && cleanResult && (
+          {/* ===================== */}
+          {/* CLEANED STATE         */}
+          {/* ===================== */}
+          {state === 'cleaned' && (
             <div className="space-y-6">
               <CleaningResults
-                result={cleanResult}
-                filename={file?.name}
-                onDownload={handleDownload}
+                files={files.filter(f => f.cleanResult)}
+                onDownloadSingle={handleDownloadSingle}
+                onDownloadAll={handleDownloadAll}
                 onReset={handleReset}
               />
             </div>
@@ -271,9 +445,9 @@ export default function HomePage() {
               </h2>
               <div className="grid sm:grid-cols-3 gap-4">
                 {[
-                  { step: '1', title: 'Upload', desc: 'Drop your photo into ExifVoid or click to browse. Supports JPEG, PNG, WebP, and HEIC files.' },
-                  { step: '2', title: 'Scan', desc: 'View every piece of hidden metadata — GPS location on a map, camera details, timestamps, and a privacy risk score.' },
-                  { step: '3', title: 'Clean', desc: 'Remove all metadata with one click and download the cleaned file. Your photo is safe to share anywhere.' },
+                  { step: '1', title: 'Upload', desc: 'Drop your photos into ExifVoid or click to browse. Process up to 10 images at once. Supports JPEG, PNG, WebP, and HEIC.' },
+                  { step: '2', title: 'Scan', desc: 'View every piece of hidden metadata — GPS location on a map, camera details, timestamps, and a privacy risk score for each image.' },
+                  { step: '3', title: 'Clean', desc: 'Remove all metadata with one click and download cleaned files individually or as a ZIP archive. Safe to share anywhere.' },
                 ].map((item) => (
                   <div key={item.step} className="rounded-xl border border-border p-4 bg-surface/30">
                     <div className="w-8 h-8 rounded-full bg-brand/10 text-brand flex items-center justify-center text-sm font-bold mb-3">
@@ -317,6 +491,10 @@ export default function HomePage() {
                   {
                     q: 'Does ExifVoid upload my photos to a server?',
                     a: 'No. ExifVoid processes files entirely in your web browser using JavaScript. Your photos never leave your device. You can verify this by opening your browser Developer Tools (F12), checking the Network tab, and confirming zero outbound image data. The tool even works offline after the page loads.'
+                  },
+                  {
+                    q: 'How many photos can I process at once?',
+                    a: 'ExifVoid supports batch processing of up to 10 images at once. Simply select or drag multiple images into the upload area. You can review the metadata scan results for each file, then clean them all with a single click and download as a ZIP archive.'
                   },
                   {
                     q: 'Which social media platforms strip EXIF data automatically?',

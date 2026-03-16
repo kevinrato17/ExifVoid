@@ -4,14 +4,14 @@ import Script from 'next/script'
 export const metadata = {
   metadataBase: new URL('https://exifvoid.com'),
   title: {
-    default: 'ExifVoid — Free Online EXIF Data Remover | Remove Photo Metadata Privately',
+    default: 'ExifVoid — Free Online EXIF Data Remover | Batch Remove Photo Metadata',
     template: '%s — ExifVoid',
   },
-  description: 'Free online EXIF remover and metadata scanner. Strip GPS coordinates, camera IDs, and hidden data from photos. 100% client-side — your files never leave your device.',
-  keywords: 'EXIF remover, remove EXIF data online, metadata remover, photo privacy, GPS removal, strip metadata, client-side, photo metadata remover, remove photo metadata free',
+  description: 'Free online EXIF remover and metadata scanner. Batch process up to 10 images at once. Strip GPS coordinates, camera IDs, and hidden data from photos. 100% client-side — your files never leave your device.',
+  keywords: 'EXIF remover, remove EXIF data online, metadata remover, photo privacy, GPS removal, strip metadata, client-side, photo metadata remover, remove photo metadata free, batch EXIF removal, bulk metadata remover',
   openGraph: {
-    title: 'ExifVoid — Free Online EXIF Data Remover',
-    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos. 100% client-side processing.',
+    title: 'ExifVoid — Free Online EXIF Data Remover | Batch Processing',
+    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from up to 10 photos at once. 100% client-side processing.',
     url: 'https://exifvoid.com',
     siteName: 'ExifVoid',
     type: 'website',
@@ -19,7 +19,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ExifVoid — Free Online EXIF Data Remover',
-    description: 'Your files never leave your device. 100% browser-based metadata removal.',
+    description: 'Batch process up to 10 photos at once. Your files never leave your device. 100% browser-based metadata removal.',
   },
   alternates: {
     canonical: 'https://exifvoid.com',
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
     name: 'ExifVoid',
     url: 'https://exifvoid.com',
     logo: 'https://exifvoid.com/logo.png',
-    description: 'Privacy-first photo metadata removal tool. 100% client-side processing.',
+    description: 'Privacy-first photo metadata removal tool. Batch process up to 10 images. 100% client-side processing.',
     sameAs: [],
   }
 
@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
     '@type': 'WebSite',
     name: 'ExifVoid',
     url: 'https://exifvoid.com',
-    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos entirely in your browser.',
+    description: 'Strip EXIF data, GPS coordinates, and hidden metadata from your photos entirely in your browser. Batch process up to 10 images at once.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://exifvoid.com/blog?q={search_term_string}',

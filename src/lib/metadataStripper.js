@@ -8,6 +8,8 @@
  * Quality is set to 0.95 for JPEG — visually indistinguishable from original.
  */
 
+import JSZip from 'jszip'
+
 /**
  * Strip all metadata from a file
  * @param {File} file - The image file to clean
@@ -82,4 +84,19 @@ export function downloadCleanFile(blob, filename) {
   a.click()
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
+}
+
+/**
+ * Download multiple cleaned files as a ZIP archive
+ * @param {Array<{blob: Blob, filename: string}>} files - Array of cleaned file objects
+ */
+export async function downloadAllAsZip(files) {
+  const zip = new JSZip()
+
+  files.forEach(({ blob, filename }) => {
+    zip.file(filename, blob)
+  })
+
+  const zipBlob = await zip.generateAsync({ type: 'blob' })
+  downloadCleanFile(zipBlob, 'exifvoid_cleaned.zip')
 }

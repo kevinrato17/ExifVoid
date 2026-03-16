@@ -2,9 +2,23 @@
 
 import { useState, useRef, useCallback } from 'react'
 
-export default function FileUploader({ onFileSelected, disabled }) {
+const MAX_FILES = 10
+
+export default function FileUploader({ onFilesSelected, disabled }) {
   const [dragActive, setDragActive] = useState(false)
   const inputRef = useRef(null)
+
+  const processFiles = useCallback((fileList) => {
+    const imageFiles = Array.from(fileList).filter(f => f.type.startsWith('image/'))
+    if (imageFiles.length === 0) return
+
+    if (imageFiles.length > MAX_FILES) {
+      alert(`You can process up to ${MAX_FILES} images at once. You selected ${imageFiles.length}.`)
+      return
+    }
+
+    onFilesSelected(imageFiles)
+  }, [onFilesSelected])
 
   const handleDrag = useCallback((e) => {
     e.preventDefault()
@@ -20,19 +34,18 @@ export default function FileUploader({ onFileSelected, disabled }) {
     e.preventDefault()
     e.stopPropagation()
     setDragActive(false)
-
-    const file = e.dataTransfer.files?.[0]
-    if (file && file.type.startsWith('image/')) {
-      onFileSelected(file)
+    if (e.dataTransfer.files?.length > 0) {
+      processFiles(e.dataTransfer.files)
     }
-  }, [onFileSelected])
+  }, [processFiles])
 
   const handleChange = useCallback((e) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      onFileSelected(file)
+    if (e.target.files?.length > 0) {
+      processFiles(e.target.files)
     }
-  }, [onFileSelected])
+    // Reset input so the same files can be selected again
+    e.target.value = ''
+  }, [processFiles])
 
   const handleClick = () => {
     inputRef.current?.click()
@@ -59,6 +72,7 @@ export default function FileUploader({ onFileSelected, disabled }) {
         ref={inputRef}
         type="file"
         accept="image/*"
+        multiple
         onChange={handleChange}
         className="hidden"
       />
@@ -78,10 +92,10 @@ export default function FileUploader({ onFileSelected, disabled }) {
         </div>
 
         <p className="text-foreground font-medium text-lg mb-1.5">
-          {dragActive ? 'Drop your image here' : 'Drop an image or click to browse'}
+          {dragActive ? 'Drop your images here' : 'Drop images or click to browse'}
         </p>
         <p className="text-muted text-sm">
-          JPEG, PNG, WebP, HEIC — up to 50MB
+          JPEG, PNG, WebP, HEIC — up to {MAX_FILES} images at once
         </p>
 
         {/* Trust indicator */}
