@@ -16,6 +16,153 @@
 
 export const POSTS = [
   {
+    slug: 'photo-privacy-journalists-activists',
+    title: 'Photo Privacy for Journalists and Activists: A Complete Metadata Security Guide',
+    description: `If you photograph protests, document wrongdoing, or report from dangerous environments, your photos could expose you or your sources. Learn how to strip metadata and protect yourself before publishing.`,
+    category: 'Forensic',
+    date: '2026-04-02',
+    readTime: '10 min read',
+    content: `A single photograph can change the world. It can also destroy a life.
+
+For journalists, documentary photographers, and activists, images are among the most powerful tools available. But every photo taken on a modern camera or smartphone carries invisible data that can reveal exactly where you were, when you were there, and what device you used — information that, in the wrong hands, can put you, your sources, and your colleagues at serious risk.
+
+This guide covers everything you need to know about photo metadata security if your work involves sensitive environments, vulnerable sources, or hostile authorities.
+
+## Why Photo Metadata Is a Threat to Journalists and Activists
+
+Most people know that photos can be geotagged. Few realise just how much additional information is embedded in every image file by default.
+
+A single unstripped photograph can expose:
+
+- **GPS coordinates** precise to within a few metres — enough to identify a source's home, a safe house location, or a protest assembly point
+- **Timestamps** showing exactly when and in what sequence photos were taken — useful for reconstructing timelines and placing individuals at specific events
+- **Camera serial numbers** that uniquely identify your device and link every photo you've ever taken with it — across platforms, across years
+- **Device make and model** that narrows down who took the photo based on equipment known to be used by specific journalists or organisations
+- **Software identifiers** showing which editing tools were used, which can reveal workflow details
+- **Lens information** that further fingerprints your equipment setup
+
+For a detailed breakdown of all the data types stored in image files, our guide on [EXIF vs XMP vs IPTC metadata](/blog/exif-vs-xmp-vs-iptc-metadata-explained) covers each format in depth.
+
+The threat is not hypothetical. Metadata has been used to identify journalists' sources, locate activists at protests, and trace the origin of leaked photographs. State actors, corporate legal teams, and hostile individuals all have access to free tools that can extract this information in seconds.
+
+## Real-World Scenarios Where Metadata Creates Risk
+
+### Photographing Protests and Demonstrations
+
+When you photograph a protest, your images may capture faces, banners, and identifying details of participants. But the metadata tells a parallel story: the precise location of the protest (or pre-protest gathering points), the exact time participants arrived and left, and the device used to document it.
+
+If those images are shared unstripped — even via a supposedly private channel — anyone who obtains the files can reconstruct a detailed account of the event, including information about people who never consented to being documented.
+
+### Protecting Confidential Sources
+
+If a source provides you with photographs as evidence — of workplace wrongdoing, government misconduct, environmental damage — those images almost certainly contain metadata that could identify the source's location, device, or identity.
+
+Before publishing or even storing such images, stripping the metadata is essential. The image itself may be the story, but the metadata could be what gets someone killed.
+
+### Working in Hostile Environments
+
+Journalists operating in conflict zones or authoritarian states face the greatest risk. A confiscated phone or camera with unstripped images can reveal contact networks, safe locations, and the identities of people who cooperated with foreign media.
+
+Even images that seem innocuous — a landscape, a street scene — can contain GPS data pointing to locations that should remain secret.
+
+### Publishing Leaked or Whistleblower Material
+
+When you receive leaked images, the metadata may identify the leaker directly — their device, their location, the exact moment they captured or transmitted the file. Before publishing, and before even opening the file on a networked device, the metadata must be examined and stripped.
+
+## The Metadata Security Checklist for Journalists and Activists
+
+### Before You Shoot
+
+**Disable GPS tagging on your camera and phone.** This is your first line of defence. On iPhone, go to Settings → Privacy → Location Services → Camera → Never. On Android, open the Camera app → Settings and disable location tags. On dedicated cameras, disable GPS in the settings menu.
+
+Note that disabling GPS only prevents location data from being written going forward — it does not strip metadata from existing photos.
+
+**Consider your device.** Your camera serial number is embedded in every photo you take. If you use a dedicated camera for sensitive work, that serial number can be linked back to you via purchase records, warranty registration, or social media posts where you've shared other photos from the same device. Our guide on [camera serial numbers and privacy](/blog/camera-serial-number-privacy-risk) explains this risk in detail.
+
+**Use a separate device for sensitive assignments where possible.** A dedicated camera purchased anonymously and never registered creates far less of a metadata trail.
+
+### After You Shoot — Before Sharing
+
+**Strip all metadata before publishing or transmitting any image.** This is non-negotiable. Even if you disabled GPS, other identifying metadata remains.
+
+[ExifVoid](/) strips all metadata instantly, entirely in your browser. No upload to a server, no account required, no data retained. The cleaned file contains zero embedded information.
+
+The process takes about ten seconds per image:
+1. Go to [ExifVoid.com](/)
+2. Drop your image onto the upload area
+3. Review the Privacy Scan to see exactly what metadata is present
+4. Click **Remove All Metadata**
+5. Download the clean file
+
+**Verify the strip worked.** After stripping, re-upload the cleaned file to ExifVoid and confirm the metadata scan returns empty results. This takes 30 seconds and removes all doubt.
+
+**Be careful with screenshots.** Screenshots taken on smartphones often embed device information and timestamps. Treat them the same as photographs — strip before sharing.
+
+### When Receiving Images From Sources
+
+**Do not open received images on your primary networked device before examining them.** Sophisticated surveillance tools can trigger when certain file types are opened. Use an air-gapped device or a dedicated analysis machine where possible.
+
+**Extract and document the metadata before stripping it.** The metadata in a leaked image may itself be evidence — timestamps, location data, device information. Document it carefully before removal, then strip the file before any further handling or publication.
+
+**Never publish the original file.** Always publish a stripped copy. Even if you believe a file has already been cleaned, strip it again yourself to be certain.
+
+## Platform-Specific Risks
+
+Different platforms handle metadata differently — and many that claim to strip it do not do so reliably or completely.
+
+Our detailed guide on [which social media platforms strip photo metadata](/blog/do-social-media-platforms-strip-metadata) covers the current state of each major platform. The key point for journalists and activists: **never rely on a platform to strip metadata on your behalf.** Always strip before uploading, regardless of what the platform claims to do.
+
+Email attachments almost never have metadata stripped. Messaging apps vary widely. File sharing services typically preserve all metadata. The only safe assumption is that metadata survives unless you have personally removed it.
+
+## Metadata and Legal Proceedings
+
+In legal contexts — press freedom cases, source protection disputes, whistleblower prosecutions — metadata can be subpoenaed and used as evidence. Understanding what your images contain before they enter any legal process is essential.
+
+Camera serial numbers can be used to establish that a specific device took a specific photograph. Timestamps can be used to construct timelines. GPS data can place individuals at specific locations at specific times.
+
+If your work involves documentation that may become evidence, consult with a media lawyer about metadata handling before any disclosure. The principles in our [GDPR and photo metadata guide](/blog/gdpr-photo-metadata-what-businesses-need-to-know) cover some of the legal frameworks around image data, though legal advice specific to your jurisdiction is essential for serious cases.
+
+## Tools Beyond ExifVoid
+
+ExifVoid is designed for fast, accessible metadata stripping in a browser — no installation, no accounts, no data leaving your device. For most journalists and activists, it covers everything needed.
+
+For more advanced workflows, some organisations use:
+
+- **ExifTool** — a command-line tool that allows granular control over individual metadata fields. More powerful but requires technical knowledge.
+- **MAT2** — a metadata anonymisation toolkit used by some security-focused organisations.
+- **Tails OS** — a privacy-focused operating system that includes metadata stripping tools and routes all traffic through Tor. Used by some journalists working in high-risk environments.
+
+These tools are more complex to use but may be appropriate for organisations with specific security requirements or high-threat environments.
+
+## Building Metadata Security Into Your Workflow
+
+The biggest risk is inconsistency. A single unstripped image shared at the wrong moment can undo careful operational security built over months.
+
+The solution is to make metadata stripping automatic and habitual — not an occasional precaution but a fixed step in every image handling workflow, without exception.
+
+**Recommended workflow:**
+
+1. Shoot with GPS disabled
+2. Transfer images to your working device
+3. Strip all metadata using ExifVoid before any sharing, transmission, or publication
+4. Verify the strip on a sample of images
+5. Archive stripped copies only — never the originals with metadata intact
+
+This adds approximately two minutes to your image handling process. The protection it provides is substantial.
+
+## A Note on Video
+
+This guide focuses on still images, but video files also contain metadata — timestamps, device information, and in some cases GPS data. The same principles apply. Strip metadata from video files before sharing, using appropriate tools for video formats.
+
+## Summary
+
+Photo metadata is one of the most underappreciated security risks in visual journalism and activism. The information embedded in a single unstripped image can identify sources, reveal locations, link devices to individuals, and reconstruct timelines with forensic precision.
+
+The fix is simple and takes seconds. [Strip your metadata with ExifVoid](/) before every share, every transmission, every publication. Make it a habit, not an afterthought.
+
+The story is worth telling. Make sure telling it doesn't cost more than it should.`,
+  },
+  {
     slug: 'camera-serial-number-privacy-risk',
     title: 'Camera Serial Number in Photo Metadata: The Hidden Privacy Risk Nobody Talks About',
     description: `Your photos secretly store your camera's unique serial number in EXIF data. Discover how this can expose your identity, link your images across the web, and what you can do to protect yourself.`,
