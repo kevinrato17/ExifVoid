@@ -1,10 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.exifvoid.com" }],
-      "destination": "https://exifvoid.com/:path*",
-      "permanent": true
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
