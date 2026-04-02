@@ -16,6 +16,144 @@
 
 export const POSTS = [
   {
+    slug: 'camera-serial-number-privacy-risk',
+    title: 'Camera Serial Number in Photo Metadata: The Hidden Privacy Risk Nobody Talks About',
+    description: `Your photos secretly store your camera's unique serial number in EXIF data. Discover how this can expose your identity, link your images across the web, and what you can do to protect yourself.`,
+    category: 'Forensic',
+    date: '2026-04-02',
+    readTime: '8 min read',
+    content: `Your camera has a fingerprint. And it's hiding inside every photo you've ever taken.
+
+Buried inside the EXIF metadata of your images is your camera's unique serial number — a permanent identifier that links every single photo back to the same device, and potentially back to you. Most people have never heard of this. Fewer still realise what it means for their privacy.
+
+In this guide, we'll explain exactly what camera serial number data is, how it's used, who can see it, and how to remove it before sharing your photos online.
+
+## What Is Camera Serial Number Data?
+
+When you take a photo with a digital camera, smartphone, or mirrorless system, the device automatically embeds technical information about itself into the image file. This is stored in the **EXIF (Exchangeable Image File Format)** metadata — an invisible data layer attached to every JPEG, TIFF, and many other image formats.
+
+One of the fields stored in EXIF data is **CameraSerialNumber** (or **BodySerialNumber** in some formats). This is the unique identifier assigned to your specific device during manufacturing — no two cameras share the same serial number.
+
+Think of it like a vehicle identification number (VIN) for your camera. It's permanent, unique, and traceable.
+
+Other device-identifying fields that may also be present include:
+
+- **LensSerialNumber** — the unique ID of the lens attached at the time
+- **InternalSerialNumber** — a secondary identifier used by some manufacturers
+- **CameraOwnerName** — if you registered your camera, your name may be embedded here
+- **Make and Model** — the exact brand and model of your device
+
+Together, these fields create a remarkably precise fingerprint of your equipment.
+
+## Why Is This a Privacy Risk?
+
+On its own, a serial number seems harmless. But in the context of how photos are shared, searched, and analysed online, it becomes a serious privacy concern.
+
+### 1. It Links Your Photos Across the Internet
+
+Imagine you post a photo anonymously on one platform, and separately share a photo under your real name on another. If both photos were taken with the same camera, they contain the same serial number.
+
+Anyone who extracts the metadata from both images can instantly confirm they came from the same device — and therefore the same person. This technique is used by journalists, investigators, and increasingly by automated tools that scrape the web.
+
+This is not theoretical. It has been used in real cases to identify whistleblowers, anonymous activists, and people who believed they were sharing photos privately.
+
+### 2. It Can Be Cross-Referenced With Purchase Records
+
+Camera serial numbers are logged at the point of sale by manufacturers and retailers. If you registered your camera warranty, bought it with a credit card, or had it repaired under warranty, your identity is tied to that serial number in a database.
+
+A determined investigator with access to the right records — or the right contacts — can trace a serial number back to the original purchaser.
+
+### 3. It Proves Ownership and Authorship
+
+This cuts both ways. In copyright disputes, camera serial numbers have been used as evidence to prove that a specific person took a specific photograph. While this can protect photographers' rights in some contexts, it also means your authorship of an image can be proven without your consent.
+
+### 4. It Survives Platform Re-uploads in Some Cases
+
+Many social media platforms strip EXIF data when you upload photos — but not all of them do this reliably, and some platforms preserve metadata entirely. If you share photos via email, file transfer, messaging apps, or direct download links, the full metadata is almost always preserved.
+
+Our guide on [which social media platforms strip photo metadata](/blog/do-social-media-platforms-strip-metadata) covers exactly which platforms you can and can't trust with your raw image files.
+
+## Who Uses Camera Serial Number Data?
+
+You might be wondering: who actually looks at this information? The answer is more people than you'd expect.
+
+**Digital forensics investigators** routinely extract camera serial numbers when analysing images as evidence. Law enforcement agencies use this to verify the authenticity of photos and trace their origin.
+
+**Journalists and open-source investigators** (OSINT practitioners) use metadata analysis as a standard research technique. Organisations like Bellingcat have documented how EXIF data — including serial numbers — has been used to identify individuals in conflict zones and verify the location of events.
+
+**Copyright enforcement agencies** use serial numbers alongside other metadata to establish ownership chains and detect image theft.
+
+**Automated scrapers and data brokers** increasingly collect metadata from publicly available images. While most are focused on GPS coordinates and timestamps, serial number data is often harvested alongside these.
+
+**Malicious actors** targeting specific individuals may use serial number data as part of a broader dossier, cross-referencing images from multiple sources to build a profile.
+
+## How to Check If Your Photos Contain a Serial Number
+
+The easiest way is to use **ExifVoid's free privacy scanner**. Simply [upload your photo on the homepage](/) and the tool will instantly show you every piece of metadata embedded in the file — including any device identifiers.
+
+You'll see exactly which fields are present, colour-coded by risk level. Camera serial numbers are flagged as a **high-risk** identifier because of their unique, persistent nature.
+
+Alternatively, if you want to check manually:
+
+- **On Mac**: Open the photo in Preview, go to Tools → Show Inspector → EXIF tab
+- **On Windows**: Right-click the file → Properties → Details tab, scroll to Camera section
+- **In Lightroom**: The Metadata panel shows all EXIF fields including serial number
+
+If you see a **CameraSerialNumber** or **BodySerialNumber** field with a value, your photo is carrying this identifier.
+
+## How to Remove Camera Serial Number Data
+
+The only reliable way to remove camera serial number data — along with all other EXIF metadata — is to strip it entirely before sharing the file.
+
+**ExifVoid removes all metadata instantly, for free, in your browser.** No upload to a server, no account required, no quality loss.
+
+Here's how:
+
+1. Go to [ExifVoid.com](/)
+2. Drop your photo onto the upload area
+3. Review the Privacy Scan to see exactly what metadata was found
+4. Click **Remove All Metadata**
+5. Download your clean image
+
+The entire process takes about ten seconds. The cleaned file contains zero EXIF data — no serial number, no GPS, no timestamps, no device information.
+
+If you're removing metadata from photos before selling items online, our guide on [removing metadata before selling on eBay](/blog/how-to-remove-metadata-before-selling-on-ebay) covers the full workflow in detail.
+
+For Android users, our [Android metadata removal guide](/blog/how-to-remove-metadata-from-android-photos) explains your built-in options as well as how ExifVoid works on mobile.
+
+## Can You Selectively Remove Just the Serial Number?
+
+Technically yes — some advanced tools like ExifTool allow you to delete individual metadata fields while preserving others. However, for most people this level of granularity isn't necessary or practical.
+
+If you're concerned about the serial number, you're almost certainly also better off removing the GPS coordinates, timestamps, and other identifiers at the same time. They all carry privacy risks, and removing everything takes the same amount of time as removing one field.
+
+The one exception is if you're a professional photographer who needs to preserve copyright metadata (creator name, copyright notice, licensing terms) while removing device identifiers. In that case, a selective approach makes sense — but this is a niche workflow beyond the scope of this guide.
+
+## A Note on Smartphones
+
+If you shoot with an iPhone or Android phone rather than a dedicated camera, the serial number situation is slightly different.
+
+Smartphones typically embed the device's **model identifier** rather than a unique hardware serial number in the standard EXIF CameraSerialNumber field. However, some Android manufacturers do write unique device identifiers into proprietary metadata fields.
+
+More critically, smartphones embed highly precise **GPS coordinates** by default — often accurate to within a few metres. For most smartphone users, location data is a far more immediate privacy risk than the serial number field. Our guide on [removing location data from iPhone photos](/blog/how-to-remove-location-data-from-iphone-photos) covers this in detail.
+
+## The Bigger Picture: EXIF Data as a Surveillance Tool
+
+Camera serial numbers are just one piece of a larger puzzle. Modern EXIF data can contain dozens of fields — GPS coordinates precise enough to identify your home address, timestamps that reveal your daily routine, lens and aperture settings that narrow down your equipment, and software identifiers that reveal which editing tools you use.
+
+To understand the full scope of what's stored in your photos, our guide on [what EXIF data is and why you should care](/blog/what-is-exif-data-and-why-should-you-care) is the best place to start.
+
+For a deeper technical breakdown of the different metadata formats — EXIF vs XMP vs IPTC — and what each one stores, see our [metadata types explainer](/blog/exif-vs-xmp-vs-iptc-metadata-explained).
+
+## Summary
+
+Camera serial numbers embedded in EXIF metadata are a genuine and underappreciated privacy risk. They create a persistent, unique link between your device and every photo you've ever taken with it — a link that can be used to identify you, trace your activity across platforms, and connect anonymous images back to your real identity.
+
+The fix is simple: strip the metadata before you share. [ExifVoid](/) does this in seconds, entirely in your browser, with no data ever leaving your device.
+
+Your photos should tell the story you choose to tell. Not the one your camera secretly wrote into the file.`,
+  },
+  {
     slug: 'what-is-exif-data-and-why-should-you-care',
     title: 'What Is EXIF Data and Why Should You Care?',
     description: 'EXIF data is hidden metadata in every digital photo that can reveal your GPS location, device identity, and daily habits. Learn what it is, what it contains, and how to remove it.',
