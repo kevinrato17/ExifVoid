@@ -1012,6 +1012,263 @@ Yes. Reverse image search tools can find where else your photos appear online. T
 
 Live video calls do not embed EXIF data in the way photos do. However, your background, lighting, and surroundings in video calls can reveal location information. Some people use virtual backgrounds for privacy during dating video calls.`,
   },
+  {
+    slug: 'real-estate-photo-privacy-checklist',
+    title: 'Selling Your Home? The Real Estate Photo Privacy Checklist for 2026',
+    description: 'Listing photos on Zillow, Rightmove, and Redfin can expose your home GPS coordinates, interior layout timestamps, and camera details to every viewer. Here is how to protect yourself.',
+    category: 'Educational',
+    date: '2026-03-18',
+    readTime: '6 min read',
+    content: `Before uploading any photos to a real estate listing, remove all hidden metadata. Listing photos taken inside your home embed GPS coordinates that confirm your exact address, timestamps that reveal when you were home, and camera serial numbers that can link the photos to your identity. None of this information is visible in the photo itself, but anyone who downloads the image file can extract it in seconds. Use ExifVoid at exifvoid.com to scan and clean your photos entirely in your browser — your files never leave your device.
+ 
+**Why real estate listing photos are a privacy risk**
+ 
+When an estate agent or homeowner photographs a property for sale, every image silently records metadata about that moment. GPS coordinates accurate to within a few metres confirm the exact address — useful to buyers, but also to anyone with less legitimate intentions. Timestamps reveal patterns about when the property is occupied. Camera serial numbers can be cross-referenced against other photos posted online to build a profile of the photographer.
+ 
+For high-value properties in particular, this creates real security concerns. A listing photo with embedded GPS coordinates showing the precise location of a ground-floor bedroom, combined with timestamps, gives potential intruders more information than they need.
+ 
+**What metadata is hidden in listing photos?**
+ 
+A typical listing photo taken on a smartphone contains GPS latitude and longitude (your exact address), the date and time of capture, your device make, model, and unique serial number, and sometimes the photographer's name if set in device settings. Photos processed through editing software may also carry XMP metadata including editing history and workflow details. Our guide to EXIF vs XMP vs IPTC explains each type in detail.
+ 
+**Does Zillow or Rightmove strip metadata?**
+ 
+Major listing platforms including Zillow, Rightmove, and Redfin process uploaded images, but metadata handling varies and can change without notice. Some platforms strip GPS coordinates while retaining other fields. Relying on any platform to protect your privacy is risky — their policies can change, and your original file is transmitted to their servers complete with all metadata before any stripping occurs. Our guide to which social media platforms strip metadata covers platform behaviour in more detail.
+ 
+**The real estate photo privacy checklist**
+ 
+Work through this before your listing goes live. Gather all photos intended for the listing — agent-supplied and your own. Open exifvoid.com on any device and drop in each photo to run the Privacy Scan. Check whether GPS coordinates appear on the map — if they do, your address is embedded. Click clean to strip all metadata and download the sanitised file. Deliver only cleaned files to your agent or upload directly to the listing platform yourself.
+ 
+Also ask your estate agent or photographer whether they clean metadata from listing photos as standard practice. Most do not, and many are unaware the issue exists. If your agent manages the listing photos, share this article with them.
+ 
+**What about photos taken by professional photographers?**
+ 
+Professional real estate photographers typically shoot on DSLRs or mirrorless cameras, which embed less GPS data than smartphones by default (most dedicated cameras do not have built-in GPS). However, they may still embed camera serial numbers, timestamps, and editing software information through XMP metadata. If privacy is a concern, request that your photographer delivers cleaned files, or clean the files yourself using ExifVoid before upload.
+ 
+**Frequently asked questions**
+ 
+**Can buyers see my camera information in listing photos?**
+ 
+Yes. Anyone who downloads your listing photo — which is publicly accessible — can extract all embedded metadata including your camera make, model, serial number, and shooting timestamps. This information is invisible when viewing the photo normally but is contained in the file.
+ 
+**Does removing metadata affect how my photos look?**
+ 
+No. ExifVoid removes hidden metadata without affecting the visible image. The cleaned photo looks identical to the original on any screen or in print.
+ 
+**Should I clean photos before sending them to my estate agent?**
+ 
+Yes, ideally. Once you hand files to an agent, you lose control over how they are handled. Cleaning photos before handover ensures your privacy regardless of your agent's workflow.
+ 
+**Does metadata in listing photos create any legal risk?**
+ 
+In most jurisdictions, no direct legal risk exists for the homeowner. However, under GDPR in the UK and EU, businesses handling photos with embedded personal data (including estate agents) have compliance obligations. Our GDPR photo metadata guide covers this in detail.`,
+  },
+ 
+  {
+    slug: 'child-photo-privacy-school-safe-sharing',
+    title: "The Parent's Guide to Safe School Photos: Hiding Your Child's Location",
+    description: 'Photos shared on Facebook, WhatsApp groups, and school apps can reveal your child\'s school location, daily routine, and home address through hidden EXIF metadata. Here is how to share safely.',
+    category: 'Educational',
+    date: '2026-03-19',
+    readTime: '6 min read',
+    content: `Photos of children shared online can contain hidden GPS coordinates that reveal your child's school location, your home address, and their daily routine. This metadata is invisible in the photo itself but is embedded in the image file and can be extracted by anyone who downloads it. Before sharing any photos of your children on social media, in school WhatsApp groups, or in class apps, remove the metadata using a tool like ExifVoid at exifvoid.com — it takes seconds and processes everything in your browser without uploading files to any server.
+ 
+**What makes school photos a specific privacy concern?**
+ 
+Photos taken at school, at the school gates, or on the way to school can embed GPS coordinates that precisely identify the school location and your home address if taken nearby. When these photos are shared in large WhatsApp groups, on Facebook, or via school apps with broad access, this location data becomes visible to dozens or hundreds of people — not all of whom you may know personally.
+ 
+Beyond location, timestamps in school photos reveal patterns. A series of photos consistently geotagged at the same location between 8:30am and 3:30pm tells anyone who examines them exactly where your child is during school hours and when they travel to and from school. Our article on whether metadata can be used to track you explains how this data can be aggregated over time.
+ 
+**Is it safe to post school photos on Facebook?**
+ 
+Facebook strips most metadata including GPS coordinates when you upload photos directly through the app. However, this protection only applies to photos uploaded via Facebook's own apps and website. If you share photos via Messenger, AirDrop, WhatsApp (as a document rather than a compressed photo), or by sending the original file, metadata is preserved. See our guide to which platforms strip metadata for a full breakdown.
+ 
+Even on platforms that strip metadata, the visual content of photos can reveal location — school uniform badges, recognisable playgrounds, and visible building names are all identifiable. Metadata removal addresses the hidden data risk; being thoughtful about visible content addresses the visual risk.
+ 
+**How to remove location from photos before sharing**
+ 
+Open exifvoid.com in your phone browser before sharing any photo of your child. Tap to select the photo, review the Privacy Scan to confirm GPS coordinates are present (they usually are for smartphone photos), and tap clean. The cleaned version downloads in seconds. Share the cleaned copy instead of the original.
+ 
+This works on iPhone and Android with no app installation required. For iPhone-specific options, our iPhone metadata guide covers the built-in iOS share sheet method as well. For Android, our Android guide has step-by-step instructions.
+ 
+**What about school apps and parent communication platforms?**
+ 
+Many schools use third-party apps for parent communication including Seesaw, ClassDojo, and Tapestry. These platforms vary in how they handle uploaded photos — some strip metadata, others do not. When in doubt, clean your photos before uploading to any platform. The few seconds it takes is a reliable habit regardless of which app your school uses.
+ 
+**Reducing digital footprint for children more broadly**
+ 
+Removing metadata from photos is one part of protecting children's privacy online. Other sensible practices include avoiding posting photos that show school uniforms with visible names or badges, not using children's full names as captions on public posts, reviewing privacy settings on any social media where you share family photos, and being selective about which WhatsApp groups or parent networks receive photos of your children.
+ 
+**Frequently asked questions**
+ 
+**Can GPS in school photos reveal my child's school?**
+ 
+Yes. If a photo is taken at or near school with GPS enabled, the coordinates embedded in the photo can identify the specific school building. This is true for photos taken on school grounds, at the school gate, or on the walk to school if taken close enough to identify the location.
+ 
+**Does WhatsApp remove GPS from photos of my kids?**
+ 
+WhatsApp strips most metadata including GPS when sending photos as standard compressed images. However, if you send as a document, all metadata is preserved. See our WhatsApp metadata guide for the full detail on how sending method affects privacy.
+ 
+**Should I disable location on my camera for school photos?**
+ 
+Disabling camera location prevents future photos from containing GPS data but affects all photos on your phone, including ones where you might want location data for your own records. A better approach is to keep location enabled and strip metadata selectively before sharing. That way you keep the benefits of geotagged photos in your personal library while sharing only cleaned copies with others.`,
+  },
+ 
+  {
+    slug: 'discord-photo-metadata-privacy-guide',
+    title: 'How to Share Photos on Discord Without Leaking Your GPS Location',
+    description: 'Sending photos on Discord as "original files" preserves all EXIF metadata including GPS coordinates. Here is exactly what gets stripped, what survives, and how to protect yourself.',
+    category: 'Forensic',
+    date: '2026-03-20',
+    readTime: '5 min read',
+    content: `Discord strips most EXIF metadata from photos sent as standard compressed images, but preserves all metadata — including GPS coordinates, camera serial numbers, and timestamps — when files are sent as original uploads. This is a critical distinction most Discord users do not know. If you care about location privacy, always clean photos with ExifVoid at exifvoid.com before uploading to Discord, regardless of which sending method you use.
+ 
+**Does Discord strip metadata from images?**
+ 
+Discord's behaviour depends on how the file is sent. When you paste or drag an image directly into a chat and Discord compresses it, most EXIF data including GPS coordinates is removed. However, when you explicitly send a file as an "original" or upload without compression, the file is served exactly as uploaded — metadata and all.
+ 
+The problem is that Discord's interface does not clearly indicate which method is being used at any given moment, and the default can vary between desktop and mobile. On mobile, the camera roll picker tends to compress images. On desktop, dragging a file in often preserves it. When in doubt, always clean the file before sharing.
+ 
+**What metadata survives Discord compression?**
+ 
+Even with compression, some metadata may survive depending on the file type and Discord's current implementation. Compression strips GPS coordinates and most EXIF camera settings, but some XMP and IPTC fields — including copyright information, editing software, and creator details — may remain. Our guide to EXIF vs XMP vs IPTC explains where each type of data lives and why stripping GPS alone is not always sufficient.
+ 
+**The compressed vs original sending distinction**
+ 
+This is the most important thing to understand about Discord photo privacy. When you send an image normally by pasting or using the standard upload, Discord recompresses it. When you click the plus icon and choose to send as a file or hold on mobile to access original-quality options, Discord serves your original file unchanged. This means every byte of your original metadata — including your precise GPS coordinates — is accessible to anyone in that server who downloads the attachment.
+ 
+**How to safely share photos on Discord**
+ 
+Clean the photo before uploading, regardless of sending method. Open exifvoid.com, drop in your photo, review the Privacy Scan to confirm what metadata is embedded, then clean and download the sanitised file. Upload that file to Discord. This eliminates the risk entirely and removes dependence on Discord's compression behaviour, which can change between app versions.
+ 
+This is especially relevant in larger Discord servers where you may not know every member personally. A casual screenshot of your desk shared in a gaming server could expose your home location to hundreds of strangers if GPS was enabled when the original photo was taken. See our guide on whether metadata can be used to track you for a fuller picture of this risk.
+ 
+**What about Discord on mobile versus desktop?**
+ 
+Discord mobile apps tend to compress images by default when sent from the camera roll, which typically strips GPS data. Desktop uploads are more likely to preserve original file quality and metadata. However, neither platform makes metadata handling explicit to the user. The safest and most reliable approach is to clean photos before uploading to either platform.
+ 
+**Frequently asked questions**
+ 
+**Does Discord strip EXIF data from all images?**
+ 
+No. Discord strips most metadata from compressed image sends but preserves all metadata when files are uploaded as originals. The distinction between the two modes is not always clear in the interface.
+ 
+**Can Discord server members see my location from my photos?**
+ 
+If you upload an original photo with GPS coordinates and Discord does not compress it, then yes — any member who downloads the attachment can extract your GPS coordinates using freely available tools. Always clean photos before uploading to any shared server.
+ 
+**Does removing metadata affect image quality on Discord?**
+ 
+No. ExifVoid removes hidden metadata without affecting the visual quality of the photo. The image will look identical before and after cleaning, whether Discord compresses it further or not.
+ 
+**What if I only share screenshots on Discord?**
+ 
+Screenshots typically contain less metadata than camera photos and usually lack GPS data. They may still contain device model information and timestamps. For maximum privacy, scanning screenshots with ExifVoid before sharing is still worthwhile, particularly if you share screenshots of sensitive content.`,
+  },
+ 
+  {
+    slug: 'hr-corporate-photo-metadata-compliance',
+    title: 'Metadata Compliance for HR: Preventing Data Leaks in Company Photos',
+    description: 'Employee headshots, office event photos, and company images contain hidden metadata that creates GDPR liability. Here is what HR and IT teams need to know and do.',
+    category: 'Compliance',
+    date: '2026-03-21',
+    readTime: '6 min read',
+    content: `Company photos — employee headshots, office events, team pages, and press materials — routinely contain hidden EXIF metadata that constitutes personal data under GDPR. GPS coordinates from photos taken at offices or homes, device serial numbers identifying individual employees' phones or cameras, and timestamps recording when photos were taken are all embedded in image files by default. Businesses that store, publish, or distribute these photos without stripping metadata are processing personal data they may not have a lawful basis to retain. A metadata scrubbing step at the point of image ingestion eliminates this liability.
+ 
+**What personal data is hidden in company photos?**
+ 
+A photo taken by an employee on their smartphone and submitted for use in company materials typically contains GPS coordinates of where it was taken (potentially their home address if taken remotely), their device make, model, and unique serial number, the exact date and time of capture, and any name or copyright information auto-populated by their device settings. Photos processed through professional software may additionally carry XMP metadata including editing history and creator details. Our guide to EXIF vs XMP vs IPTC explains the full range of embedded data types.
+ 
+**Why does this create GDPR liability?**
+ 
+Under GDPR Article 5, personal data must be processed with data minimisation — only what is necessary for the stated purpose should be retained. A headshot published on a company website serves the purpose of identifying the employee visually. The GPS coordinates of where the photo was taken, the employee's camera serial number, and the timestamp serve no legitimate business purpose. Retaining this data without a lawful basis or legitimate interest justification exposes the organisation to compliance risk.
+ 
+Article 25 requires data protection by design and by default. Building metadata removal into your image processing workflow is a straightforward implementation of this principle. It demonstrates that your organisation actively minimises personal data rather than retaining it passively. Our GDPR photo metadata guide covers the compliance obligations in detail.
+ 
+**What are the highest-risk scenarios for HR teams?**
+ 
+Remote and hybrid work has significantly increased the risk. Employees submitting headshots taken at home embed their home GPS coordinates into images that may then be published publicly on company websites, LinkedIn, or press materials. A malicious actor who discovers that an employee's headshot contains their home address has more information than they should. This is not a theoretical risk — it is a straightforward extraction from a publicly available file.
+ 
+Office event photos shared internally via email, Slack, or SharePoint often contain metadata from the photographer's personal device. These files may be forwarded externally, saved on personal devices, or retained indefinitely in email archives — all with the original metadata intact.
+ 
+Medical offices, legal firms, and other regulated environments face additional obligations. HIPAA in the United States and equivalent frameworks in the UK and EU impose stricter requirements on any data associated with individuals in those contexts.
+ 
+**How should HR and IT implement metadata scrubbing?**
+ 
+The most effective approach is to build metadata removal into the standard image intake process. When an employee submits a headshot, when an event photographer delivers files, or when any image enters your systems for publication or distribution, strip all metadata before storing or distributing.
+ 
+For individual files, ExifVoid provides a fast browser-based solution that processes files without uploading them to any external server — relevant for organisations with data handling restrictions. For larger volumes, command-line tools like ExifTool can be integrated into existing workflows.
+ 
+Document your metadata scrubbing process as part of your data protection policy. In the event of a regulatory inquiry, demonstrating that you have a defined process for minimising personal data in images is a material compliance advantage.
+ 
+**Frequently asked questions**
+ 
+**Are employee headshots personal data under GDPR?**
+ 
+Yes — both the image itself and any metadata embedded in it. The image is biometric data if used for identification purposes. The embedded metadata is personal data relating to the employee. Both require a lawful basis for processing and appropriate data minimisation measures.
+ 
+**What about photos shared in internal Slack channels or Teams?**
+ 
+Photos shared internally via Slack, Microsoft Teams, or other collaboration platforms are stored on those platforms' servers with all metadata intact unless stripped before upload. Internal data is still subject to GDPR obligations, and internal shares can become external if files are forwarded or downloaded. Clean photos before sharing regardless of whether the platform is internal or external.
+ 
+**Do we need employee consent to remove metadata from their photos?**
+ 
+No. Removing metadata is a privacy-protective action that reduces the personal data you hold. It does not require consent. However, if you are processing the images themselves in ways beyond their original stated purpose, you may need to review your lawful basis.`,
+  },
+ 
+  {
+    slug: 'camera-serial-number-privacy-osint-defense',
+    title: 'How to Hide Your Camera Serial Number to Prevent Online Tracking',
+    description: 'Your camera serial number is embedded in every photo you take and can be used to link your photos across platforms, expose your identity, and track you online. Here is how OSINT investigators use it and how to stop them.',
+    category: 'Forensic',
+    date: '2026-03-22',
+    readTime: '6 min read',
+    content: `Your camera's serial number is embedded as EXIF metadata in every photo you take and is publicly accessible to anyone who downloads your images. Unlike GPS coordinates, which many people now know to check, camera serial numbers are less visible and less understood — but they are equally powerful as a tracking vector. A single serial number found across multiple platforms can link your anonymous forum posts to your professional portfolio, your personal Instagram to your business website, and your current account to older deleted ones. Removing device identifiers from photos before sharing is an essential step in OSINT defense.
+ 
+**Can someone track me via camera serial number?**
+ 
+Yes. Every photo taken with a digital camera or smartphone embeds a unique device identifier in the EXIF metadata. For dedicated cameras (DSLRs, mirrorless, compact cameras), this is a camera body serial number. For smartphones, it includes device identifiers and model information. Lenses on interchangeable-lens cameras may also embed lens serial numbers separately.
+ 
+Because this serial number is consistent across every photo taken with the same device, it functions as a persistent fingerprint. An investigator or stalker who collects multiple photos from different platforms can match serial numbers to confirm that photos were taken by the same person, even if usernames, display names, and other identifying information have been changed or removed.
+ 
+**How do OSINT investigators use camera serial numbers?**
+ 
+Open Source Intelligence (OSINT) practitioners use camera serial numbers as a correlation tool. If you have posted photos on a personal account and an anonymous account using the same camera, those accounts can be linked with certainty by matching serial numbers. This technique has been used in journalism to verify photo authenticity, in fraud investigations to connect fake identities, and in stalking cases.
+ 
+The process requires no special tools. Standard EXIF viewers and free online metadata extractors expose serial numbers within seconds. Our guide to how to check if your photos have metadata shows you how to see what your own photos contain.
+ 
+**What does a camera serial number reveal?**
+ 
+The serial number itself does not directly reveal your identity or location. Its power is correlative — it connects photos across contexts. Combined with other EXIF fields, the picture becomes more detailed. Camera make and model narrows down what type of photographer you are. Timestamps establish patterns of activity. GPS coordinates from any one photo in a series can anchor the location, and the serial number confirms all photos in that series come from the same person. Our guide to EXIF vs XMP vs IPTC explains where serial numbers are stored within the metadata structure.
+ 
+**Which tools miss camera serial numbers?**
+ 
+Many basic metadata removal tools only target GPS coordinates because that is the field most commonly discussed in privacy guides. Tools that use lossy recompression without proper metadata stripping may remove GPS while leaving device identifiers intact. The Windows built-in "Remove Properties" tool strips most fields but has inconsistent behaviour across file types.
+ 
+ExifVoid strips all metadata categories simultaneously, including camera and lens serial numbers, during the canvas re-encoding process. The Privacy Scan shows you every field present in your photo — including device identifiers categorised by risk level — before you clean.
+ 
+**Practical steps for OSINT defense**
+ 
+Strip metadata from every photo before sharing publicly. This is non-negotiable if you maintain any form of anonymous or pseudonymous presence online. Use different devices for different contexts if operational security is a significant concern. Audit photos you have already published — use ExifVoid to check older photos still accessible on your profiles. Our guide on whether metadata can be used to track you covers the full range of tracking vectors beyond serial numbers.
+ 
+**Frequently asked questions**
+ 
+**Is my camera serial number public in my photos?**
+ 
+Yes. Camera serial numbers are stored in EXIF metadata and are publicly accessible in any photo you share without first stripping the metadata. Anyone who downloads your photo can see it using free tools.
+ 
+**Can I find the camera serial number in my photos myself?**
+ 
+Yes. Open exifvoid.com and drop in any photo. The Privacy Scan shows all embedded metadata including device identifiers. You will be able to see exactly what serial number information is present before deciding to clean the file.
+ 
+**Does removing metadata prevent all OSINT tracking?**
+ 
+Removing metadata eliminates device-based tracking vectors. However, OSINT investigators also use visual content analysis, reverse image search, linguistic patterns, and platform metadata (upload times, account creation dates). Metadata removal is one important layer, not a complete OSINT defense on its own.
+ 
+**Do smartphone photos contain serial numbers?**
+ 
+Smartphones embed device model information and unique device identifiers in photo metadata. While smartphone identifiers behave slightly differently from dedicated camera serial numbers, they serve the same correlative function — linking photos taken on the same device across different contexts.`,
+  },
 ]
 
 /**
