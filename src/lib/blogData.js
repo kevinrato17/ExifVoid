@@ -1273,6 +1273,48 @@ Removing metadata eliminates device-based tracking vectors. However, OSINT inves
  
 Smartphones embed device model information and unique device identifiers in photo metadata. While smartphone identifiers behave slightly differently from dedicated camera serial numbers, they serve the same correlative function — linking photos taken on the same device across different contexts.`,
   },
+
+  {
+    slug: 'does-ebay-remove-metadata-from-photos',
+    title: 'Does eBay Remove Metadata from Photos? The Answer Sellers Need',
+    description: 'eBay does not consistently strip EXIF metadata from listing photos. Your home GPS coordinates, camera serial number, and timestamps may be visible to every buyer who downloads your image.',
+    category: 'Educational',
+    date: '2026-05-11',
+    readTime: '4 min read',
+    content: `No, eBay does not consistently remove EXIF metadata from listing photos. While some processing occurs during upload, GPS coordinates, camera serial numbers, and timestamps have been found in eBay listing images by security researchers and privacy-conscious sellers. You should not rely on eBay to protect your location — strip metadata yourself before uploading using ExifVoid at exifvoid.com. It takes 30 seconds and your files never leave your browser.
+
+**What metadata is at risk in eBay listing photos?**
+
+When you photograph an item at home and upload it directly to eBay, the image file typically contains GPS coordinates accurate to within a few metres of your front door, your device make and model, camera serial numbers that can link multiple listings to the same person, and timestamps revealing when you are home and active.
+
+Every buyer who views your listing can download the original image and extract this data using free tools. For high-value items, this creates a clear security risk — a stranger knows exactly where the item is located and when you are likely to be home. Our guide on whether metadata can be used to track you covers how this information can be combined and used.
+
+**Has eBay's metadata handling improved over time?**
+
+eBay has made changes to image processing over the years, and metadata handling varies depending on how images are uploaded — via the app, desktop browser, or bulk listing tools. However, no public documentation from eBay confirms consistent metadata stripping. Given the stakes, sellers should not rely on any platform's current implementation, which can change without notice.
+
+**Does the eBay app strip metadata from photos taken in-app?**
+
+Photos taken directly within the eBay listing app on iOS and Android may have reduced metadata compared to uploading a pre-existing photo from your camera roll, because the app may not request GPS permissions. However, this is device and version dependent and should not be relied upon for privacy. The safe approach is always to clean photos yourself.
+
+**How to protect yourself as an eBay seller**
+
+Before photographing items for sale, you can disable GPS in your camera settings. Or — the simpler approach — photograph normally, then clean each listing photo through ExifVoid before uploading. Open exifvoid.com, drop in your photo, review the Privacy Scan to confirm what data is embedded, clean it, and upload the sanitised file. The entire process takes under a minute per photo. Our full guide to removing metadata before selling on eBay has the complete step-by-step workflow.
+
+**Frequently asked questions**
+
+**Can buyers find my home address from eBay listing photos?**
+
+Yes, if your photos contain GPS coordinates and eBay has not stripped them. The coordinates embedded in the image file can identify your specific street address, often accurate to within a few metres. Any buyer who downloads your listing photo has access to this data.
+
+**Does this apply to other selling platforms like Depop and Vinted?**
+
+Yes. Depop, Vinted, Facebook Marketplace, Gumtree, and Craigslist all have inconsistent or unconfirmed metadata handling. Treat every selling platform as if it preserves your metadata and clean photos before uploading to any of them.
+
+**What if I only sell occasionally — is this still a risk?**
+
+Yes. A single listing photo with GPS coordinates exposes your home address to every person who views that listing, which may be hundreds or thousands of people over the listing's lifetime. The risk exists regardless of how frequently you sell.`,
+  },
 ]
 
 /**
