@@ -608,16 +608,16 @@ Major AI image generators including Adobe Firefly, DALL-E, and Midjourney are be
   },
   {
     slug: 'how-to-remove-metadata-before-selling-on-ebay',
-    title: 'How to Remove Photo Metadata Before Selling on eBay',
-    description: 'Product photos on eBay, Depop, and Facebook Marketplace can expose your home GPS coordinates to every buyer. Here is how to strip metadata before listing.',
+    title: 'Does eBay Remove Metadata from Listing Photos? (What Sellers Must Know)',
+    description: 'No — eBay does not reliably strip EXIF metadata from listing photos. Your home GPS coordinates may be visible to every buyer. Here is how to fix it in 30 seconds.',
     category: 'Educational',
     date: '2026-03-02',
     readTime: '5 min read',
     content: `If you photograph items for sale at home, your listing photos almost certainly contain GPS coordinates that reveal your home address to every buyer who views them. eBay, Depop, Facebook Marketplace, and most online selling platforms do not consistently strip metadata from uploaded images. Remove EXIF data from your product photos before listing by scanning and cleaning them at exifvoid.com — it takes seconds and your files never leave your device.
 
-**What metadata is hidden in your product photos?**
+**What metadata is hidden in your product photos and does eBay strip it?**
 
-When you photograph a product at home with your phone, the image file automatically contains your exact GPS coordinates (accurate to within a few metres of your front door), your device make and model (telling buyers what phone you own), exact timestamps (revealing when you are home and active), and camera serial numbers (potentially linking multiple selling accounts to the same device).
+No, eBay does not reliably strip EXIF metadata from listing photos. GPS coordinates, camera serial numbers, and timestamps embedded in your product photos may be visible to every buyer who downloads your image. This means photos taken at home can reveal your exact address to strangers — accurate to within a few metres. Remove metadata from your listing photos before uploading using ExifVoid at exifvoid.com — it takes 30 seconds and your files never touch a server..
 
 This data is invisible when viewing the photo normally but can be extracted in seconds using freely available tools. For high-value items, this creates an obvious security risk — a stranger knows exactly where an expensive item is located. Our article on whether metadata can be used to track you covers these risks in depth.
 
