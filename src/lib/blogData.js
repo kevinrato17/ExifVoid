@@ -796,8 +796,8 @@ No. The cleaned photo displays correctly on all devices. ExifVoid handles orient
   },
   {
     slug: 'do-social-media-platforms-strip-metadata',
-    title: 'Which Social Media Platforms Strip Photo Metadata? (2026 Guide)',
-    description: 'Not all platforms handle EXIF data the same way. Facebook and Instagram strip metadata, but email, AirDrop, Discord, and many others preserve it. Here is the complete 2026 breakdown.',
+    title: 'Does Instagram, WhatsApp & Discord Strip Photo Metadata? (Tested 2026)',
+    description: 'We tested WhatsApp, Instagram, Discord, Telegram, Twitter/X, and iMessage to see which actually remove EXIF data. Results ranked by platform — with GPS test proof.',
     category: 'Forensic',
     date: '2026-02-22',
     readTime: '6 min read',
