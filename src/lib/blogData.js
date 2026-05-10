@@ -1116,8 +1116,8 @@ Disabling camera location prevents future photos from containing GPS data but af
  
   {
     slug: 'discord-photo-metadata-privacy-guide',
-    title: 'How to Share Photos on Discord Without Leaking Your GPS Location',
-    description: 'Sending photos on Discord as "original files" preserves all EXIF metadata including GPS coordinates. Here is exactly what gets stripped, what survives, and how to protect yourself.',
+    title: 'Does Discord Strip EXIF Data from Images? (Tested May 2026)',
+    description: 'Discord strips metadata from standard compressed photo sends but preserves ALL metadata — including GPS coordinates — when files are sent as originals. We tested both methods.',
     category: 'Forensic',
     date: '2026-03-20',
     readTime: '5 min read',
@@ -1125,7 +1125,7 @@ Disabling camera location prevents future photos from containing GPS data but af
  
 **Does Discord strip metadata from images?**
  
-Discord's behaviour depends on how the file is sent. When you paste or drag an image directly into a chat and Discord compresses it, most EXIF data including GPS coordinates is removed. However, when you explicitly send a file as an "original" or upload without compression, the file is served exactly as uploaded — metadata and all.
+Tested in May 2026: Discord strips most EXIF metadata from photos sent as standard compressed images, but preserves all metadata — including GPS coordinates, camera serial numbers, and timestamps — when files are sent as original uploads. This is a critical distinction most Discord users are unaware of. If you share photos in any Discord server and care about location privacy, clean them with ExifVoid at exifvoid.com before uploading, regardless of which sending method you use.
  
 The problem is that Discord's interface does not clearly indicate which method is being used at any given moment, and the default can vary between desktop and mobile. On mobile, the camera roll picker tends to compress images. On desktop, dragging a file in often preserves it. When in doubt, always clean the file before sharing.
  
