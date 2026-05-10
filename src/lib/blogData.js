@@ -702,8 +702,8 @@ Removing metadata eliminates the data embedded in the file itself. However, othe
   },
   {
     slug: 'how-to-remove-metadata-from-photos-on-windows',
-    title: 'How to Remove Metadata from Photos on Windows',
-    description: 'Windows has a built-in metadata removal tool in File Properties, but it misses XMP and IPTC data. Here is how to completely strip EXIF data from photos on Windows.',
+    title: 'How to Remove Metadata from Photos on Windows 10 and Windows 11 (3 Methods)',
+    description: 'Windows has a built-in metadata removal tool but it misses XMP and IPTC data. Here are 3 methods for Windows 10 and Windows 11 — from the built-in tool to complete removal.',
     category: 'Educational',
     date: '2026-02-26',
     readTime: '5 min read',
@@ -718,6 +718,10 @@ Windows gives you two options: create a copy with all possible properties remove
 **What are the limitations of the Windows method?**
 
 The built-in tool has several notable gaps. It does not remove all metadata — some XMP and IPTC fields survive the removal process. It does not visualise what the metadata means — you see raw field names without context about privacy implications. It does not show GPS coordinates on a map. It only works with locally stored files and has inconsistent behaviour across image formats. For an explanation of the different metadata types, see our guide to EXIF vs XMP vs IPTC.
+
+**Does Windows 11 remove more metadata than Windows 10?**
+
+Windows 11 uses the same "Remove Properties and Personal Information" feature as Windows 10, found in the same location: right-click the file, Properties, Details tab. The limitations are identical across both versions — GPS data is removed but XMP and IPTC fields may survive. Neither Windows 10 nor Windows 11 shows you what metadata means in privacy terms or displays GPS coordinates visually. For complete removal on either Windows version, ExifVoid provides a faster and more thorough result.
 
 **Method 2: Use ExifVoid in any browser**
 
