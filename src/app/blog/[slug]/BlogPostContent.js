@@ -1,14 +1,32 @@
 'use client'
 
 import Link from 'next/link'
-import { POSTS } from '@/lib/blogData'
-import { Navbar } from '@/components/Navbar'
-import { Footer } from '@/components/Footer'
+import Navbar from '../../../components/Navbar'
+import Footer from '../../../components/Footer'
+import { POSTS } from '../../../lib/blogData'
 
-export function BlogPostContent({ post }) {
+export default function BlogPostContent({ slug }) {
+  const post = POSTS.find((p) => p.slug === slug)
   const related = POSTS.filter(
-    (p) => p.slug !== post.slug && p.category === post.category
+    (p) => p.slug !== slug && p.category === post?.category
   ).slice(0, 3)
+
+  if (!post) {
+    return (
+      <>
+        <Navbar />
+        <main className="flex-1 flex items-center justify-center py-20">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground">Post not found</h1>
+            <Link href="/blog" className="text-brand mt-4 inline-block hover:underline">
+              Back to blog
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </>
+    )
+  }
 
   return (
     <>
@@ -37,7 +55,7 @@ export function BlogPostContent({ post }) {
           </p>
 
           {/* Body */}
-          <div className="prose-exifvoid">
+          <div className="space-y-5">
             {renderContent(post.content)}
           </div>
 
@@ -77,6 +95,7 @@ export function BlogPostContent({ post }) {
               </div>
             </div>
           )}
+
         </article>
       </main>
       <Footer />
@@ -85,23 +104,18 @@ export function BlogPostContent({ post }) {
 }
 
 // ---------------------------------------------------------------------------
-// Content renderer — handles ## headings, ### subheadings, tables, lists,
-// **bold**, [text](url) links, and plain paragraphs
+// Content renderer
+// Handles: ## H2, ### H3, | tables |, numbered lists, bullet lists,
+//          **bold**, [text](url) links, plain paragraphs
 // ---------------------------------------------------------------------------
 
 function renderContent(content) {
-  // Split on blank lines to get blocks
   const blocks = content.split(/\n\n+/).map((b) => b.trim()).filter(Boolean)
-
-  return (
-    <div className="space-y-5">
-      {blocks.map((block, idx) => renderBlock(block, idx))}
-    </div>
-  )
+  return blocks.map((block, idx) => renderBlock(block, idx))
 }
 
 function renderBlock(block, idx) {
-  // ## H2 heading
+  // ## H2
   if (block.startsWith('## ')) {
     return (
       <h2 key={idx} className="text-xl font-bold text-foreground mt-10 mb-1 leading-snug">
@@ -110,7 +124,7 @@ function renderBlock(block, idx) {
     )
   }
 
-  // ### H3 heading
+  // ### H3
   if (block.startsWith('### ')) {
     return (
       <h3 key={idx} className="text-base font-semibold text-foreground mt-6 mb-1">
@@ -119,63 +133,54 @@ function renderBlock(block, idx) {
     )
   }
 
-  // Table — lines starting with |
   const lines = block.split('\n')
+
+  // Table — lines that start with |
   if (lines.length >= 2 && lines[0].startsWith('|') && lines[1].startsWith('|')) {
     return renderTable(lines, idx)
   }
 
-  // Numbered list — lines starting with "1. " "2. " etc.
+  // Numbered list
   if (/^\d+\.\s/.test(lines[0])) {
     return (
       <ol key={idx} className="list-decimal list-outside ml-5 space-y-2">
-        {lines.map((line, i) => {
-          const text = line.replace(/^\d+\.\s*/, '')
-          return (
-            <li key={i} className="text-[15px] text-muted leading-relaxed pl-1">
-              {renderInline(text)}
-            </li>
-          )
-        })}
+        {lines.map((line, i) => (
+          <li key={i} className="text-[15px] text-muted leading-relaxed pl-1">
+            {renderInline(line.replace(/^\d+\.\s*/, ''))}
+          </li>
+        ))}
       </ol>
     )
   }
 
-  // Bullet list — lines starting with * or -
+  // Bullet list
   if (/^[*-]\s/.test(lines[0])) {
     return (
       <ul key={idx} className="list-disc list-outside ml-5 space-y-2">
-        {lines.map((line, i) => {
-          const text = line.replace(/^[*-]\s*/, '')
-          return (
-            <li key={i} className="text-[15px] text-muted leading-relaxed pl-1">
-              {renderInline(text)}
-            </li>
-          )
-        })}
+        {lines.map((line, i) => (
+          <li key={i} className="text-[15px] text-muted leading-relaxed pl-1">
+            {renderInline(line.replace(/^[*-]\s*/, ''))}
+          </li>
+        ))}
       </ul>
     )
   }
 
-  // Default: paragraph (may span multiple soft-wrapped lines — join them)
-  const full = lines.join(' ')
+  // Default paragraph (join soft-wrapped lines)
   return (
     <p key={idx} className="text-[15px] text-muted leading-relaxed">
-      {renderInline(full)}
+      {renderInline(lines.join(' '))}
     </p>
   )
 }
 
 function renderTable(lines, idx) {
-  // Filter out separator rows like |---|---|
-  const dataRows = lines.filter((l) => !/^\|[-| :]+\|?$/.test(l))
+  const isSeparator = (l) => /^\|[-| :]+\|?$/.test(l)
+  const dataRows = lines.filter((l) => !isSeparator(l))
   if (dataRows.length === 0) return null
 
   const parseRow = (line) =>
-    line
-      .split('|')
-      .map((cell) => cell.trim())
-      .filter((cell) => cell !== '')
+    line.split('|').map((c) => c.trim()).filter((c) => c !== '')
 
   const [headerRow, ...bodyRows] = dataRows
 
@@ -185,10 +190,7 @@ function renderTable(lines, idx) {
         <thead>
           <tr className="border-b border-border">
             {parseRow(headerRow).map((cell, i) => (
-              <th
-                key={i}
-                className="text-left py-2 px-3 font-semibold text-foreground text-xs uppercase tracking-wide"
-              >
+              <th key={i} className="text-left py-2 px-3 font-semibold text-foreground text-xs uppercase tracking-wide">
                 {renderInline(cell)}
               </th>
             ))}
@@ -210,13 +212,10 @@ function renderTable(lines, idx) {
   )
 }
 
-// Inline renderer: handles **bold**, [text](url), and plain text
+// Handles **bold** and [text](url) inline
 function renderInline(text) {
-  // Split on **bold** and [text](url) patterns
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
-
   return parts.map((part, i) => {
-    // Bold
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
         <strong key={i} className="font-semibold text-foreground">
@@ -224,19 +223,11 @@ function renderInline(text) {
         </strong>
       )
     }
-    // Link [text](url)
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (linkMatch) {
       const [, label, href] = linkMatch
-      const isExternal = href.startsWith('http')
-      return isExternal ? (
-        <a
-          key={i}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand hover:underline"
-        >
+      return href.startsWith('http') ? (
+        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
           {label}
         </a>
       ) : (
