@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Navbar from '../../../components/Navbar'
-import Footer from '../../../components/Footer'
-import { getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import { getPostBySlug, getRelatedPosts } from '@/lib/blogData'
 
 export default function BlogPostContent({ slug }) {
   const post = getPostBySlug(slug)
