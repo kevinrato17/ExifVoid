@@ -1,0 +1,79 @@
+---
+title: "Why You Should Clear Metadata from Your Resume and Portfolio Photos"
+description: "The professional headshot on your CV or portfolio may be leaking your home address, edit history, and camera serial number to employers and clients. Here's how to clean it."
+category: "Educational"
+date: "2026-05-16"
+readTime: "6 min read"
+---
+
+**The photo on your CV or portfolio website may be giving employers and clients information you never intended to share.** Hidden inside every professional headshot, product photo, and portfolio image is a layer of invisible metadata that can reveal where you live, which software you use, when you took the photo, and which camera captured it. Most professionals have no idea it is there.
+
+## What Is Hidden Inside a Professional Photo?
+
+When you take a headshot on your iPhone or camera, or export a polished image from Lightroom or Photoshop, the resulting file contains far more than pixels. Embedded invisibly in the file is a record of metadata that travels with the image wherever it goes.
+
+**GPS coordinates.** If your camera or phone had location services enabled, the photo embeds the precise latitude and longitude where it was taken. For a headshot taken at home, that is your home address — accurate to within a few metres.
+
+**Timestamps.** The exact date and time the photo was created and, if edited, the date of last modification. These are written into the image itself and survive copying and renaming.
+
+**Camera serial number.** Many cameras and phones embed a unique serial number in EXIF data. That number can be used to search for other images taken with the same device, potentially linking your professional portfolio to personal photos posted elsewhere.
+
+**Software history.** Images processed in Adobe Lightroom, Photoshop, Capture One, or even free apps like Snapseed carry XMP metadata recording which software version was used.
+
+**Copyright and creator fields.** Photographers sometimes embed their name, studio name, or contact details in IPTC fields. If you are repurposing a photo taken by a professional, those fields may still contain the original photographer's information.
+
+## Why Does This Matter for Job Seekers and Professionals?
+
+Most hiring managers and clients are not actively mining photo metadata. But some are — and even when they are not, the data is there and accessible to anyone who looks.
+
+If you take a photo at home and send it as a file, the GPS coordinates can pinpoint your address. An employer, recruiter, or prospective client who receives your CV as a file attachment receives that data alongside your photo.
+
+Software metadata can reveal whether you used a professional tool like Lightroom or a free phone app to edit your headshot. For photographers and designers submitting portfolio work, the editing software recorded in XMP data may not match the professional image you want to project.
+
+If your professional portfolio photos and your personal social media photos were both taken on the same camera, your serial number connects them. For professionals who maintain a deliberate separation between their personal and professional online presence, this is a way that separation can be broken without either party realising it.
+
+## How to Check and Clear Metadata from Professional Photos
+
+The process takes about 30 seconds per image.
+
+### Step 1: Check What Is in Your Photos
+
+Go to [ExifVoid](https://exifvoid.com) and drag in your headshot or portfolio image. You will immediately see a full breakdown of all embedded data — GPS coordinates with an interactive map, timestamps, software records, and device information.
+
+Do this for every image you plan to include in your CV, LinkedIn profile, portfolio site, or any professional submission.
+
+### Step 2: Remove All Metadata
+
+Click Remove All Metadata. ExifVoid strips all EXIF, XMP, IPTC, and GPS data by re-encoding the image through the browser's canvas — entirely client-side, with no upload to any server. Download the clean version.
+
+### Step 3: Use the Clean Version Everywhere
+
+Replace any existing professional photos with the metadata-free versions. This applies to your CV document, portfolio site image files, LinkedIn photo uploads, email signatures, and any file sent to clients or employers.
+
+## A Note for Photographers and Designers
+
+If you are a photographer or creative professional sharing portfolio work, metadata stripping deserves particular attention. If you are submitting work to competitions, agencies, or publications, you may not want your camera serial number, editing workflow, or location data visible to judges and editors who can extract it trivially.
+
+If clients are sharing your delivered images further, your embedded copyright and creator metadata will travel with those files — which is sometimes desirable and sometimes not, depending on your agreement. ExifVoid lets you check what is there before making a decision.
+
+## Frequently Asked Questions
+
+**Can employers really see hidden metadata in my CV photo?**
+
+Yes, if the photo is embedded in a document or sent as a standalone file. Any JPEG or HEIC file carries its metadata unless it has been deliberately stripped. Most employers do not check — but some do, and the data is there for anyone who wants to look.
+
+**Does uploading a photo to LinkedIn strip the metadata?**
+
+LinkedIn processes uploaded photos and generally removes metadata from its hosted copies. However, if you are attaching a photo file directly to an email or including it in a document sent to an employer, that file is unprocessed and carries full metadata.
+
+**What about photos embedded in a Word or PDF document?**
+
+Photos embedded in Word documents and PDFs typically carry their original EXIF metadata inside the document container. Strip metadata from the source image file before inserting it into your document.
+
+**Does taking a screenshot of my photo remove the metadata?**
+
+Yes. A screenshot is generated by your operating system and does not inherit the EXIF data of the source image. It will reduce image quality. For a higher-quality clean version, use ExifVoid on the original file.
+
+**Should I remove all metadata or just GPS?**
+
+For professional use, removing all metadata is the simplest and safest approach. There is no meaningful benefit to a prospective employer or client from knowing which camera you used or which software you ran.

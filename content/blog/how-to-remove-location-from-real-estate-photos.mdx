@@ -1,0 +1,96 @@
+---
+title: "How to Remove Location from Real Estate and Property Photos"
+description: "Property photos listed on Rightmove, Zillow, or your own site may expose your home address in hidden metadata. Here's how to remove GPS data before publishing listing photos."
+category: "Educational"
+date: "2026-05-16"
+readTime: "7 min read"
+---
+
+**Every photo you take inside or outside your property records your precise GPS coordinates in hidden metadata — and that data often survives being uploaded to property listing sites.** Whether you are selling privately, listing on a portal, or sharing photos with prospective buyers directly, you could be broadcasting your exact home address in a way that is invisible in the image but readable in seconds with free tools.
+
+## Why Property Photos Are a Privacy Risk
+
+When a buyer, investor, or stranger views a photo of your kitchen or garden online, they see exactly what you intended to show them. What they cannot see — but can easily extract — is the GPS coordinate embedded in the image file by your smartphone camera.
+
+That coordinate points directly to your property, often accurate to within 5 metres. For most listings, the address is already public. But for private sellers, rental property owners, high-value home sales, or anyone concerned about security, having that data embedded and extractable in the raw file is an unnecessary exposure.
+
+Beyond GPS, property photos can also reveal your **camera serial number** (which links to your identity if you have posted other photos publicly), the **exact date and time** each photo was taken, and **software metadata** showing which apps or devices you used.
+
+## What Metadata Is Typically Found in Property Photos?
+
+| Metadata Type | What It Reveals | Risk Level |
+|---------------|----------------|------------|
+| GPS Coordinates | Exact address to within metres | High |
+| Timestamp | When photos were taken; implies occupancy patterns | Medium |
+| Camera Serial Number | Links photos to your device and identity | Medium |
+| Device Make & Model | iPhone 15 Pro, Samsung Galaxy S24, etc. | Low |
+| Software Tags | Lightroom, Snapseed, iOS Photos | Low |
+| IPTC Copyright | Your name or business name if set | Medium |
+
+## Do Property Portals Strip Metadata Automatically?
+
+Some do, some do not — and the rules change without notice.
+
+**Rightmove (UK):** Processes images on upload and generally strips EXIF data. However, this applies to the portal's hosted copies. Any photos you share directly with buyers via email or WhatsApp are unprocessed.
+
+**Zoopla (UK):** Similar to Rightmove — portal copies are typically processed, but direct file sharing bypasses this.
+
+**Zillow (US):** Strips metadata from images uploaded via the listing tool. Photos shared externally do not benefit from this.
+
+**Facebook Marketplace:** Variable. Some uploads are processed, others are not. Do not rely on it.
+
+**Private listings and personal websites:** No automatic processing. Metadata is fully intact.
+
+**Direct email or WhatsApp to buyers:** Always fully intact. The buyer receives the original file with all metadata.
+
+The safest approach is to strip metadata before uploading anywhere, rather than relying on each platform's behaviour — which can change at any time.
+
+## How to Remove Location Data from Property Photos: Step by Step
+
+### Step 1: Gather Your Photos
+
+Collect all the photos you plan to use in your listing — interior shots, exterior shots, garden photos, and any close-ups of features you want to highlight.
+
+### Step 2: Run Each Photo Through ExifVoid
+
+Go to [ExifVoid](https://exifvoid.com) and drag in your first property photo. Within a few seconds you will see a full breakdown of everything embedded in the file — including an interactive map showing exactly where the GPS coordinates point. This step alone is worth doing just to see what your photos are currently revealing.
+
+### Step 3: Remove All Metadata
+
+Click Remove All Metadata. ExifVoid re-encodes the image in your browser — no upload, no server, no account — and produces a clean file with all EXIF, XMP, IPTC, and GPS data removed. Download the cleaned file. Repeat for each photo.
+
+### Step 4: Use the Cleaned Files for All Sharing
+
+Use the metadata-free versions for your portal upload, your emails to buyers, your social media posts, and any other distribution channel. The images look identical. The location data is gone.
+
+## Should Letting Agents and Estate Agents Be Doing This?
+
+If your estate agent or letting agent is taking and uploading photos on your behalf, they may not be stripping metadata before sharing files directly with buyers or other agents. It is worth asking. For professional photographers shooting property, stripping metadata from delivered files is good practice — particularly for high-value or high-privacy listings.
+
+## Special Considerations for High-Privacy Situations
+
+**For Sale By Owner (FSBO):** Private sellers who handle their own listing photos face the highest exposure. Without a platform or agent processing images, every file shared directly carries full metadata.
+
+**Rental properties:** Landlords sharing property photos on Facebook groups, WhatsApp, or via email to prospective tenants are sending fully intact metadata with every image.
+
+**High-value properties:** For security-conscious sellers of premium properties, metadata stripping should be part of a broader operational security approach.
+
+**Overseas properties:** If you are listing a holiday home or overseas investment property, be aware that local listing portals may have no metadata processing whatsoever.
+
+## Frequently Asked Questions
+
+**Do Rightmove and Zoopla strip GPS data from listing photos?**
+
+Generally yes, for images processed through their upload tools. However, photos shared directly with buyers via email, WhatsApp, or messaging apps are not processed by the portal and carry full metadata. Strip metadata before sharing files by any method.
+
+**Can a burglar use photo metadata to target a property?**
+
+In theory, yes. GPS coordinates combined with timestamps showing when photos were taken — and by implication when the property was occupied or unoccupied — could be useful to someone with malicious intent. This is an unlikely but non-zero risk worth eliminating with a 30-second metadata strip.
+
+**Does removing metadata affect my photo quality?**
+
+ExifVoid re-encodes images at 95% JPEG quality via canvas. The visual difference is imperceptible in normal viewing conditions and is far below what any listing portal's own compression will do to the image anyway.
+
+**What about photos I took on a DSLR or mirrorless camera?**
+
+Professional cameras also embed metadata, though GPS is only recorded if the camera has a built-in GPS module. Camera serial numbers, lens data, and timestamps are always present and can be stripped with ExifVoid regardless of camera type.

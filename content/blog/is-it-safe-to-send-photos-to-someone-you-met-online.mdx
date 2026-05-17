@@ -1,0 +1,92 @@
+---
+title: "Is It Safe to Send Photos to Someone You Met Online?"
+description: "Before you send a photo to someone you met on a dating app or social media, read this. Hidden metadata in your images can reveal your home address, daily routine, and device identity."
+category: "Educational"
+date: "2026-05-16"
+readTime: "8 min read"
+---
+
+**Sending a photo to someone you met online can reveal your home address, even if nothing in the picture shows it.** Most photos taken on a smartphone carry hidden GPS coordinates embedded invisibly in the file — and those coordinates survive being sent via text, email, or direct message. Here is what you need to know before you hit send.
+
+## What Can Someone Do with a Photo You Send Them?
+
+More than most people realise. When you send a photo file directly — as opposed to posting it on a platform that strips metadata — the recipient receives not just the image but every piece of data your camera recorded when the shutter fired.
+
+That data can include your **precise GPS location** accurate to within a few metres, the **exact date and time** the photo was taken, the **make and model of your device**, and the **camera serial number**, which can be linked to your identity if you have ever posted photos publicly.
+
+Together, that information can reveal where you live, where you work, and which device you use — all from a single photo you sent because it seemed harmless.
+
+## Can Someone Track You from a Photo Sent by Text?
+
+Yes, if the photo is sent as a file rather than compressed. Here is how it works by platform:
+
+| Platform | Metadata Preserved? | Notes |
+|----------|-------------------|-------|
+| iMessage (full resolution) | Yes | Full EXIF including GPS travels with the file |
+| SMS / MMS | Usually yes | Depends on carrier compression |
+| WhatsApp (as document) | Yes | Sending as document preserves all metadata |
+| WhatsApp (as photo) | Usually no | WhatsApp compresses and typically strips EXIF |
+| Telegram (as file) | Yes | File transfers preserve metadata completely |
+| Email attachment | Yes | Metadata fully intact in attached files |
+| Instagram DM | Usually no | Platform compresses and processes images |
+| Snapchat | No | Converts to in-app format; metadata not passed |
+
+The critical distinction is whether you are sending a **file** or a **platform-processed image**. When in doubt, assume the metadata is intact.
+
+## What Are the Real Risks?
+
+### Someone Could Find Your Home Address
+
+If you take a photo at home — even a photo of your pet, your coffee, or a book you are reading — and send it as a file, the GPS coordinates embedded in that image can pinpoint your address. Anyone with basic technical knowledge and a free metadata tool can extract those coordinates and plot them on a map in under a minute.
+
+### They Could Track Your Routine
+
+A series of photos sent over time builds a picture of your daily movements — where you wake up, where you work, where you exercise, where you socialise. Each file carries a timestamp and location. Individually they are just photos. Together they are a surveillance log.
+
+### Your Device Can Be Identified
+
+Camera serial numbers embedded in EXIF data can be cross-referenced with publicly posted photos to confirm your identity. If you have ever posted a photo on social media from the same camera, your serial number may already be indexed.
+
+### Old Photos Carry Old Locations
+
+Sending a photo taken months or years ago still reveals the location where it was taken. If that photo was taken at your home or workplace, that information is just as useful to someone with bad intentions as a photo taken today.
+
+## How to Safely Send Photos Online
+
+### Step 1: Check the Metadata Before Sending
+
+Before sending any photo to someone you do not fully trust, run it through [ExifVoid](https://exifvoid.com). Drag the file in and you will see every piece of data embedded in it — including an interactive map showing exactly where the GPS coordinates point. The whole process takes about 10 seconds and happens entirely in your browser.
+
+### Step 2: Strip the Metadata
+
+If you see GPS coordinates or anything else you would rather not share, click Remove All Metadata in ExifVoid. The tool re-encodes the image via canvas — removing all embedded data — and lets you download a clean version. The image looks identical. The metadata is gone.
+
+### Step 3: Turn Off Location Tagging on Your Camera
+
+**On iPhone:** Settings → Privacy & Security → Location Services → Camera → select Never
+
+**On Android:** Open your Camera app → tap Settings → find Location tags → toggle it off
+
+Note that this only prevents future photos from carrying GPS. Photos already taken and stored in your camera roll still contain the coordinates from when they were shot.
+
+### Step 4: Be Careful How You Send
+
+Prefer platforms that process images over sending raw file attachments. If the person asks you to send the original file or a high-resolution version, pause and consider why.
+
+## Frequently Asked Questions
+
+**Can someone find my location from a photo I sent on WhatsApp?**
+
+It depends on how you sent it. Photos shared as images in WhatsApp are typically compressed and stripped of metadata. Photos shared as a document preserve all metadata including GPS. When in doubt, strip the metadata before sending using ExifVoid.
+
+**What if I screenshot the photo before sending — does that remove metadata?**
+
+Yes. Screenshots are generated by your operating system and do not inherit the EXIF data from the original photo. This is a quick way to strip metadata, though you will lose some image quality. For a higher-quality result, use ExifVoid.
+
+**Does sending photos on dating apps expose my location?**
+
+Most major dating apps process uploaded photos and strip metadata. The risk comes when you move a conversation to another platform such as WhatsApp or Telegram and send photos directly from your camera roll.
+
+**Can someone track me if I only sent one photo?**
+
+A single photo with GPS coordinates can be enough to identify your home or workplace. The risk does not require multiple images — one precise location stamp is sufficient.

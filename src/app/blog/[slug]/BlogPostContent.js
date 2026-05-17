@@ -3,12 +3,8 @@
 import Link from 'next/link'
 import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
-import { getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
 
-export default function BlogPostContent({ slug }) {
-  const post = getPostBySlug(slug)
-  const related = getRelatedPosts(slug, 3)
-
+export default function BlogPostContent({ post, related }) {
   if (!post) {
     return (
       <>
@@ -50,7 +46,7 @@ export default function BlogPostContent({ slug }) {
           </p>
 
           <div className="space-y-5">
-            {renderContent(post.content)}
+            {renderMarkdown(post.content)}
           </div>
 
           <div className="mt-12 p-6 rounded-xl bg-surface border border-border text-center">
@@ -68,7 +64,7 @@ export default function BlogPostContent({ slug }) {
             </Link>
           </div>
 
-          {related.length > 0 && (
+          {related && related.length > 0 && (
             <div className="mt-12">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-4">
                 Related Articles
@@ -95,7 +91,14 @@ export default function BlogPostContent({ slug }) {
   )
 }
 
-function renderContent(content) {
+// ---------------------------------------------------------------------------
+// Markdown renderer
+// Handles: ## H2, ### H3, | tables |, numbered lists, bullet lists,
+// **bold**, [text](url) links, plain paragraphs, blank lines
+// ---------------------------------------------------------------------------
+
+function renderMarkdown(content) {
+  if (!content) return null
   const blocks = content.split(/\n\n+/).map((b) => b.trim()).filter(Boolean)
   return blocks.map((block, idx) => renderBlock(block, idx))
 }
@@ -103,14 +106,15 @@ function renderContent(content) {
 function renderBlock(block, idx) {
   if (block.startsWith('## ')) {
     return (
-      <h2 key={idx} className="text-xl font-bold text-foreground mt-10 mb-1 leading-snug">
+      <h2 key={idx} className="text-xl font-bold text-foreground mt-10 mb-2 leading-snug">
         {renderInline(block.slice(3).trim())}
       </h2>
     )
   }
+
   if (block.startsWith('### ')) {
     return (
-      <h3 key={idx} className="text-base font-semibold text-foreground mt-6 mb-1">
+      <h3 key={idx} className="text-[17px] font-semibold text-foreground mt-6 mb-1">
         {renderInline(block.slice(4).trim())}
       </h3>
     )
@@ -154,30 +158,29 @@ function renderBlock(block, idx) {
 }
 
 function renderTable(lines, idx) {
-  const isSeparator = (l) => /^\|[-| :]+\|?$/.test(l)
-  const dataRows = lines.filter((l) => !isSeparator(l))
-  if (dataRows.length === 0) return null
-  const parseRow = (line) =>
-    line.split('|').map((c) => c.trim()).filter((c) => c !== '')
-  const [headerRow, ...bodyRows] = dataRows
+  const isSep = (l) => /^\|[-| :]+\|?$/.test(l)
+  const rows = lines.filter((l) => !isSep(l))
+  if (!rows.length) return null
+  const parseRow = (l) => l.split('|').map((c) => c.trim()).filter(Boolean)
+  const [head, ...body] = rows
   return (
     <div key={idx} className="overflow-x-auto my-2">
       <table className="w-full text-sm border-collapse">
         <thead>
           <tr className="border-b border-border">
-            {parseRow(headerRow).map((cell, i) => (
+            {parseRow(head).map((c, i) => (
               <th key={i} className="text-left py-2 px-3 font-semibold text-foreground text-xs uppercase tracking-wide">
-                {renderInline(cell)}
+                {renderInline(c)}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {bodyRows.map((row, ri) => (
+          {body.map((row, ri) => (
             <tr key={ri} className="border-b border-border/50 hover:bg-surface/50 transition-colors">
-              {parseRow(row).map((cell, ci) => (
+              {parseRow(row).map((c, ci) => (
                 <td key={ci} className="py-2.5 px-3 text-muted align-top">
-                  {renderInline(cell)}
+                  {renderInline(c)}
                 </td>
               ))}
             </tr>
@@ -192,24 +195,13 @@ function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={i} className="font-semibold text-foreground">
-          {part.slice(2, -2)}
-        </strong>
-      )
+      return <strong key={i} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>
     }
-    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-    if (linkMatch) {
-      const [, label, href] = linkMatch
-      return href.startsWith('http') ? (
-        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
-          {label}
-        </a>
-      ) : (
-        <Link key={i} href={href} className="text-brand hover:underline">
-          {label}
-        </Link>
-      )
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (m) {
+      return m[2].startsWith('http')
+        ? <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">{m[1]}</a>
+        : <Link key={i} href={m[2]} className="text-brand hover:underline">{m[1]}</Link>
     }
     return part
   })

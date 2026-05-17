@@ -1,16 +1,14 @@
 import BlogPostContent from './BlogPostContent'
-import { POSTS } from '../../../lib/blogData'
+import { getAllPosts, getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
 
 export function generateStaticParams() {
-  return POSTS.map((post) => ({
-    slug: post.slug,
-  }))
+  const posts = getAllPosts()
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
 export function generateMetadata({ params }) {
-  const post = POSTS.find(p => p.slug === params.slug)
+  const post = getPostBySlug(params.slug)
   if (!post) return { title: 'Post Not Found — ExifVoid' }
-
   return {
     title: post.title,
     description: post.description,
@@ -34,5 +32,7 @@ export function generateMetadata({ params }) {
 }
 
 export default function BlogPostPage({ params }) {
-  return <BlogPostContent slug={params.slug} />
+  const post = getPostBySlug(params.slug)
+  const related = getRelatedPosts(params.slug, 3)
+  return <BlogPostContent post={post} related={related} />
 }
