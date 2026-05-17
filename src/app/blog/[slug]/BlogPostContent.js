@@ -3,13 +3,11 @@
 import Link from 'next/link'
 import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
-import { POSTS } from '../../../lib/blogData'
+import { getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
 
 export default function BlogPostContent({ slug }) {
-  const post = POSTS.find((p) => p.slug === slug)
-  const related = POSTS.filter(
-    (p) => p.slug !== slug && p.category === post?.category
-  ).slice(0, 3)
+  const post = getPostBySlug(slug)
+  const related = getRelatedPosts(slug, 3)
 
   if (!post) {
     return (
@@ -34,7 +32,6 @@ export default function BlogPostContent({ slug }) {
       <main className="min-h-screen bg-background">
         <article className="max-w-2xl mx-auto px-4 py-12">
 
-          {/* Meta row */}
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-surface text-muted border border-border">
               {post.category}
@@ -44,22 +41,18 @@ export default function BlogPostContent({ slug }) {
             </span>
           </div>
 
-          {/* Title */}
           <h1 className="text-3xl font-bold text-foreground leading-tight mb-4">
             {post.title}
           </h1>
 
-          {/* Description */}
           <p className="text-base text-muted leading-relaxed mb-8 pb-8 border-b border-border">
             {post.description}
           </p>
 
-          {/* Body */}
           <div className="space-y-5">
             {renderContent(post.content)}
           </div>
 
-          {/* CTA */}
           <div className="mt-12 p-6 rounded-xl bg-surface border border-border text-center">
             <p className="text-sm font-semibold text-foreground mb-1">
               Check your photos for hidden metadata
@@ -75,7 +68,6 @@ export default function BlogPostContent({ slug }) {
             </Link>
           </div>
 
-          {/* Related posts */}
           {related.length > 0 && (
             <div className="mt-12">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-4">
@@ -116,7 +108,6 @@ function renderBlock(block, idx) {
       </h2>
     )
   }
-
   if (block.startsWith('### ')) {
     return (
       <h3 key={idx} className="text-base font-semibold text-foreground mt-6 mb-1">
@@ -166,12 +157,9 @@ function renderTable(lines, idx) {
   const isSeparator = (l) => /^\|[-| :]+\|?$/.test(l)
   const dataRows = lines.filter((l) => !isSeparator(l))
   if (dataRows.length === 0) return null
-
   const parseRow = (line) =>
     line.split('|').map((c) => c.trim()).filter((c) => c !== '')
-
   const [headerRow, ...bodyRows] = dataRows
-
   return (
     <div key={idx} className="overflow-x-auto my-2">
       <table className="w-full text-sm border-collapse">
@@ -204,34 +192,21 @@ function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={i} className="font-semibold text-foreground">
-          {part.slice(2, -2)}
-        </strong>
-      )
+      return <strong key={i} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>
     }
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (linkMatch) {
       const [, label, href] = linkMatch
-      return href.startsWith('http') ? (
-        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
-          {label}
-        </a>
-      ) : (
-        <Link key={i} href={href} className="text-brand hover:underline">
-          {label}
-        </Link>
-      )
+      return href.startsWith('http')
+        ? <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">{label}</a>
+        : <Link key={i} href={href} className="text-brand hover:underline">{label}</Link>
     }
     return part
   })
 }
 
 function formatDate(dateStr) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+  return new Date(dateStr).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric',
   })
 }
