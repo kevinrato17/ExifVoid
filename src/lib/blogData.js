@@ -1,8 +1,26 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog')
+
+function parseFrontmatter(raw) {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
+  if (!match) return { data: {}, content: raw }
+
+  const frontmatter = match[1]
+  const content = match[2].trim()
+  const data = {}
+
+  frontmatter.split('\n').forEach((line) => {
+    const colonIdx = line.indexOf(':')
+    if (colonIdx === -1) return
+    const key = line.slice(0, colonIdx).trim()
+    const value = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '')
+    data[key] = value
+  })
+
+  return { data, content }
+}
 
 function getPostFiles() {
   if (!fs.existsSync(BLOG_DIR)) return []
@@ -13,7 +31,7 @@ function parsePost(filename) {
   const slug = filename.replace(/\.mdx$/, '')
   const filepath = path.join(BLOG_DIR, filename)
   const raw = fs.readFileSync(filepath, 'utf-8')
-  const { data, content } = matter(raw)
+  const { data, content } = parseFrontmatter(raw)
   return {
     slug,
     title: data.title || '',
@@ -46,5 +64,4 @@ export function getRelatedPosts(slug, limit = 3) {
     .slice(0, limit)
 }
 
-// Keep POSTS export for any pages that still use it directly
 export const POSTS = getAllPosts()
