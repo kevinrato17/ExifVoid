@@ -103,19 +103,12 @@ export default function BlogPostContent({ slug }) {
   )
 }
 
-// ---------------------------------------------------------------------------
-// Content renderer
-// Handles: ## H2, ### H3, | tables |, numbered lists, bullet lists,
-//          **bold**, [text](url) links, plain paragraphs
-// ---------------------------------------------------------------------------
-
 function renderContent(content) {
   const blocks = content.split(/\n\n+/).map((b) => b.trim()).filter(Boolean)
   return blocks.map((block, idx) => renderBlock(block, idx))
 }
 
 function renderBlock(block, idx) {
-  // ## H2
   if (block.startsWith('## ')) {
     return (
       <h2 key={idx} className="text-xl font-bold text-foreground mt-10 mb-1 leading-snug">
@@ -124,7 +117,6 @@ function renderBlock(block, idx) {
     )
   }
 
-  // ### H3
   if (block.startsWith('### ')) {
     return (
       <h3 key={idx} className="text-base font-semibold text-foreground mt-6 mb-1">
@@ -135,12 +127,10 @@ function renderBlock(block, idx) {
 
   const lines = block.split('\n')
 
-  // Table — lines that start with |
   if (lines.length >= 2 && lines[0].startsWith('|') && lines[1].startsWith('|')) {
     return renderTable(lines, idx)
   }
 
-  // Numbered list
   if (/^\d+\.\s/.test(lines[0])) {
     return (
       <ol key={idx} className="list-decimal list-outside ml-5 space-y-2">
@@ -153,7 +143,6 @@ function renderBlock(block, idx) {
     )
   }
 
-  // Bullet list
   if (/^[*-]\s/.test(lines[0])) {
     return (
       <ul key={idx} className="list-disc list-outside ml-5 space-y-2">
@@ -166,7 +155,6 @@ function renderBlock(block, idx) {
     )
   }
 
-  // Default paragraph (join soft-wrapped lines)
   return (
     <p key={idx} className="text-[15px] text-muted leading-relaxed">
       {renderInline(lines.join(' '))}
@@ -212,7 +200,6 @@ function renderTable(lines, idx) {
   )
 }
 
-// Handles **bold** and [text](url) inline
 function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return parts.map((part, i) => {
