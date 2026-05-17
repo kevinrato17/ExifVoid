@@ -24,13 +24,13 @@ export const POSTS = [
     readTime: "9 min read",
     content: `**You can often find exactly where a photo was taken in under 60 seconds — without any specialist tools.** Most smartphones and cameras silently embed GPS coordinates, timestamps, and device information into every image file. This guide explains how investigators trace photo locations, what data they use, and how to check whether your own photos are exposing your whereabouts.
  
-## What Is OSINT and Why Does It Apply to Photos?
+**What Is OSINT and Why Does It Apply to Photos?**
  
 OSINT stands for Open Source Intelligence — the practice of gathering information from publicly available sources. Photo metadata is one of the richest OSINT data sources available because it is invisible to the naked eye yet packed with precise, verifiable information.
  
 Digital investigators, journalists, security researchers, and unfortunately bad actors all use the same basic techniques to trace photo locations. Understanding those techniques is the first step to protecting yourself from them.
  
-## What Data Can Reveal Where a Photo Was Taken?
+**What Data Can Reveal Where a Photo Was Taken?**
  
 Before exploring the techniques, it helps to know which data points investigators are actually looking for.
  
@@ -40,91 +40,51 @@ Before exploring the techniques, it helps to know which data points investigator
  
 **Camera serial numbers** are embedded in many EXIF fields. A serial number can be cross-referenced with warranty registrations or past social media posts to identify the owner of the device.
  
-**Software and device fingerprints** reveal the make, model, and operating system of the device used — useful for corroborating other findings.
- 
 **Visual content** in the image itself — landmarks, street signs, vegetation, architecture, sun angle, shadow direction — can all be used to pinpoint location through a technique called geolocation.
  
-## How Investigators Trace Photo Locations Step by Step
+**How Investigators Trace Photo Locations Step by Step**
  
-### Step 1: Extract the EXIF Metadata
+The first move is always to read the raw metadata embedded in the file. Investigators use tools like ExifTool, Jeffrey's Exif Viewer, or browser-based tools like ExifVoid to extract everything the file contains. The output typically includes GPS latitude and longitude, altitude, the device used, the date and time, and dozens of other fields. If GPS coordinates are present, the investigation can often stop here — the location is already known to within metres.
  
-The first move is always to read the raw metadata embedded in the file. Investigators use tools like ExifTool, Jeffrey's Exif Viewer, or browser-based tools like **ExifVoid** to extract everything the file contains.
+If coordinates are found, they are dropped into Google Maps, Google Earth, or OpenStreetMap. A precise pin appears, often identifying the exact building, room, or outdoor spot where the photo was taken. Researchers have traced the location of hostage videos, verified the authenticity of protest footage, and identified the homes of anonymous social media users — all from a single GPS coordinate embedded in a photograph.
  
-The output typically includes GPS latitude and longitude, altitude, the device used, the date and time, and dozens of other fields. If GPS coordinates are present, the investigation can often stop here — the location is already known to within metres.
+If no GPS data is present, investigators turn to the image itself. Google Lens, TinEye, and Yandex Images can match distinctive visual elements — a building facade, a bridge, a stretch of coastline — against billions of indexed images to find matching locations. This technique, called visual geolocation or GEOINT, has been used by open-source investigation groups like Bellingcat to verify footage from conflict zones.
  
-### Step 2: Plot the GPS Coordinates
+Experienced investigators also read environmental details methodically. Sun position and shadow angle can be run through tools like SunCalc to confirm the approximate time and latitude. Vegetation type narrows down the climate zone. Licence plates, road markings, and shop signage all carry regional signatures that can confirm or contradict a claimed location.
  
-If coordinates are found, they are dropped into Google Maps, Google Earth, or OpenStreetMap. A precise pin appears, often identifying the exact building, room, or outdoor spot where the photo was taken.
+**Which Photo Formats Carry GPS Data?**
  
-This is not theoretical. Researchers have traced the location of hostage videos, verified the authenticity of protest footage, and identified the homes of anonymous social media users — all from a single GPS coordinate embedded in a photograph.
+JPEG and HEIC files — the default formats on iPhone and most Android phones — carry full EXIF GPS data. TIFF files used in professional cameras also carry full metadata. PNG can carry GPS via XMP metadata but it is less common. Screenshots are generated by the operating system and contain no camera metadata at all, making them a quick way to strip location data at the cost of image quality.
  
-### Step 3: Use Reverse Image Search for Visual Geolocation
+**Can Someone Track You from a Photo You Posted Online?**
  
-If no GPS data is present, investigators turn to the image itself. Google Lens, TinEye, and Yandex Images can match distinctive visual elements — a building facade, a bridge, a stretch of coastline — against billions of indexed images to find matching locations.
+It depends on the platform. Some social media platforms strip metadata automatically on upload — but not all of them, and the rules change frequently. More importantly, if you share a photo file directly — via email, WhatsApp, iMessage, or a file transfer — the metadata often travels with it completely intact.
  
-This technique, called visual geolocation or GEOINT, has been used by open-source investigation groups like Bellingcat to verify footage from conflict zones. It requires patience and cross-referencing, but it works.
+The practical risk is significant for people who share property photos, workplace images, or personal photos with strangers online. The fastest way to find out whether your photos contain GPS data is to run them through ExifVoid before sharing. It reads all EXIF, XMP, IPTC, and GPS metadata directly in your browser, scores your privacy risk, plots any GPS coordinates on a map, and lets you strip all metadata with one click.
  
-### Step 4: Analyse Environmental Clues
+**Protecting Yourself: Practical Steps**
  
-Experienced investigators read environmental details methodically. Sun position and shadow angle can be run through tools like SunCalc to confirm the approximate time and latitude. Vegetation type narrows down the climate zone. Licence plates, road markings, utility poles, and shop signage all carry regional signatures that can confirm or contradict a claimed location.
+Before sharing any photo, run it through a metadata scanner to confirm what it contains. Pay particular attention to GPS coordinates, camera serial numbers, and timestamps. Disable location tagging in your camera app settings if you do not need it. On iPhone: Settings → Privacy & Security → Location Services → Camera → Never. On Android: Camera app → Settings → toggle off Location tags.
  
-### Step 5: Cross-Reference with Open Data
+Do not rely on platforms to strip metadata on your behalf. Platform behaviour changes, and file-sharing apps like WhatsApp often preserve metadata in direct transfers.
  
-The final step is corroboration. A found location is cross-referenced against street view imagery, satellite data, social media posts from the same area, and any other open sources that can independently confirm the finding.
- 
-## Which Photo Formats Carry GPS Data?
- 
-| Format | Carries EXIF GPS? | Notes |
-|--------|------------------|-------|
-| JPEG / JPG | Yes | Most common format; full EXIF support |
-| HEIC | Yes | Default iPhone format; full metadata |
-| PNG | Limited | Can carry GPS via XMP; less common |
-| WebP | Limited | Some metadata support; platform-dependent |
-| TIFF | Yes | Full EXIF support; common in professional cameras |
-| Screenshots | No | Generated by the OS; no camera metadata |
- 
-## Can Someone Track You from a Photo You Posted Online?
- 
-It depends on the platform. Some social media platforms strip metadata automatically on upload — but not all of them, and the rules change frequently.
- 
-More importantly, if you share a photo file directly — via email, WhatsApp, iMessage, or a file transfer — the metadata often travels with it completely intact. The recipient, or anyone who later receives that file, has access to everything embedded in it.
- 
-The practical risk is significant for people who share property photos, workplace images, or personal photos with strangers online.
- 
-## How to Check If Your Photos Are Traceable
- 
-The fastest way to find out whether your photos contain GPS data or other identifying information is to run them through **[ExifVoid](https://exifvoid.com)** before sharing.
- 
-ExifVoid reads all EXIF, XMP, IPTC, and GPS metadata directly in your browser — no upload, no server, no account. It scores your privacy risk, plots any GPS coordinates on a map so you can see exactly what others could see, and lets you strip all metadata with one click.
- 
-It takes about 10 seconds per photo and gives you complete visibility into what your files are actually revealing.
- 
-## Protecting Yourself: Practical Steps
- 
-**Before sharing any photo**, run it through a metadata scanner to confirm what it contains. Pay particular attention to GPS coordinates, camera serial numbers, and timestamps.
- 
-**Disable location tagging** in your camera app settings if you do not need it. On iPhone: Settings → Privacy & Security → Location Services → Camera → Never. On Android: Camera app → Settings → toggle off Location tags.
- 
-**Strip metadata before sending** if you are sharing photos with people you do not fully trust, posting to public forums, or sharing property or workplace images. ExifVoid removes all metadata via canvas re-encoding directly in your browser.
- 
-**Do not rely on platforms** to strip metadata on your behalf. Platform behaviour changes, and file-sharing apps like WhatsApp often preserve metadata in direct transfers.
- 
-## Frequently Asked Questions
+**Frequently Asked Questions**
  
 **Can you find where a photo was taken without GPS data?**
+ 
 Yes, though it requires more effort. Investigators use visual geolocation techniques — analysing landmarks, signage, shadows, vegetation, and architecture — to pinpoint locations even when no GPS coordinates are embedded. Tools like Google Lens and Yandex Images assist this process.
  
 **Does sending a photo via iMessage strip the GPS data?**
-No. iMessage typically preserves metadata when sending full-resolution images. The recipient receives the file with all EXIF data intact, including GPS coordinates if they were recorded. Shared from a standard camera roll photo, your location can be read directly.
+ 
+No. iMessage typically preserves metadata when sending full-resolution images. The recipient receives the file with all EXIF data intact, including GPS coordinates if they were recorded.
  
 **Can someone track my location from an old photo I posted years ago?**
+ 
 If the photo file itself was accessible — downloaded by a user before the platform processed it, or hosted on a service that preserves metadata — then yes, the GPS data is still readable in that file today. Metadata does not expire.
  
-**Is it legal to extract metadata from someone else's photo?**
-Metadata extraction from publicly accessible files is generally legal in most jurisdictions, as it reads data already present in the file. However, using that data to track or harass someone triggers separate laws around stalking, harassment, and data protection. In the UK, misuse of location data for surveillance purposes can constitute a criminal offence under the Protection from Harassment Act 1997.
- 
 **How accurate is GPS metadata in photos?**
-Smartphone GPS accuracy in photos is typically 3–10 metres in open areas. In urban environments with signal interference, accuracy can degrade to 20–50 metres — still more than precise enough to identify a specific building or address.`
+ 
+Smartphone GPS accuracy in photos is typically 3–10 metres in open areas. In urban environments with signal interference, accuracy can degrade to 20–50 metres — still more than precise enough to identify a specific building or address.`,
   },
  
   {
@@ -134,99 +94,59 @@ Smartphone GPS accuracy in photos is typically 3–10 metres in open areas. In u
     category: "Educational",
     date: "2026-05-16",
     readTime: "8 min read",
-    content: `**Sending a photo to someone you met online can reveal your home address, even if nothing in the picture shows it.** Most photos taken on a smartphone carry hidden GPS coordinates embedded invisibly in the file — and those coordinates survive being sent via text, email, or direct message. Here is what you need to know before you hit send.
+    content:  `**Sending a photo to someone you met online can reveal your home address, even if nothing in the picture shows it.** Most photos taken on a smartphone carry hidden GPS coordinates embedded invisibly in the file — and those coordinates survive being sent via text, email, or direct message. Here is what you need to know before you hit send.
  
-## What Can Someone Do with a Photo You Send Them?
- 
-More than most people realise. When you send a photo file directly — as opposed to posting it on a platform that strips metadata — the recipient receives not just the image but every piece of data your camera recorded when the shutter fired.
- 
-That data can include your **precise GPS location** accurate to within a few metres, the **exact date and time** the photo was taken, the **make and model of your device**, the **camera serial number** (which can be linked to your identity if you have ever posted photos publicly), and details about the software used to edit or export the file.
- 
-Together, that information can reveal where you live, where you work, where you spend your evenings, and which device you use — all from a single photo you sent because it seemed harmless.
- 
-## Can Someone Track You from a Photo Sent by Text?
- 
-Yes, if the photo is sent as a file rather than compressed. Here is how it works by platform:
- 
-| Platform | Metadata Preserved? | Notes |
-|----------|-------------------|-------|
-| iMessage (full resolution) | Yes | Full EXIF including GPS travels with the file |
-| SMS / MMS | Usually yes | Depends on carrier compression; often preserved |
-| WhatsApp (as document) | Yes | Sending "as document" preserves all metadata |
-| WhatsApp (as photo) | Usually no | WhatsApp compresses photos and typically strips EXIF |
-| Telegram (as file) | Yes | File transfers preserve metadata completely |
-| Email attachment | Yes | Metadata fully intact in attached files |
-| Instagram DM | Usually no | Platform compresses and processes images |
-| Snapchat | No | Converts to in-app format; metadata not passed |
- 
-The critical distinction is whether you are sending a **file** or a **platform-processed image**. When in doubt, assume the metadata is intact.
- 
-## What Are the Real Risks?
- 
-### Someone Could Find Your Home Address
- 
-If you take a photo at home — even a photo of your pet, your coffee, or a book you are reading — and send it as a file, the GPS coordinates embedded in that image can pinpoint your address. Anyone with basic technical knowledge and a free metadata tool can extract those coordinates and plot them on a map in under a minute.
- 
-### They Could Track Your Routine
- 
-A series of photos sent over time builds a picture of your daily movements — where you wake up, where you work, where you exercise, where you socialise. Each file carries a timestamp and location. Individually they are just photos. Together they are a surveillance log.
- 
-### Your Device Can Be Identified
- 
-Camera serial numbers embedded in EXIF data can be cross-referenced with publicly posted photos to confirm your identity. If you have ever posted a photo on social media from the same camera, your serial number may already be indexed — linking your anonymous messages to your real identity.
- 
-### Old Photos Carry Old Locations
- 
-Sending a photo taken months or years ago still reveals the location where it was taken. If that photo was taken at your home, workplace, or a regular haunt, that information is just as useful to someone with bad intentions as a photo taken today.
- 
-## How to Safely Send Photos Online
- 
-### Step 1: Check the Metadata Before Sending
- 
-Before sending any photo to someone you do not fully trust, run it through **[ExifVoid](https://exifvoid.com)**. Drag the file in and you will see every piece of data embedded in it — including an interactive map showing exactly where the GPS coordinates point. The whole process takes about 10 seconds and happens entirely in your browser.
- 
-### Step 2: Strip the Metadata
- 
-If you see GPS coordinates, device information, or anything else you would rather not share, hit "Remove All Metadata" in ExifVoid. The tool re-encodes the image via canvas — removing all embedded data — and lets you download a clean version of the file. The image looks identical. The metadata is gone.
- 
-### Step 3: Turn Off Location Tagging on Your Camera
- 
-The cleanest long-term fix is to stop your camera from recording GPS in the first place.
- 
-**On iPhone:** Settings → Privacy & Security → Location Services → Camera → select "Never"
- 
-**On Android:** Open your Camera app → tap Settings (gear icon) → find "Location tags" or "GPS location" → toggle it off
- 
-Note that this only prevents future photos from carrying GPS. Photos already taken and stored in your camera roll still contain the coordinates from when they were shot.
- 
-### Step 4: Be Careful How You Send
- 
-Even a clean photo can carry risks if you choose the wrong sending method. Prefer platforms that process images (compressing and stripping metadata) over sending raw file attachments. If the person asks you to send "the original file" or a "high-resolution version," pause and consider why.
- 
-## Warning Signs to Watch For
- 
-Someone asking for original, uncompressed photo files from someone they just met online is unusual. Legitimate reasons exist — they might be a photography enthusiast or want to print the image — but it is worth being aware of. Requests for photos taken at home, at work, or at regular locations carry extra risk even when the request itself seems innocent.
- 
-## Does It Matter What the Photo Shows?
- 
-Yes, but perhaps not in the way you might think. The content of the image matters for obvious reasons, but the **metadata** creates risks regardless of content. A photo of a blank wall taken in your bedroom reveals your home coordinates just as clearly as a photo that shows the room. The image itself does not need to give anything away for the metadata to do so.
- 
-## Frequently Asked Questions
- 
-**Can someone find my location from a photo I sent on WhatsApp?**
-It depends on how you sent it. Photos shared as images in WhatsApp are typically compressed and stripped of metadata. Photos shared "as document" preserve all metadata including GPS. When in doubt, strip the metadata before sending using ExifVoid.
- 
-**What if I screenshot the photo before sending — does that remove metadata?**
-Yes. Screenshots are generated by your operating system and do not inherit the EXIF data from the original photo. Taking a screenshot before sending is a quick way to strip metadata, though you will lose some image quality. For a higher-quality result with no metadata, use ExifVoid.
- 
-**Does sending photos on dating apps expose my location?**
-Most major dating apps — Tinder, Bumble, Hinge — process uploaded photos and strip metadata. The risk comes when you move a conversation to another platform (WhatsApp, Telegram, email) and send photos directly from your camera roll.
- 
-**Can someone track me if I only sent one photo?**
-A single photo with GPS coordinates can be enough to identify your home or workplace. The risk does not require multiple images — one precise location stamp is sufficient.
- 
-**Is it illegal for someone to use my photo metadata to find my location?**
-Extracting metadata is generally not illegal in itself. However, using that information to track, harass, or stalk someone is a criminal offence in the UK under the Protection from Harassment Act 1997 and may trigger additional offences under the Stalking Protection Act 2019. If you believe someone is using your location data against you, contact the police.`
+    **What Can Someone Do with a Photo You Send Them?**
+     
+    More than most people realise. When you send a photo file directly — as opposed to posting it on a platform that strips metadata — the recipient receives not just the image but every piece of data your camera recorded when the shutter fired.
+     
+    That data can include your **precise GPS location** accurate to within a few metres, the **exact date and time** the photo was taken, the **make and model of your device**, the **camera serial number** (which can be linked to your identity if you have ever posted photos publicly), and details about the software used to edit or export the file.
+     
+    Together, that information can reveal where you live, where you work, where you spend your evenings, and which device you use — all from a single photo you sent because it seemed harmless.
+     
+    **Which Messaging Apps Preserve Metadata?**
+     
+    The critical distinction is whether you are sending a file or a platform-processed image. iMessage preserves full EXIF data including GPS when sending full-resolution images. SMS and MMS usually preserve metadata depending on carrier compression. WhatsApp preserves all metadata when you send a photo as a document, but typically strips it when sending as a standard photo. Telegram preserves all metadata when files are sent as documents. Email attachments always preserve metadata fully. Instagram DMs and Snapchat process images and do not pass metadata to recipients.
+     
+    When in doubt, assume the metadata is intact.
+     
+    **What Are the Real Risks?**
+     
+    If you take a photo at home — even a photo of your pet, your coffee, or a book you are reading — and send it as a file, the GPS coordinates embedded in that image can pinpoint your address. Anyone with basic technical knowledge and a free metadata tool can extract those coordinates and plot them on a map in under a minute.
+     
+    A series of photos sent over time builds a picture of your daily movements — where you wake up, where you work, where you exercise, where you socialise. Each file carries a timestamp and location. Individually they are just photos. Together they are a surveillance log.
+     
+    Camera serial numbers embedded in EXIF data can be cross-referenced with publicly posted photos to confirm your identity. If you have ever posted a photo on social media from the same camera, your serial number may already be indexed — linking your anonymous messages to your real identity.
+     
+    Sending a photo taken months or years ago still reveals the location where it was taken. If that photo was taken at your home, workplace, or a regular haunt, that information is just as useful to someone with bad intentions as a photo taken today.
+     
+    **How to Safely Send Photos Online**
+     
+    Before sending any photo to someone you do not fully trust, run it through ExifVoid. Drag the file in and you will see every piece of data embedded in it — including an interactive map showing exactly where the GPS coordinates point. The whole process takes about 10 seconds and happens entirely in your browser.
+     
+    If you see GPS coordinates, device information, or anything else you would rather not share, click Remove All Metadata. The tool re-encodes the image via canvas — removing all embedded data — and lets you download a clean version of the file. The image looks identical. The metadata is gone.
+     
+    The cleanest long-term fix is to stop your camera from recording GPS in the first place. On iPhone: Settings → Privacy & Security → Location Services → Camera → select Never. On Android: open your Camera app → tap Settings → find Location tags → toggle it off. Note that this only prevents future photos from carrying GPS. Photos already in your camera roll still contain the coordinates from when they were shot.
+     
+    Even a clean photo can carry risks if you choose the wrong sending method. Prefer platforms that process images over sending raw file attachments. If the person asks you to send the original file or a high-resolution version, pause and consider why.
+     
+    **Frequently Asked Questions**
+     
+    **Can someone find my location from a photo I sent on WhatsApp?**
+     
+    It depends on how you sent it. Photos shared as images in WhatsApp are typically compressed and stripped of metadata. Photos shared as a document preserve all metadata including GPS. When in doubt, strip the metadata before sending using ExifVoid.
+     
+    **What if I screenshot the photo before sending — does that remove metadata?**
+     
+    Yes. Screenshots are generated by your operating system and do not inherit the EXIF data from the original photo. Taking a screenshot before sending is a quick way to strip metadata, though you will lose some image quality. For a higher-quality result with no metadata, use ExifVoid.
+     
+    **Does sending photos on dating apps expose my location?**
+     
+    Most major dating apps process uploaded photos and strip metadata. The risk comes when you move a conversation to another platform such as WhatsApp, Telegram, or email, and send photos directly from your camera roll.
+     
+    **Can someone track me if I only sent one photo?**
+     
+    A single photo with GPS coordinates can be enough to identify your home or workplace. The risk does not require multiple images — one precise location stamp is sufficient.`,
   },
  
   {
@@ -238,7 +158,7 @@ Extracting metadata is generally not illegal in itself. However, using that info
     readTime: "7 min read",
     content: `**Every photo you take inside or outside your property records your precise GPS coordinates in hidden metadata — and that data often survives being uploaded to property listing sites.** Whether you are selling privately, listing on a portal, or sharing photos with prospective buyers directly, you could be broadcasting your exact home address in a way that is invisible in the image but readable in seconds with free tools.
  
-## Why Property Photos Are a Privacy Risk
+**Why Property Photos Are a Privacy Risk**
  
 When a buyer, investor, or stranger views a photo of your kitchen or garden online, they see exactly what you intended to show them. What they cannot see — but can easily extract — is the GPS coordinate embedded in the image file by your smartphone camera.
  
@@ -246,87 +166,51 @@ That coordinate points directly to your property, often accurate to within 5 met
  
 Beyond GPS, property photos can also reveal your **camera serial number** (which links to your identity if you have posted other photos publicly), the **exact date and time** each photo was taken (useful to a burglar mapping your schedule), and **software metadata** showing which apps or devices you used.
  
-## What Metadata Is Typically Found in Property Photos?
+**What Metadata Is Typically Found in Property Photos?**
  
-| Metadata Type | What It Reveals | Risk Level |
-|---------------|----------------|------------|
-| GPS Coordinates | Exact address to within metres | High |
-| Timestamp | When photos were taken; implies occupancy patterns | Medium |
-| Camera Serial Number | Links photos to your device and identity | Medium |
-| Device Make & Model | iPhone 15 Pro, Samsung Galaxy S24, etc. | Low |
-| Software Tags | Lightroom, Snapseed, iOS Photos | Low |
-| IPTC Copyright | Your name or business name if set | Medium |
+GPS coordinates can reveal your exact address to within metres — the highest risk item in any property photo. Timestamps show when photos were taken, which implies occupancy patterns. Camera serial numbers link photos to your device and identity. Device make and model, software tags from apps like Lightroom or Snapseed, and IPTC copyright fields containing your name or business name are all commonly present.
  
-## Do Property Portals Strip Metadata Automatically?
+**Do Property Portals Strip Metadata Automatically?**
  
-Some do, some do not — and the rules change without notice. Here is the current picture for the most common platforms:
+Some do, some do not — and the rules change without notice. Rightmove and Zoopla generally process images on upload and strip EXIF data, but this only applies to their hosted copies. Any photos you share directly with buyers via email or WhatsApp are unprocessed. Zillow strips metadata from images uploaded via the listing tool, but photos shared externally do not benefit from this. Facebook Marketplace is variable and unreliable. Private listings and personal websites do not process images at all — metadata is fully intact.
  
-**Rightmove (UK):** Processes images on upload and generally strips EXIF data. However, this applies to the portal's hosted copies. Any photos you share directly with buyers via email or WhatsApp are unprocessed.
+The safest approach is to strip metadata before uploading anywhere, rather than relying on each platform's behaviour, which can change at any time.
  
-**Zoopla (UK):** Similar to Rightmove — portal copies are typically processed, but direct file sharing bypasses this.
+**How to Remove Location Data from Property Photos: Step by Step**
  
-**Zillow (US):** Strips metadata from images uploaded via the listing tool. Photos shared externally do not benefit from this.
+First, collect all the photos you plan to use in your listing — interior shots, exterior shots, garden photos, and any close-ups of features you want to highlight.
  
-**Facebook Marketplace:** Variable. Some uploads are processed, others are not. Do not rely on it.
+Go to ExifVoid and drag in your first property photo. Within a few seconds you will see a full breakdown of everything embedded in the file — including an interactive map showing exactly where the GPS coordinates point. This step alone is worth doing just to see what your photos are currently revealing.
  
-**Private listings / personal websites:** No automatic processing. Metadata is fully intact.
- 
-**Direct email or WhatsApp to buyers:** Always fully intact. The buyer receives the original file with all metadata.
- 
-The safest approach is to strip metadata before uploading anywhere, rather than relying on each platform's behaviour — which can change at any time.
- 
-## How to Remove Location Data from Property Photos: Step by Step
- 
-### Step 1: Gather Your Photos
- 
-Collect all the photos you plan to use in your listing — interior shots, exterior shots, garden photos, and any close-ups of features you want to highlight.
- 
-### Step 2: Run Each Photo Through ExifVoid
- 
-Go to **[ExifVoid](https://exifvoid.com)** and drag in your first property photo. Within a few seconds you will see a full breakdown of everything embedded in the file — including an interactive map showing exactly where the GPS coordinates point.
- 
-This step alone is worth doing just to see what your photos are currently revealing.
- 
-### Step 3: Remove All Metadata
- 
-Click "Remove All Metadata." ExifVoid re-encodes the image in your browser — no upload, no server, no account — and produces a clean file with all EXIF, XMP, IPTC, and GPS data removed. Download the cleaned file. Repeat for each photo.
- 
-### Step 4: Use the Cleaned Files for All Sharing
+Click Remove All Metadata. ExifVoid re-encodes the image in your browser — no upload, no server, no account — and produces a clean file with all EXIF, XMP, IPTC, and GPS data removed. Download the cleaned file. Repeat for each photo.
  
 Use the metadata-free versions for your portal upload, your emails to buyers, your social media posts, and any other distribution channel. The images look identical. The location data is gone.
  
-## Should Letting Agents and Estate Agents Be Doing This?
+**Should Letting Agents and Estate Agents Be Doing This?**
  
-If your estate agent or letting agent is taking and uploading photos on your behalf, they may not be stripping metadata before sharing files directly with buyers or other agents. It is worth asking.
+If your estate agent or letting agent is taking and uploading photos on your behalf, they may not be stripping metadata before sharing files directly with buyers or other agents. It is worth asking. For professional photographers shooting property, stripping metadata from delivered files is good practice — particularly for high-value or high-privacy listings.
  
-For professional photographers shooting property, stripping metadata from delivered files is good practice — particularly for high-value or high-privacy listings. Some photographers do this as standard. Many do not.
+**Special Considerations for High-Privacy Situations**
  
-## Special Considerations for High-Privacy Situations
+Private sellers who handle their own listing photos face the highest exposure. Without a platform or agent processing images, every file shared directly carries full metadata. Landlords sharing property photos on Facebook groups, WhatsApp, or via email to prospective tenants are sending fully intact metadata with every image. For security-conscious sellers of premium properties, metadata stripping should be part of a broader approach that includes limiting detail in listing descriptions and managing viewing access carefully.
  
-**For Sale By Owner (FSBO):** Private sellers who handle their own listing photos face the highest exposure. Without a platform or agent processing images, every file shared directly carries full metadata.
- 
-**Rental properties:** Landlords sharing property photos on Facebook groups, WhatsApp, or via email to prospective tenants are sending fully intact metadata with every image.
- 
-**High-value properties:** For security-conscious sellers of premium properties, metadata stripping should be part of a broader operational security approach that includes limiting detail in listing descriptions and managing viewing access carefully.
- 
-**Overseas properties:** If you are listing a holiday home or overseas investment property, be aware that local listing portals may have no metadata processing whatsoever.
- 
-## Frequently Asked Questions
+**Frequently Asked Questions**
  
 **Do Rightmove and Zoopla strip GPS data from listing photos?**
+ 
 Generally yes, for images processed through their upload tools. However, photos shared directly with buyers via email, WhatsApp, or messaging apps are not processed by the portal and carry full metadata. Strip metadata before sharing files by any method.
  
 **Can a burglar use photo metadata to target a property?**
+ 
 In theory, yes. GPS coordinates combined with timestamps showing when photos were taken — and by implication when the property was occupied or unoccupied — could be useful to someone with malicious intent. This is an unlikely but non-zero risk worth eliminating with a 30-second metadata strip.
  
 **Does removing metadata affect my photo quality?**
+ 
 ExifVoid re-encodes images at 95% JPEG quality via canvas. The visual difference is imperceptible in normal viewing conditions and is far below what any listing portal's own compression will do to the image anyway.
  
 **What about photos I took on a DSLR or mirrorless camera?**
-Professional cameras also embed metadata, though GPS is only recorded if the camera has a built-in GPS module or was paired with a GPS-enabled app during the shoot. Camera serial numbers, lens data, and timestamps are always present. These can still be stripped with ExifVoid regardless of camera type.
  
-**Should I remove metadata from floorplans and virtual tour files too?**
-Floorplans are usually generated digitally and carry minimal EXIF data. Virtual tours depend on the software used. The greatest risk sits with standard JPEG and HEIC photos taken on smartphones and cameras.`
+Professional cameras also embed metadata, though GPS is only recorded if the camera has a built-in GPS module or was paired with a GPS-enabled app during the shoot. Camera serial numbers, lens data, and timestamps are always present and can be stripped with ExifVoid regardless of camera type.`,
   },
  
   {
@@ -338,96 +222,65 @@ Floorplans are usually generated digitally and carry minimal EXIF data. Virtual 
     readTime: "6 min read",
     content: `**The photo on your CV or portfolio website may be giving employers and clients information you never intended to share.** Hidden inside every professional headshot, product photo, and portfolio image is a layer of invisible metadata that can reveal where you live, which software you use, when you took the photo, and which camera captured it. Most professionals have no idea it is there.
  
-## What Is Hidden Inside a Professional Photo?
+**What Is Hidden Inside a Professional Photo?**
  
 When you take a headshot on your iPhone or camera, or export a polished image from Lightroom or Photoshop, the resulting file contains far more than pixels. Embedded invisibly in the file is a record of metadata that travels with the image wherever it goes.
  
-For professional photos, the most commonly exposed data includes:
+**GPS coordinates** — if your camera or phone had location services enabled, the photo embeds the precise latitude and longitude where it was taken. For a headshot taken at home, that is your home address, accurate to within a few metres.
  
-**GPS coordinates.** If your camera or phone had location services enabled, the photo embeds the precise latitude and longitude where it was taken. For a headshot taken at home, that is your home address — accurate to within a few metres.
+**Timestamps** — the exact date and time the photo was created and, if edited, the date of last modification. These are written into the image itself and survive copying and renaming.
  
-**Timestamps.** The exact date and time the photo was created and, if edited, the date of last modification. These are not the same as the file's creation date on your computer — they are written into the image itself and survive copying and renaming.
+**Camera serial number** — many cameras and phones embed a unique serial number in EXIF data. That number can be used to search for other images taken with the same device, potentially linking your professional portfolio to personal photos posted elsewhere.
  
-**Camera serial number.** Many cameras and phones embed a unique serial number in EXIF data. That number, once known, can be used to search for other images taken with the same device — potentially linking your professional portfolio to personal photos posted elsewhere.
+**Software history** — images processed in Adobe Lightroom, Photoshop, Capture One, or even free apps like Snapseed carry XMP metadata recording which software version was used. In some cases this includes the operating system and machine name.
  
-**Software history.** Images processed in Adobe Lightroom, Photoshop, Capture One, or even free apps like Snapseed carry XMP metadata recording which software version was used to edit them. In some cases, this includes the operating system and machine name.
+**Copyright and creator fields** — photographers sometimes embed their name, studio name, or contact details in IPTC fields. If you are repurposing a photo taken by a professional, those fields may still contain the original photographer's information.
  
-**Copyright and creator fields.** Photographers sometimes embed their name, studio name, or contact details in IPTC fields. If you are repurposing a photo taken by a professional, those fields may still contain the original photographer's information — or your own, if you configured it.
- 
-## Why Does This Matter for Job Seekers and Professionals?
+**Why Does This Matter for Job Seekers and Professionals?**
  
 Most hiring managers and clients are not actively mining photo metadata. But some are — and even when they are not, the data is there and accessible to anyone who looks.
  
-### Your Home Address Could Be Visible
+If you take a photo at home and send it as a file, the GPS coordinates can pinpoint your address. An employer, recruiter, or prospective client who receives your CV as a file attachment receives that data alongside your photo.
  
-A professional headshot taken in your home office, living room, or garden carries the GPS coordinates of your home. An employer, recruiter, or prospective client who receives your CV as a file attachment receives that data alongside your photo. It is readable in seconds with any free metadata tool.
- 
-For people in sensitive roles — journalists, domestic abuse survivors, security professionals, freelancers managing personal safety — this is a meaningful risk.
- 
-### Your Edit History Reveals Your Workflow
- 
-Software metadata can reveal whether you used a professional tool like Lightroom or a free phone app to edit your headshot. For photographers and designers submitting portfolio work, the editing software recorded in XMP data may not match the professional image you want to project. It can also reveal version numbers that show whether your software is up to date or not.
- 
-### Serial Numbers Can Link Your Identities
+Software metadata can reveal whether you used a professional tool like Lightroom or a free phone app to edit your headshot. For photographers and designers submitting portfolio work, the editing software recorded in XMP data may not match the professional image you want to project.
  
 If your professional portfolio photos and your personal social media photos were both taken on the same camera, your serial number connects them. For professionals who maintain a deliberate separation between their personal and professional online presence, this is a way that separation can be broken without either party realising it.
  
-### Timestamps Can Contradict Your Narrative
+**How to Check and Clear Metadata from Professional Photos**
  
-A portfolio photo captioned "recent work" but carrying a timestamp from three years ago is a small discrepancy — but it is a verifiable one. For contract work, journalism, or any field where the currency of your portfolio matters, embedded timestamps are worth knowing about.
+Go to ExifVoid and drag in your headshot or portfolio image. You will immediately see a full breakdown of all embedded data — GPS coordinates with an interactive map, timestamps, software records, and device information. Do this for every image you plan to include in your CV, LinkedIn profile, portfolio site, or any professional submission.
  
-## How to Check and Clear Metadata from Professional Photos
- 
-The process takes about 30 seconds per image.
- 
-### Step 1: Check What Is in Your Photos
- 
-Go to **[ExifVoid](https://exifvoid.com)** and drag in your headshot or portfolio image. You will immediately see a full breakdown of all embedded data — GPS coordinates with an interactive map, timestamps, software records, device information, and more.
- 
-Do this for every image you plan to include in your CV, LinkedIn profile, portfolio site, or any professional submission.
- 
-### Step 2: Remove All Metadata
- 
-Click "Remove All Metadata." ExifVoid strips all EXIF, XMP, IPTC, and GPS data by re-encoding the image through the browser's canvas — entirely client-side, with no upload to any server. Download the clean version.
- 
-### Step 3: Use the Clean Version Everywhere
+Click Remove All Metadata. ExifVoid strips all EXIF, XMP, IPTC, and GPS data by re-encoding the image through the browser's canvas — entirely client-side, with no upload to any server. Download the clean version.
  
 Replace any existing professional photos with the metadata-free versions. This applies to your CV document, portfolio site image files, LinkedIn photo uploads, email signatures, and any file sent to clients or employers.
  
-## What About Photos Already Submitted?
+**A Note for Photographers and Designers**
  
-If you have already sent a CV or portfolio with photos embedded, you cannot retrieve those files. Going forward, make it a habit to run every professional image through a metadata check before it leaves your device.
+If you are a photographer or creative professional sharing portfolio work, metadata stripping deserves particular attention. If you are submitting work to competitions, agencies, or publications, you may not want your camera serial number, editing workflow, or location data visible to judges and editors who can extract it trivially.
  
-## Does Removing Metadata Affect Image Quality?
+If clients are sharing your delivered images further, your embedded copyright and creator metadata will travel with those files — which is sometimes desirable and sometimes not, depending on your agreement. ExifVoid lets you check what is there before making a decision.
  
-No perceptibly. ExifVoid re-encodes images at 95% JPEG quality. The difference between the original and the cleaned version is invisible in normal viewing conditions — certainly invisible in the context of a CV photo displayed at a few hundred pixels across a screen.
- 
-## A Note for Photographers and Designers
- 
-If you are a photographer or creative professional sharing portfolio work, metadata stripping deserves particular attention for two reasons.
- 
-First, if you are submitting work to competitions, agencies, or publications, you may not want your camera serial number, editing workflow, or location data visible to judges and editors who can extract it trivially.
- 
-Second, if clients are sharing your delivered images further, your embedded copyright and creator metadata will travel with those files — which is sometimes desirable and sometimes not, depending on your agreement.
- 
-ExifVoid lets you check what is there before making a decision rather than assuming.
- 
-## Frequently Asked Questions
+**Frequently Asked Questions**
  
 **Can employers really see hidden metadata in my CV photo?**
+ 
 Yes, if the photo is embedded in a document or sent as a standalone file. Any JPEG or HEIC file carries its metadata unless it has been deliberately stripped. Most employers do not check — but some do, and the data is there for anyone who wants to look.
  
 **Does uploading a photo to LinkedIn strip the metadata?**
+ 
 LinkedIn processes uploaded photos and generally removes metadata from its hosted copies. However, if you are attaching a photo file directly to an email or including it in a document sent to an employer, that file is unprocessed and carries full metadata.
  
 **What about photos embedded in a Word or PDF document?**
-Photos embedded in Word documents and PDFs typically carry their original EXIF metadata inside the document container. Stripping metadata from the source image file before inserting it into your document is the correct approach.
+ 
+Photos embedded in Word documents and PDFs typically carry their original EXIF metadata inside the document container. Strip metadata from the source image file before inserting it into your document.
  
 **Does taking a screenshot of my photo remove the metadata?**
+ 
 Yes. A screenshot is generated by your operating system and does not inherit the EXIF data of the source image. It will also reduce image quality. For a higher-quality clean version, use ExifVoid on the original file.
  
 **Should I remove all metadata or just GPS?**
-For professional use, removing all metadata is the simplest and safest approach. There is no meaningful benefit to a prospective employer or client from knowing which camera you used or which software you ran — so there is no reason to leave that data in place.`
+ 
+For professional use, removing all metadata is the simplest and safest approach. There is no meaningful benefit to a prospective employer or client from knowing which camera you used or which software you ran — so there is no reason to leave that data in place.`,
   },
   {
     slug: 'photo-privacy-journalists-activists',
