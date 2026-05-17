@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { getPostBySlug, getRelatedPosts } from '@/lib/blogData'
+import Navbar from '../../../components/Navbar'
+import Footer from '../../../components/Footer'
+import { getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
 
 export default function BlogPostContent({ slug }) {
   const post = getPostBySlug(slug)
@@ -64,7 +64,7 @@ export default function BlogPostContent({ slug }) {
               href="/"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand text-white text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              Scan a Photo Free →
+              Scan a Photo Free
             </Link>
           </div>
 
@@ -192,14 +192,24 @@ function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>
+      return (
+        <strong key={i} className="font-semibold text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      )
     }
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (linkMatch) {
       const [, label, href] = linkMatch
-      return href.startsWith('http')
-        ? <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">{label}</a>
-        : <Link key={i} href={href} className="text-brand hover:underline">{label}</Link>
+      return href.startsWith('http') ? (
+        <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
+          {label}
+        </a>
+      ) : (
+        <Link key={i} href={href} className="text-brand hover:underline">
+          {label}
+        </Link>
+      )
     }
     return part
   })
