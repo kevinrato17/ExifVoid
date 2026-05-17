@@ -1,6 +1,8 @@
 import BlogPostContent from './BlogPostContent'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '../../../lib/blogData'
 
+export const dynamic = 'force-static'
+
 export function generateStaticParams() {
   const posts = getAllPosts()
   return posts.map((post) => ({ slug: post.slug }))
@@ -10,7 +12,7 @@ export function generateMetadata({ params }) {
   const post = getPostBySlug(params.slug)
   if (!post) return { title: 'Post Not Found — ExifVoid' }
   return {
-    title: post.title,
+    title: `${post.title} — ExifVoid`,
     description: post.description,
     openGraph: {
       title: post.title,
